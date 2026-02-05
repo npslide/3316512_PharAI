@@ -1,0 +1,921 @@
+[
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#feature-engineering",
+    "href": "materials/lect03-featureeng/slide.html#feature-engineering",
+    "title": "3. Feature Engineering",
+    "section": "Feature Engineering",
+    "text": "Feature Engineering\nfeature: numeric representation of raw data\nmake the most suitable set of numeric representation for machine learning algorithms"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#feature-engineering-methods",
+    "href": "materials/lect03-featureeng/slide.html#feature-engineering-methods",
+    "title": "3. Feature Engineering",
+    "section": "Feature Engineering methods",
+    "text": "Feature Engineering methods\n\nExtraction\nTransformation\nSelection"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#extraction",
+    "href": "materials/lect03-featureeng/slide.html#extraction",
+    "title": "3. Feature Engineering",
+    "section": "Extraction",
+    "text": "Extraction"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#loading-features-from-dicts",
+    "href": "materials/lect03-featureeng/slide.html#loading-features-from-dicts",
+    "title": "3. Feature Engineering",
+    "section": "Loading features from dicts",
+    "text": "Loading features from dicts\n\nDictVectorizer\ntransforms lists of feature-value mappings to vectors\nuseful for training sequence classifiers in NLP"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#dictvectorizer",
+    "href": "materials/lect03-featureeng/slide.html#dictvectorizer",
+    "title": "3. Feature Engineering",
+    "section": "DictVectorizer",
+    "text": "DictVectorizer\n\nmeasurements = [\n    {'city': 'Dubai', 'temperature': 33.},\n    {'city': 'London', 'temperature': 12.},\n    {'city': 'San Francisco', 'temperature': 18.},\n]\n\nfrom sklearn.feature_extraction import DictVectorizer\nvec = DictVectorizer()\n\nvec.fit_transform(measurements).toarray()\n\nvec.get_feature_names_out()\n\narray(['city=Dubai', 'city=London', 'city=San Francisco', 'temperature'],\n      dtype=object)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#feature-hashing",
+    "href": "materials/lect03-featureeng/slide.html#feature-hashing",
+    "title": "3. Feature Engineering",
+    "section": "Feature Hashing",
+    "text": "Feature Hashing\n\nFeatureHasher\nhigh-speed, low-memory vectorizer\nuses feature hashing (hashing trick)\ndoes not store the features (no inverse_transform)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#featurehasher",
+    "href": "materials/lect03-featureeng/slide.html#featurehasher",
+    "title": "3. Feature Engineering",
+    "section": "FeatureHasher",
+    "text": "FeatureHasher\n\ndef token_features(token, part_of_speech):\n    if token.isdigit():\n        yield \"numeric\"\n    else:\n        yield \"token={}\".format(token.lower())\n        yield \"token,pos={},{}\".format(token.lower(), part_of_speech)\n    if token[0].isupper():\n        yield \"uppercase\"\n    if token.istitle():\n        yield \"titlecase\"\n    if token.endswith(\"s\"):\n        yield \"ends_with_s\"\n\nraw_data = [\n    (\"This\", \"DT\"),\n    (\"is\", \"VB\"),\n    (\"a\", \"DT\"),\n    (\"test\", \"NN\"),\n]\n\nfrom sklearn.feature_extraction import FeatureHasher\nhasher = FeatureHasher(input_type=\"string\")\nX = hasher.transform(token_features(*s) for s in raw_data)\n# X.toarray()"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#text-feature-extraction",
+    "href": "materials/lect03-featureeng/slide.html#text-feature-extraction",
+    "title": "3. Feature Engineering",
+    "section": "Text Feature Extraction",
+    "text": "Text Feature Extraction\n\nBag of Words representation\ntokenizing strings and giving an integer id for each possible token\ncounting the occurrences of tokens in each document\nnormalizing and weighting with diminishing importance tokens that occur in the majority of samples / documents"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#countvectorizer",
+    "href": "materials/lect03-featureeng/slide.html#countvectorizer",
+    "title": "3. Feature Engineering",
+    "section": "CountVectorizer",
+    "text": "CountVectorizer\n\nfrom sklearn.feature_extraction.text import CountVectorizer\nvectorizer = CountVectorizer()\ncorpus = [\n    'This is the first document.',\n    'This is the second second document.',\n    'And the third one.',\n    'Is this the first document?',\n]\nX = vectorizer.fit_transform(corpus)\nX.toarray()\nvectorizer.get_feature_names_out()\n\narray(['and', 'document', 'first', 'is', 'one', 'second', 'the', 'third',\n       'this'], dtype=object)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#tf-idf-term-weighting",
+    "href": "materials/lect03-featureeng/slide.html#tf-idf-term-weighting",
+    "title": "3. Feature Engineering",
+    "section": "Tf-idf term weighting",
+    "text": "Tf-idf term weighting\n\nTerm Frequency times Inverse Document Frequency\nre-weight the count features into floating point values suitable for usage by a classifier\nTfidfTransformer, TfidfVectorizer"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#tfidfvectorizer",
+    "href": "materials/lect03-featureeng/slide.html#tfidfvectorizer",
+    "title": "3. Feature Engineering",
+    "section": "TfidfVectorizer",
+    "text": "TfidfVectorizer\n\nfrom sklearn.feature_extraction.text import TfidfVectorizer\nvectorizer = TfidfVectorizer()\nX = vectorizer.fit_transform(corpus)\nvectorizer.get_feature_names_out()\nprint(X.shape)\n\n(4, 9)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#why-transform",
+    "href": "materials/lect03-featureeng/slide.html#why-transform",
+    "title": "3. Feature Engineering",
+    "section": "Why transform?",
+    "text": "Why transform?\nfeature and model assumptions must be met\nEx: linear regression assumes a linear relationship between the variable Y and all numerical variables X.\nif not met, need to transform the numerical variable X (e. g. weight 67kg, 78kg, etc.) using log orinto a categorical variable (e. g. weight 60-70kg, 70-80kg, etc.)."
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#transformation",
+    "href": "materials/lect03-featureeng/slide.html#transformation",
+    "title": "3. Feature Engineering",
+    "section": "Transformation",
+    "text": "Transformation\n\n\nnumerical transfor\n\nalgebraic function\ndimension reduction\nscaling\nbinning\n\ncategorical transform\n\none-hot encoding\nlabel encoding\nordinal encoding\ntarget encoding"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#algebraic-function",
+    "href": "materials/lect03-featureeng/slide.html#algebraic-function",
+    "title": "3. Feature Engineering",
+    "section": "Algebraic function",
+    "text": "Algebraic function\n\nlog transform\n\n\nimport numpy as np\nfrom sklearn.preprocessing import FunctionTransformer\ntransformer = FunctionTransformer(np.log1p, validate=True)\nX = np.array([[0, 1], [2, 3]])\ntransformer.transform(X)\n\narray([[0.        , 0.69314718],\n       [1.09861229, 1.38629436]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#scaling",
+    "href": "materials/lect03-featureeng/slide.html#scaling",
+    "title": "3. Feature Engineering",
+    "section": "Scaling",
+    "text": "Scaling\n\nStandardization\nScaling to a range\n\nMinMaxScaler\nMaxAbsScaler"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#standardization",
+    "href": "materials/lect03-featureeng/slide.html#standardization",
+    "title": "3. Feature Engineering",
+    "section": "Standardization",
+    "text": "Standardization\n\nremoving the mean and scaling to unit variance\nsensitive to outliers\n\n\nfrom sklearn.preprocessing import StandardScaler\ndata = [[0, 0], [0, 0], [1, 1], [1, 1]]\nscaler = StandardScaler()\nprint(scaler.fit(data))\nprint(scaler.mean_)\nprint(scaler.transform(data))\n\nStandardScaler()\n[0.5 0.5]\n[[-1. -1.]\n [-1. -1.]\n [ 1.  1.]\n [ 1.  1.]]"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#minmaxscaler",
+    "href": "materials/lect03-featureeng/slide.html#minmaxscaler",
+    "title": "3. Feature Engineering",
+    "section": "MinMaxScaler",
+    "text": "MinMaxScaler\n\nrescales the data in the range [0, 1] based on the min and max values of the feature\nvery sensitive to outliers\n\n\nfrom sklearn.preprocessing import MinMaxScaler\ndata = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]\nscaler = MinMaxScaler()\nprint(scaler.fit(data))\nprint(scaler.transform(data))\n\nMinMaxScaler()\n[[0.   0.  ]\n [0.25 0.25]\n [0.5  0.5 ]\n [1.   1.  ]]"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#maxabsscaler",
+    "href": "materials/lect03-featureeng/slide.html#maxabsscaler",
+    "title": "3. Feature Engineering",
+    "section": "MaxAbsScaler",
+    "text": "MaxAbsScaler\n\nrescales the data in the range based on the max absolute value of the feature\nrange\n\n[0, 1] if only positive values are present\n[-1, 0] if only negative values are present\n[-1, 1] if both negative and positive values are present\n\nsensitive to outliers\n\n\nfrom sklearn.preprocessing import MaxAbsScaler\nX = [[ 1., -1.,  2.],\n     [ 2.,  0.,  0.],\n     [ 0.,  1., -1.]]\ntransformer = MaxAbsScaler().fit(X)\ntransformer.transform(X)\n\narray([[ 0.5, -1. ,  1. ],\n       [ 1. ,  0. ,  0. ],\n       [ 0. ,  1. , -0.5]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#robustscaler",
+    "href": "materials/lect03-featureeng/slide.html#robustscaler",
+    "title": "3. Feature Engineering",
+    "section": "RobustScaler",
+    "text": "RobustScaler\n\nscales the data according to the percentiles\nrobust to outliers\n\n\nfrom sklearn.preprocessing import RobustScaler\nX = [[ 1., -2.,  2.],\n     [ -2.,  1.,  3.],\n     [ 4.,  1., -2.]]\ntransformer = RobustScaler().fit(X)\ntransformer.transform(X)\n\narray([[ 0. , -2. ,  0. ],\n       [-1. ,  0. ,  0.4],\n       [ 1. ,  0. , -1.6]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#powertransformer",
+    "href": "materials/lect03-featureeng/slide.html#powertransformer",
+    "title": "3. Feature Engineering",
+    "section": "PowerTransformer",
+    "text": "PowerTransformer\n\napplies a power transformation to the data\n\nBox-Cox applied to strictly positive data\nYeo-Johnson applied to data with both positive and negative\n\nmake the data more normally distributed\nrobust to outliers\n\n\nimport numpy as np\nfrom sklearn.preprocessing import PowerTransformer\npt = PowerTransformer(method='yeo-johnson')\ndata = [[1, 2], [3, 2], [4, 5]]\nprint(pt.fit(data))\nprint(pt.transform(data))\n\nPowerTransformer()\n[[-1.31616039 -0.70710678]\n [ 0.20998268 -0.70710678]\n [ 1.1061777   1.41421356]]"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#quantiletransformer",
+    "href": "materials/lect03-featureeng/slide.html#quantiletransformer",
+    "title": "3. Feature Engineering",
+    "section": "QuantileTransformer",
+    "text": "QuantileTransformer\n\napplies a quantile transformation to the data\n\nuniform distribution\nnormal distribution\n\nrobust to outliers\n\n\nimport numpy as np\nfrom sklearn.preprocessing import QuantileTransformer\nrng = np.random.RandomState(0)\nX = np.sort(rng.normal(loc=0.5, scale=0.25, size=(25, 1)), axis=0)\nqt = QuantileTransformer(n_quantiles=10, random_state=0)\nqt.fit_transform(X) \n\narray([[0.        ],\n       [0.09871873],\n       [0.10643612],\n       [0.11754671],\n       [0.21017437],\n       [0.21945445],\n       [0.23498666],\n       [0.32443642],\n       [0.33333333],\n       [0.41360794],\n       [0.42339464],\n       [0.46257841],\n       [0.47112236],\n       [0.49834237],\n       [0.59986536],\n       [0.63390302],\n       [0.66666667],\n       [0.68873101],\n       [0.69611125],\n       [0.81280699],\n       [0.82160354],\n       [0.88126439],\n       [0.90516028],\n       [0.99319435],\n       [1.        ]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#outlier-detection",
+    "href": "materials/lect03-featureeng/slide.html#outlier-detection",
+    "title": "3. Feature Engineering",
+    "section": "Outlier Detection",
+    "text": "Outlier Detection\n\nLocalOutlierFactor\nIsolationForest\n\n\nfrom sklearn.ensemble import IsolationForest\nX = [[-1.1], [0.3], [0.5], [100]]\nclf = IsolationForest(random_state=0).fit(X)\nclf.predict([[0.1], [0], [90]])\n\narray([ 1,  1, -1])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#unsupervised-dimensionality-reduction",
+    "href": "materials/lect03-featureeng/slide.html#unsupervised-dimensionality-reduction",
+    "title": "3. Feature Engineering",
+    "section": "Unsupervised dimensionality reduction",
+    "text": "Unsupervised dimensionality reduction\nPCA: principal component analysis\n\nimport numpy as np\nfrom sklearn.decomposition import PCA\nX = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])\npca = PCA(n_components=2)\npca.fit(X)\nprint(pca.explained_variance_ratio_)\nprint(pca.singular_values_)\n\n[0.99244289 0.00755711]\n[6.30061232 0.54980396]"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#encoding",
+    "href": "materials/lect03-featureeng/slide.html#encoding",
+    "title": "3. Feature Engineering",
+    "section": "Encoding",
+    "text": "Encoding\n\nOne-Hot Encoding\nOrdinal Encoding\nLabel Encoding"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#one-hot-encoding",
+    "href": "materials/lect03-featureeng/slide.html#one-hot-encoding",
+    "title": "3. Feature Engineering",
+    "section": "One-Hot Encoding",
+    "text": "One-Hot Encoding\n\nfrom sklearn.preprocessing import OneHotEncoder\nenc = OneHotEncoder(handle_unknown='ignore')\nX = [['Male', 1], ['Female', 3], ['Female', 2]]\nenc.fit(X)\nenc.transform([['Female', 1], ['Male', 4]]).toarray()\n\narray([[1., 0., 1., 0., 0.],\n       [0., 1., 0., 0., 0.]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#ordinal-encoding",
+    "href": "materials/lect03-featureeng/slide.html#ordinal-encoding",
+    "title": "3. Feature Engineering",
+    "section": "Ordinal Encoding",
+    "text": "Ordinal Encoding\n\nfrom sklearn.preprocessing import OrdinalEncoder\nenc = OrdinalEncoder()\nX = [['Male', 1], ['Female', 3], ['Female', 2]]\nenc.fit(X)\nenc.transform([['Female', 3], ['Male', 1]])\n\narray([[0., 2.],\n       [1., 0.]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#binning",
+    "href": "materials/lect03-featureeng/slide.html#binning",
+    "title": "3. Feature Engineering",
+    "section": "Binning",
+    "text": "Binning\n\nKBinsDiscretizer\nBinarizer\n\n\nfrom sklearn.preprocessing import KBinsDiscretizer\nX = [[-2, 1, -4,   -1],\n     [-1, 2, -3, -0.5],\n     [ 0, 3, -2,  0.5],\n     [ 1, 4, -1,    2]]\nest = KBinsDiscretizer(n_bins=3, encode='ordinal', strategy='uniform')\nest.fit(X)\nest.transform(X)\n\narray([[0., 0., 0., 0.],\n       [1., 1., 1., 0.],\n       [2., 2., 2., 1.],\n       [2., 2., 2., 2.]])"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#data-engineering",
+    "href": "materials/lect02-dataeng/slide.html#data-engineering",
+    "title": "Data Engineering",
+    "section": "Data Engineering",
+    "text": "Data Engineering\n\ndata: scraping, API, feature engineering, all part of EDA\ncompute: python, R, julia\nstorage/database: pandas, SQL, NoSQL, HBase, disk, memory\nflow: Pandas, Apache Airflow, Prefect, Luigi"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#data-sciences-workflow",
+    "href": "materials/lect02-dataeng/slide.html#data-sciences-workflow",
+    "title": "Data Engineering",
+    "section": "Data sciences workflow",
+    "text": "Data sciences workflow\n1\nhttps://www.springboard.com/blog/data-science/data-science-process/"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#downloading-file-format",
+    "href": "materials/lect02-dataeng/slide.html#downloading-file-format",
+    "title": "Data Engineering",
+    "section": "Downloading: file format",
+    "text": "Downloading: file format\n\nExcel\nJSON\ntable: CSV, TSV\nXML: HTML"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#json",
+    "href": "materials/lect02-dataeng/slide.html#json",
+    "title": "Data Engineering",
+    "section": "JSON",
+    "text": "JSON\n{\n    \"name\": \"John\",\n    \"age\": 30,\n    \"city\": \"New York\"\n}"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#csv",
+    "href": "materials/lect02-dataeng/slide.html#csv",
+    "title": "Data Engineering",
+    "section": "CSV",
+    "text": "CSV\nname,age,city\nJohn,30,New York"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#tsv",
+    "href": "materials/lect02-dataeng/slide.html#tsv",
+    "title": "Data Engineering",
+    "section": "TSV",
+    "text": "TSV\nname    age city\nJohn    30  New York"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#api-application-programming-interface",
+    "href": "materials/lect02-dataeng/slide.html#api-application-programming-interface",
+    "title": "Data Engineering",
+    "section": "API (Application Programming Interface)",
+    "text": "API (Application Programming Interface)\n\nREST\nGraphQL"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#web-scraping",
+    "href": "materials/lect02-dataeng/slide.html#web-scraping",
+    "title": "Data Engineering",
+    "section": "Web scraping",
+    "text": "Web scraping\ncopyrights and permission:\n\nbe careful and polite\ngive credit\ncare about media law\ndon’t be evil (no spam, overloading sites, etc.)"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#html",
+    "href": "materials/lect02-dataeng/slide.html#html",
+    "title": "Data Engineering",
+    "section": "HTML",
+    "text": "HTML\nTags are in angle brackets should be in pairs, eg &lt;p&gt;Hello&lt;/p&gt; maybe in implicit tags, such as &lt;br/&gt;\n&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n    &lt;title&gt;Title&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n    &lt;h1&gt;Body Title&lt;/h1&gt;\n    &lt;p &gt;Body Content&lt;/p&gt;\n    &lt;/body&gt;\n&lt;/html&gt;"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#developer-tools",
+    "href": "materials/lect02-dataeng/slide.html#developer-tools",
+    "title": "Data Engineering",
+    "section": "Developer Tools",
+    "text": "Developer Tools\nctrl/cmd shift- i in chrome cmd-option-i in safari look for “inspect element” locate details of tags"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#beautifulsoup",
+    "href": "materials/lect02-dataeng/slide.html#beautifulsoup",
+    "title": "Data Engineering",
+    "section": "BeautifulSoup",
+    "text": "BeautifulSoup"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#relational-database",
+    "href": "materials/lect02-dataeng/slide.html#relational-database",
+    "title": "Data Engineering",
+    "section": "Relational Database",
+    "text": "Relational Database\n\nTables, Rows, and Columns\nKeys\nPrimary Key (PK)\nForeign Key (FK)\nStructured Query Language (SQL)\nACID Properties"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#acid",
+    "href": "materials/lect02-dataeng/slide.html#acid",
+    "title": "Data Engineering",
+    "section": "ACID",
+    "text": "ACID\n\nAtomicity - each statement in a transaction Either the entire statement is executed, or none of it is executed\nConsistency - ensures that transactions only make changes to tables in predefined, predictable ways.\nIsolation - when multiple users are reading and writing from the same table all at once, isolation of their transactions ensures that the concurrent transactions don’t interfere with or affect one another\nDurability - ensures that changes to your data made by successfully executed transactions will be saved, even in the event of system failure."
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#motivations-for-not-justno-sql-nosql-databases",
+    "href": "materials/lect02-dataeng/slide.html#motivations-for-not-justno-sql-nosql-databases",
+    "title": "Data Engineering",
+    "section": "Motivations for Not Just/No SQL (NoSQL) Databases",
+    "text": "Motivations for Not Just/No SQL (NoSQL) Databases\nScalability: ability to efficiently meet the needs for varying workloads\nCost: opensource\nFlexibility: do not require a fixed table structure\nAvailability: distributed"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#nosql-comparison",
+    "href": "materials/lect02-dataeng/slide.html#nosql-comparison",
+    "title": "Data Engineering",
+    "section": "NoSQL comparison",
+    "text": "NoSQL comparison\n\n\n\n\nDocument\nColumn Store\nKey-Value Store\nGraph\n\n\n\n\nPerformance\nHigh\nHigh\nHigh\nModerate\n\n\nAvailability\nHigh\nHigh\nHigh\nHigh\n\n\nFlexibility\nHigh\nModerate\nHigh\nHigh\n\n\nScalability\nHigh\nHigh\nHigh\nModerate\n\n\nComplexity\nLow\nLow\nModerate\nHigh"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#data-wrangling-steps",
+    "href": "materials/lect02-dataeng/slide.html#data-wrangling-steps",
+    "title": "Data Engineering",
+    "section": "Data Wrangling Steps",
+    "text": "Data Wrangling Steps\n\nIterative process\nUnderstand\nExplore\nTransform\nAugment\nVisualize"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#scales-of-measurement",
+    "href": "materials/lect02-dataeng/slide.html#scales-of-measurement",
+    "title": "Data Engineering",
+    "section": "Scales of Measurement1",
+    "text": "Scales of Measurement1\n\nQuantitative (Interval and Ratio)\nOrdinal\nNominal\n\nS. S. Stevens, Science, New Series, Vol. 103, No. 2684 (Jun. 7, 1946), pp. 677-680"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#the-basic-exploratory-data-analysis-eda-workflow",
+    "href": "materials/lect02-dataeng/slide.html#the-basic-exploratory-data-analysis-eda-workflow",
+    "title": "Data Engineering",
+    "section": "The basic Exploratory Data Analysis (EDA) workflow",
+    "text": "The basic Exploratory Data Analysis (EDA) workflow\n\nImport data into a DataFrame\nTidy the DataFrame\n\nEach row describes a single object\nEach column describes a property of that object\nColumns are numeric whenever appropriate\nColumns contain atomic properties that cannot be further decomposed\n\nData Cleansing: Missing values, Format, Measurement Units, Outliers, Data Errors Per Domain\nExplore global properties. Use histograms, scatter plots, and aggregation functions to summarize the data.\nExplore group properties. Use groupby, queries, and small multiples to compare subsets of the data."
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#grammar-of-data",
+    "href": "materials/lect02-dataeng/slide.html#grammar-of-data",
+    "title": "Data Engineering",
+    "section": "Grammar of Data",
+    "text": "Grammar of Data\n\nSQL, Pandas, formalized in dplyr4\nprovide simple verbs for simple things. These are functions corresponding to common data manipulation tasks.\nsecond idea is that backend does not matter, multiple backends implemented in Pandas, Spark, Impala, Pig, dplyr, ibis, blaze"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#grammar-of-data-1",
+    "href": "materials/lect02-dataeng/slide.html#grammar-of-data-1",
+    "title": "Data Engineering",
+    "section": "Grammar of Data",
+    "text": "Grammar of Data\nWhy bother? - learn how to do core data manipulations, no matter what the system is. - databases critical for non-memory fits."
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#grammar-of-data-cleaning-and-transforma1on",
+    "href": "materials/lect02-dataeng/slide.html#grammar-of-data-cleaning-and-transforma1on",
+    "title": "Data Engineering",
+    "section": "Grammar of Data: cleaning and transforma1on",
+    "text": "Grammar of Data: cleaning and transforma1on\n\n\n\n\n\n\n\n\n\nVERB\ndplyr\npandas\nSQL\n\n\n\n\nQUERY/SELECTION\nfilter() (and slice())\nquery() (and loc[], iloc[])\nSELECT WHERE\n\n\nSORT\narrange()\nsort()\nORDER BY\n\n\nSELECT-COLUMNS/PROJECTION\nselect() (and rename())\n(and rename())\nSELECT COLUMN\n\n\nSELECT-DISTINCT\ndistinct()\nunique(),drop_duplicates()\nSELECT DISTINCT COLUMN\n\n\nASSIGN\nmutate() (and transmute())\nassign\nALTER/UPDATE\n\n\nAGGREGATE\nsummarise()\ndescribe(), mean(), max()\nNone, AVG(),MAX()\n\n\nSAMPLE\nsample_n() and sample_frac()\nsample()\nimplementation dep, use RAND()\n\n\nGROUP-AGG\ngroup_by/summarize\ngroupby/agg, count, mean\nGROUP BY\n\n\nDELETE\n?\ndrop/masking\nDELETE/WHERE"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/slide.html#data-processing",
+    "href": "materials/lect02-dataeng/slide.html#data-processing",
+    "title": "Data Engineering",
+    "section": "Data processing",
+    "text": "Data processing\n\nOLTP: Online Transaction Processing\nOLAP: Online Analytic Processing\nRTAP: Real-Time Analytic Processing"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#ai-application",
+    "href": "materials/lect01-mlsystem/slide2.html#ai-application",
+    "title": "Machine Learning System",
+    "section": "AI application",
+    "text": "AI application"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#ml-systems-vs.-traditional-software",
+    "href": "materials/lect01-mlsystem/slide2.html#ml-systems-vs.-traditional-software",
+    "title": "Machine Learning System",
+    "section": "ML Systems vs. Traditional Software",
+    "text": "ML Systems vs. Traditional Software"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#development-vs.-production",
+    "href": "materials/lect01-mlsystem/slide2.html#development-vs.-production",
+    "title": "Machine Learning System",
+    "section": "Development vs. Production",
+    "text": "Development vs. Production"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#concerns-in-development",
+    "href": "materials/lect01-mlsystem/slide2.html#concerns-in-development",
+    "title": "Machine Learning System",
+    "section": "Concerns in development",
+    "text": "Concerns in development\n\nFairness is often an afterthought in research but a requirement in production\nBiased algorithms can discriminate at scale against minority groups\nInterpretability is required for users to trust the system and for developers to debug it\nBusiness leaders often prefer a human expert over a “black box” AI if the AI can’t explain its decision\nOnly a small percentage of companies currently take steps to mitigate algorithmic bias"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#engineering-challenges-in-ml",
+    "href": "materials/lect01-mlsystem/slide2.html#engineering-challenges-in-ml",
+    "title": "Machine Learning System",
+    "section": "Engineering Challenges in ML",
+    "text": "Engineering Challenges in ML\n\nModern ML models can have billions of parameters, requiring massive RAM\nDeploying large models on edge devices is a major engineering challenge\nML models often fail silently, making monitoring and debugging difficult\nSpeed of inference is critical; a slow autocomplete model is useless\nEngineering challenges for models like BERT are being solved at a breakneck pace"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#business-and-ml-objectives",
+    "href": "materials/lect01-mlsystem/slide2.html#business-and-ml-objectives",
+    "title": "Machine Learning System",
+    "section": "Business and ML Objectives",
+    "text": "Business and ML Objectives\n\nMost businesses only care about profit maximization\nML metrics (like F1 score) must be translated into business metrics (like revenue)\nAd click-through rates are popular because they map directly to revenue\nNetflix uses “take-rate” to bridge the gap between recommendations and streaming hours\nExperiments (A/B testing) are often needed to find the actual relationship between metrics"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#returns-on-investment-roi",
+    "href": "materials/lect01-mlsystem/slide2.html#returns-on-investment-roi",
+    "title": "Machine Learning System",
+    "section": "Returns on Investment (ROI)",
+    "text": "Returns on Investment (ROI)\n\nML gain doesn’t happen overnight; Google has invested for decades\nROI depends on the maturity stage of ML adoption\nSophisticated companies can deploy models in under 30 days\nEarly adopters spend more time on engineering and have higher cloud bills\nEfficiency increases as the ML pipeline matures"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#adoption-rate",
+    "href": "materials/lect01-mlsystem/slide2.html#adoption-rate",
+    "title": "Machine Learning System",
+    "section": "Adoption rate",
+    "text": "Adoption rate"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#requirements-for-production-ml",
+    "href": "materials/lect01-mlsystem/slide2.html#requirements-for-production-ml",
+    "title": "Machine Learning System",
+    "section": "4 requirements for production ML",
+    "text": "4 requirements for production ML\n\nReliability\nScalability\nMaintainability\nAdaptability"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#requirement-reliability",
+    "href": "materials/lect01-mlsystem/slide2.html#requirement-reliability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Reliability",
+    "text": "Requirement: Reliability\n\nThe system must perform correctly even in the face of faults\nCorrectness is harder to define in ML than in traditional software\nML models can fail silently, serving wrong predictions without crashing\nSystem health must be monitored to ensure it meets performance expectations\nReliability includes handling hardware, software, and human errors"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#requirement-scalability",
+    "href": "materials/lect01-mlsystem/slide2.html#requirement-scalability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Scalability",
+    "text": "Requirement: Scalability\n\nSystems must handle growth in complexity, traffic, and model count\nAutoscaling is a standard cloud feature but can be tricky to implement\nScalability involves resource scaling (GPUs/CPUs) and artifact management\nManaging thousands of models requires automated monitoring and retraining\nHandling growth requires reproducible code generation"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#requirement-maintainability",
+    "href": "materials/lect01-mlsystem/slide2.html#requirement-maintainability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Maintainability",
+    "text": "Requirement: Maintainability\n\nDifferent roles (ML engineers, DevOps, SMEs) must collaborate using comfortable tools\nDocumentation and versioning of code, data, and artifacts are essential\nModels must be reproducible so new contributors can build on old work\nInfrastructure should support cross-functional visibility\nMaintainability ensures that teams can identify and fix problems without finger-pointing"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#requirement-adaptability",
+    "href": "materials/lect01-mlsystem/slide2.html#requirement-adaptability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Adaptability",
+    "text": "Requirement: Adaptability\n\nSystems must evolve quickly to handle shifting data and business needs\nAdaptability is tightly linked to maintainability\nThe system should have capacity for discovering performance improvements\nUpdates should happen without service interruption\nThis requires infrastructure for continual learning and monitoring for shifts"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#the-ml-lifecycle",
+    "href": "materials/lect01-mlsystem/slide2.html#the-ml-lifecycle",
+    "title": "Machine Learning System",
+    "section": "The ML Lifecycle",
+    "text": "The ML Lifecycle"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#framing-ml-problems",
+    "href": "materials/lect01-mlsystem/slide2.html#framing-ml-problems",
+    "title": "Machine Learning System",
+    "section": "Framing ML Problems",
+    "text": "Framing ML Problems\n\nA problem must be defined by inputs, outputs, and an objective function\nThe difficulty of a task changes based on how it is framed\nCommon task types include classification and regression\nA task can be reframed (e.g., house price prediction as classification buckets)\nChoosing the right framing can make a problem significantly easier to solve"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#task-types",
+    "href": "materials/lect01-mlsystem/slide2.html#task-types",
+    "title": "Machine Learning System",
+    "section": "Task types",
+    "text": "Task types"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#framing-for-simple-solutions",
+    "href": "materials/lect01-mlsystem/slide2.html#framing-for-simple-solutions",
+    "title": "Machine Learning System",
+    "section": "Framing for Simple Solutions",
+    "text": "Framing for Simple Solutions\n\nReframing a task can avoid frequent retraining\nInstead of predicting a probability for every app on a phone (classification), use app features as input (regression)\nIn the regression framing, adding a new app doesn’t require retraining from scratch\nThis makes the model more scalable and flexible\nThe output in the regression frame is a single value denoting likelihood of use"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#examples",
+    "href": "materials/lect01-mlsystem/slide2.html#examples",
+    "title": "Machine Learning System",
+    "section": "Examples",
+    "text": "Examples"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#examples-1",
+    "href": "materials/lect01-mlsystem/slide2.html#examples-1",
+    "title": "Machine Learning System",
+    "section": "Examples",
+    "text": "Examples"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#examples-2",
+    "href": "materials/lect01-mlsystem/slide2.html#examples-2",
+    "title": "Machine Learning System",
+    "section": "Examples",
+    "text": "Examples"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#objective-functions",
+    "href": "materials/lect01-mlsystem/slide2.html#objective-functions",
+    "title": "Machine Learning System",
+    "section": "Objective Functions",
+    "text": "Objective Functions\n\nGuided by a loss function to minimize errors from wrong predictions\nIn supervised learning, the model compares outputs to ground truth labels\nCommon functions include RMSE for regression and cross-entropy for classification\nChoosing a function requires algebra knowledge, but most use standard ones\nThe objective function is different from business objectives"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#decoupling-conflicting-objectives",
+    "href": "materials/lect01-mlsystem/slide2.html#decoupling-conflicting-objectives",
+    "title": "Machine Learning System",
+    "section": "Decoupling Conflicting Objectives",
+    "text": "Decoupling Conflicting Objectives\n\nSystems often have multiple goals, such as engagement vs. quality\nConflicting objectives make it hard to rank items using a single model\nOne approach combines losses into a weighted sum, but requires retraining to tune\nA better approach is to train separate models for each objective and combine scores\nDecoupling makes maintenance easier as different goals shift at different rates"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#the-role-of-data",
+    "href": "materials/lect01-mlsystem/slide2.html#the-role-of-data",
+    "title": "Machine Learning System",
+    "section": "The Role of Data",
+    "text": "The Role of Data"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#quality-over-quantity",
+    "href": "materials/lect01-mlsystem/slide2.html#quality-over-quantity",
+    "title": "Machine Learning System",
+    "section": "Quality over Quantity",
+    "text": "Quality over Quantity\n\nMore data isn’t always better\nIncorrect labels in training data can hurt model performance\nOutdated data prevents the model from generalizing to current trends\nSuccess relies on managing and improving data quality\nData scientists must be wary of poisoning or noise in their datasets"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide2.html#specific-requirements",
+    "href": "materials/lect01-mlsystem/slide2.html#specific-requirements",
+    "title": "Machine Learning System",
+    "section": "Specific Requirements",
+    "text": "Specific Requirements\n\nEMA Reflection Paper on Artificial Intelligence\nAnnex 11 Revision Draft document\nAnnex 22 Draft\nGAMP 5 D11\nSupporting framework conditions (QRM, data integrity, change Management)"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/index.html",
+    "href": "materials/lect01-mlsystem/index.html",
+    "title": "1. Machine Learning System",
+    "section": "",
+    "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen\n\nFull Screen",
+    "crumbs": [
+      "1. Machine Learning System"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "3316512  Pharmaceutical AI",
+    "section": "",
+    "text": "Faculty of Pharmaceutical Sciences  Chulalongkorn University\n\n\n\n\nCourse description\nPrinciples and applications of Artificial Intelligence in pharmaceutical Sciences, focusing on drug discovery, personalized medicine and pharmaceutical operations, including data preparation, training of Al models and ethical and regulatory management.\n\n\nคำอธิบายรายวิชา\nหลักการและการประยุกต์ใช้ของปัญญาประดิษฐ์ในทางเภสัชศาสตร์ โดยเน้นการค้นคว้ายา การแพทย์เฉพาะ บุคคล และการดําเนินงานด้านเภสัชกรรม รวมถึงการเตรียมข้อมูล การฝึกสอนโมเดลปัญญาประดิษฐ์ และการจัดการด้านจริยธรรมและข้อบังคับ"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#course-objectives",
+    "href": "materials/lect01-mlsystem/slide1.html#course-objectives",
+    "title": "Machine Learning System",
+    "section": "Course objectives",
+    "text": "Course objectives\n\nอธิบายหลักการทำงานของปัญญาประดิษฐ์ การประยุกต์ใช้ และหลักการทางจริยธรรมได้\nพัฒนาโปรแกรมประยุกต์ปัญญาประดิษฐ์สำหรับงานทางเภสัชกรรมได้"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#course-outline",
+    "href": "materials/lect01-mlsystem/slide1.html#course-outline",
+    "title": "Machine Learning System",
+    "section": "Course outline",
+    "text": "Course outline\n\nMachine Learning Systems Design\nData Engineering\nTraining Data\nFeature Engineering\nModel Deployment Offline Evaluation and Prediction Service\nModel Monitoring\nContinual Learning and Test in Production\nInfrastructure and Tooling for MLOps\nThe Human Side of Machine Learning\nPharmaceutical guidelines for AI: Annex 22, GAMP 5, validation"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#evaluation-grade",
+    "href": "materials/lect01-mlsystem/slide1.html#evaluation-grade",
+    "title": "Machine Learning System",
+    "section": "Evaluation & Grade",
+    "text": "Evaluation & Grade\n\n\nterm project (100%)\n\nA &gt;80%\nB+ &gt;70%\n\ncriteria:\n\nพื้นฐาน AI\n\n4. ประเมินผล ประเมินความเหมาะสมของการเลือกใช้เครื่องมือ AI\n5. สร้างสรรค์ บูรณาการระบบ AI เข้ากับระบบงานทางเภสัชกรรมได้\n\nการคิดเชิงวิพากษ์และการตรวจสอบความถูกต้อง\n\n4. ประเมินผล ประเมินตัวแบบ AI ที่สร้างขึ้นได้ รวมถึงข้อมูลที่นำมาใช้ในการสร้างตัวแบบ AI ว่ามี BIAS หรือไม่\n5. สร้างสรรค์ สร้างระบบตรวจสอบย้อนกลับ (Traceability) สำหรับตัวแบบ AI ที่สร้างขึ้น\n\nจริยธรรม กฎหมาย และความปลอดภัย\n\n4. ประเมินผล ตัดสินใจในฐานะผู้ตัดสินใจขั้นสุดท้าย (Human-in-the-loop) ว่าจะใช้หรือไม่ใช้ตัวแบบ AI ตามหลักจริยธรรม รวมถึงผลที่จะเกิดขึ้นจากการใช้ AI\n5. สร้างสรรค์ เสนอแนวทางจัดการความเสี่ยง (Mitigation Strategies) และนโยบายการใช้ AI อย่างเป็นธรรมในองค์กร"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#general-ai-application",
+    "href": "materials/lect01-mlsystem/slide1.html#general-ai-application",
+    "title": "Machine Learning System",
+    "section": "General AI application",
+    "text": "General AI application\n\nGenerative AI\n\nLarge language model (LLM)\nText-to-image\n\nReinforcement learning\n\nSelf-driving car\n\nClassification\n\nimage recognition\n\netc"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ml-vs-statistics",
+    "href": "materials/lect01-mlsystem/slide1.html#ml-vs-statistics",
+    "title": "Machine Learning System",
+    "section": "ML VS Statistics 1",
+    "text": "ML VS Statistics 1\n\nFocus on predictive accuracy (ML &gt; Stat)\nComfort with black box models (ML &gt; Stat)\nEmphasis on causality (ML &lt; Stat)\nAttention to small sample properties (ML &lt; Stat)\n\nAhmed Eldeeb, June 13, 2023"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ai-based-on-capabilities",
+    "href": "materials/lect01-mlsystem/slide1.html#ai-based-on-capabilities",
+    "title": "Machine Learning System",
+    "section": "AI based on capabilities",
+    "text": "AI based on capabilities\n\nANI: Artificial Narrow Intelligence (Weak AI)\nAGI: Artificial General Intelligence (Strong AI)\nASI: Artificial Super Intelligence"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ai-system",
+    "href": "materials/lect01-mlsystem/slide1.html#ai-system",
+    "title": "Machine Learning System",
+    "section": "AI system 1",
+    "text": "AI system 1\n\n\n\n\n\n\n\nG\n\n\ncluster_ai\n\nAI System\n\n\n\nEnvironment Context\n\nEnvironment\nContext\n\n \n\n \n\n\n\nAI Model\n\nData\nInput\n\nOutcome\nOutput\n\n-&gt;\n\n&lt;-\n\nAI model\nML\n\n\n\nEnvironment Context:f0-&gt;AI Model:f0\n\n\nperceiving\n\n\n\nAI Model:f1-&gt;Environment Context:f1\n\n\nacting\n\n\n\n\n\n\n\n\nOECD"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ai-lifecycle",
+    "href": "materials/lect01-mlsystem/slide1.html#ai-lifecycle",
+    "title": "Machine Learning System",
+    "section": "AI lifecycle 1",
+    "text": "AI lifecycle 1\n\n\n\n\n\n\n\nAILifecycle\n\n\n\nddm\n\ndesign, data & \n model\n\n\n\nvv\n\nverification \n validation\n\n\n\nddm-&gt;vv\n\n\n\n\n\ndeployment\n\ndeployment\n\n\n\nvv-&gt;deployment\n\n\n\n\n\nom\n\noperation & \n monitoring\n\n\n\ndeployment-&gt;om\n\n\n\n\n\nom-&gt;ddm\n\n\n\n\n\n\n\n\n\n\nOECD"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ai-ml-dl-genai",
+    "href": "materials/lect01-mlsystem/slide1.html#ai-ml-dl-genai",
+    "title": "Machine Learning System",
+    "section": "AI, ML, DL, GenAI",
+    "text": "AI, ML, DL, GenAI\n\n\n\n\nAI: Artificial Intelligence  the science and engineering of making intelligent machines, especially intelligent computer programs\n\n\n\n\n\nML: Machine Learning  design and train algorithms to learn from and act on data\n\n\n\n\n\nDL: Deep Learning  multi-layered neural networks, called deep neural networks, to simulate the complex decision-making power of the human brain\n\n\n\n\n\nGenAI: Generative Deep Learning  a subset of AI used to produce text, images, videos, or others response to specific prompts. 1\n\nhttps://en.wikipedia.org/wiki/Generative_artificial_intelligence"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ai-use-in-drug-development-stages",
+    "href": "materials/lect01-mlsystem/slide1.html#ai-use-in-drug-development-stages",
+    "title": "Machine Learning System",
+    "section": "AI Use in Drug Development Stages1",
+    "text": "AI Use in Drug Development Stages1\n\n\n                            \n                                            \n\n\nThe Science Advisory Board"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#the-rise-of-machine-learning",
+    "href": "materials/lect01-mlsystem/slide1.html#the-rise-of-machine-learning",
+    "title": "Machine Learning System",
+    "section": "The Rise of Machine Learning",
+    "text": "The Rise of Machine Learning\n\nML has rapidly permeated aspects of life including communication, work, and healthcare.\nML is a powerful tool\nThe algorithms are only a small part of a production system."
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#defining-an-ml-system",
+    "href": "materials/lect01-mlsystem/slide1.html#defining-an-ml-system",
+    "title": "Machine Learning System",
+    "section": "Defining an ML System",
+    "text": "Defining an ML System\n\nAn ML system\n\nbusiness requirements\ndata stack\ninfrastructure\ninterface\n\nActivities: developing, monitoring, and updating models\nMLOps provides the tools and practices for bringing these systems into production.\nSystems design ensures all stakeholders and components work together effectively."
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#mlops",
+    "href": "materials/lect01-mlsystem/slide1.html#mlops",
+    "title": "Machine Learning System",
+    "section": "MLOps",
+    "text": "MLOps\n\nOps in MLOps is short for Development and Operations.\nOperationalizing ML involves deploying, maintaining, and monitoring it.\nConsiders the system holistically rather than in isolation.\nSatisfy specified objectives and requirements"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#when-to-use-machine-learning",
+    "href": "materials/lect01-mlsystem/slide1.html#when-to-use-machine-learning",
+    "title": "Machine Learning System",
+    "section": "When to Use Machine Learning",
+    "text": "When to Use Machine Learning\n\nPredictive problems\nrelationship between inputs and outputs is challenging to specify manually\ncan’t code it (e.g. Recognizing Speech/image/gestures)\n\ncomplex patterns from existing data\nHand-coded rules (Software 1.0) are replaced by patterns learned from data (Software 2.0)\n\ncan’t scale it (e.g. Recommendations, Spam & Fraud detection)\nhave to adapt/personalize (e.g. Personalized medication)\ncan’t track it (e.g. Automated robot control)"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#when-ml-shines-additional-factors",
+    "href": "materials/lect01-mlsystem/slide1.html#when-ml-shines-additional-factors",
+    "title": "Machine Learning System",
+    "section": "When ML Shines (Additional Factors)",
+    "text": "When ML Shines (Additional Factors)\n\nThe problem is repetitive and allows the machine to see many examples\nThe cost of a wrong prediction is cheap, such as in recommender systems\nIf one mistake is catastrophic, the benefits on average must outweigh the costs\nThe task is at scale, requiring a massive number of predictions\nPatterns are constantly changing, making hardcoded rules too expensive to maintain"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#characteristic-complex-patterns",
+    "href": "materials/lect01-mlsystem/slide1.html#characteristic-complex-patterns",
+    "title": "Machine Learning System",
+    "section": "Characteristic: Complex Patterns",
+    "text": "Characteristic: Complex Patterns\n\nML is useful only when there are patterns to learn.\nIf a pattern is simple (like a lookup table for zip codes), ML is not needed.\nML excels at tasks like object detection and speech recognition where patterns are intricate.\nWhat is complex for humans (e.g., millions of calculations) is often easy for machines.\nWhat is easy for humans (e.g., identifying a cat) is often complex for machines."
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#characteristic-existing-data",
+    "href": "materials/lect01-mlsystem/slide1.html#characteristic-existing-data",
+    "title": "Machine Learning System",
+    "section": "Characteristic: Existing Data",
+    "text": "Characteristic: Existing Data\n\nSince ML learns from data, data must be available or collectable.\nEven “zero-shot” learning requires models to have been trained on related tasks.\nCompanies sometimes use a “fake-it-til-you-make-it” approach by using human predictions to generate initial data.\nContinual learning allows models to learn from incoming production data.\nServing insufficiently trained models to users carries significant risks."
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#characteristic-predictive-problems",
+    "href": "materials/lect01-mlsystem/slide1.html#characteristic-predictive-problems",
+    "title": "Machine Learning System",
+    "section": "Characteristic: Predictive Problems",
+    "text": "Characteristic: Predictive Problems\n\nML solves problems by framing them as predictive tasks.\n“Predict” in this context means estimating a value for the future, present, or even the past.\nCompute-intensive problems can be approximated by ML models to save time and resources.\nML can provide cheap but approximate predictions at scale.\nSuccessful applications include graphic rendering and image denoising."
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#characteristic-unseen-data",
+    "href": "materials/lect01-mlsystem/slide1.html#characteristic-unseen-data",
+    "title": "Machine Learning System",
+    "section": "Characteristic: Unseen Data",
+    "text": "Characteristic: Unseen Data\n\nPatterns learned from training data must share patterns with unseen data\nThis assumes the unseen data and training data come from similar distributions\nIf user behavior shifts, the model may perform poorly\nTesting in production and monitoring are required to validate these assumptions\nModels must be updated to keep up with changing distributions"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#when-not-to-use-ml",
+    "href": "materials/lect01-mlsystem/slide1.html#when-not-to-use-ml",
+    "title": "Machine Learning System",
+    "section": "When NOT to Use ML",
+    "text": "When NOT to Use ML\n\nIt is unethical to use ML for certain tasks, such as biased automated grading\nSimpler solutions (like heuristics or Software 1.0) work sufficiently well\nThe solution is not cost-effective given the up-front investment\nHowever, complex problems can often be broken down into smaller components where some use ML\nDismissing technology because it isn’t efficient now may lead to falling behind competitors"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#enterprise-ml-use-cases",
+    "href": "materials/lect01-mlsystem/slide1.html#enterprise-ml-use-cases",
+    "title": "Machine Learning System",
+    "section": "Enterprise ML Use Cases",
+    "text": "Enterprise ML Use Cases\n\nEnterprise apps often have stricter accuracy requirements and more tolerance for latency\nFraud detection is one of the oldest enterprise applications, using anomaly detection\nPrice optimization maximizes objectives like revenue or margin for dynamic markets\nDemand forecasting helps businesses prepare budgets and stock inventory\nChurn prediction identifies customers likely to stop using a service to improve retention"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#other-enterprise-applications",
+    "href": "materials/lect01-mlsystem/slide1.html#other-enterprise-applications",
+    "title": "Machine Learning System",
+    "section": "Other Enterprise Applications",
+    "text": "Other Enterprise Applications\n\nCustomer acquisition models help target ads and identify potential users\nAutomated support ticket classification improves customer satisfaction by reducing wait times\nBrand monitoring uses sentiment analysis to track public perception\nHealthcare systems assist doctors in diagnosing diseases like skin cancer\nMost enterprise use cases involve reducing costs or automating internal processes"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#research-vs.-production-goals",
+    "href": "materials/lect01-mlsystem/slide1.html#research-vs.-production-goals",
+    "title": "Machine Learning System",
+    "section": "Research vs. Production: Goals",
+    "text": "Research vs. Production: Goals\n\nResearch focuses on state-of-the-art performance on benchmark datasets\nProduction involves multiple stakeholders with often conflicting requirements\nA product manager might prioritize low latency, while an engineer wants high accuracy\nModels in production must be compact and compact, not just accurate\nEnsembling is popular in research but often too complex for production"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#computational-priorities",
+    "href": "materials/lect01-mlsystem/slide1.html#computational-priorities",
+    "title": "Machine Learning System",
+    "section": "Computational Priorities",
+    "text": "Computational Priorities\n\nResearch typically prioritizes fast training and high throughput\nIn production, the bottleneck is usually fast inference and low latency\nLatency refers to the time from request to response\nThroughput refers to how many queries are processed in a given time\nIn production, latency matters more as mobile users may leave if a page takes &gt;3 seconds to load"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#data-properties-research-vs.-production",
+    "href": "materials/lect01-mlsystem/slide1.html#data-properties-research-vs.-production",
+    "title": "Machine Learning System",
+    "section": "Data Properties: Research vs. Production",
+    "text": "Data Properties: Research vs. Production\n\nResearch data is usually clean, well-formatted, and static\nProduction data is noisy, unstructured, and constantly shifting\nLabels in production may be sparse, imbalanced, or incorrect\nProduction systems must handle data constantly generated by users\nData scientists in production spend significantly more time on data problems than on algorithms"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#fairness-and-interpretability",
+    "href": "materials/lect01-mlsystem/slide1.html#fairness-and-interpretability",
+    "title": "Machine Learning System",
+    "section": "Fairness and Interpretability",
+    "text": "Fairness and Interpretability\n\nFairness is often an afterthought in research but a requirement in production\nBiased algorithms can discriminate at scale against minority groups\nInterpretability is required for users to trust the system and for developers to debug it\nBusiness leaders often prefer a human expert over a “black box” AI if the AI can’t explain its decision\nOnly a small percentage of companies currently take steps to mitigate algorithmic bias"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#ml-systems-vs.-traditional-software",
+    "href": "materials/lect01-mlsystem/slide1.html#ml-systems-vs.-traditional-software",
+    "title": "Machine Learning System",
+    "section": "ML Systems vs. Traditional Software",
+    "text": "ML Systems vs. Traditional Software\n\nTraditional software assumes a separation of code and data\nML systems are part code, part data, and part artifacts created from both\nIn ML, you must test and version both code and data\nData is often the winning factor; companies focus on improving data over algorithms\nML systems must be adaptive to changing environments"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#engineering-challenges-in-ml",
+    "href": "materials/lect01-mlsystem/slide1.html#engineering-challenges-in-ml",
+    "title": "Machine Learning System",
+    "section": "Engineering Challenges in ML",
+    "text": "Engineering Challenges in ML\n\nModern ML models can have billions of parameters, requiring massive RAM\nDeploying large models on edge devices is a major engineering challenge\nML models often fail silently, making monitoring and debugging difficult\nSpeed of inference is critical; a slow autocomplete model is useless\nEngineering challenges for models like BERT are being solved at a breakneck pace"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#business-and-ml-objectives",
+    "href": "materials/lect01-mlsystem/slide1.html#business-and-ml-objectives",
+    "title": "Machine Learning System",
+    "section": "Business and ML Objectives",
+    "text": "Business and ML Objectives\n\nMost businesses only care about profit maximization\nML metrics (like F1 score) must be translated into business metrics (like revenue)\nAd click-through rates are popular because they map directly to revenue\nNetflix uses “take-rate” to bridge the gap between recommendations and streaming hours\nExperiments (A/B testing) are often needed to find the actual relationship between metrics"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#returns-on-investment-roi",
+    "href": "materials/lect01-mlsystem/slide1.html#returns-on-investment-roi",
+    "title": "Machine Learning System",
+    "section": "Returns on Investment (ROI)",
+    "text": "Returns on Investment (ROI)\n\nML gain doesn’t happen overnight; Google has invested for decades\nROI depends on the maturity stage of ML adoption\nSophisticated companies can deploy models in under 30 days\nEarly adopters spend more time on engineering and have higher cloud bills\nEfficiency increases as the ML pipeline matures"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#requirement-reliability",
+    "href": "materials/lect01-mlsystem/slide1.html#requirement-reliability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Reliability",
+    "text": "Requirement: Reliability\n\nThe system must perform correctly even in the face of faults\nCorrectness is harder to define in ML than in traditional software\nML models can fail silently, serving wrong predictions without crashing\nSystem health must be monitored to ensure it meets performance expectations\nReliability includes handling hardware, software, and human errors"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#requirement-scalability",
+    "href": "materials/lect01-mlsystem/slide1.html#requirement-scalability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Scalability",
+    "text": "Requirement: Scalability\n\nSystems must handle growth in complexity, traffic, and model count\nAutoscaling is a standard cloud feature but can be tricky to implement\nScalability involves resource scaling (GPUs/CPUs) and artifact management\nManaging thousands of models requires automated monitoring and retraining\nHandling growth requires reproducible code generation"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#requirement-maintainability",
+    "href": "materials/lect01-mlsystem/slide1.html#requirement-maintainability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Maintainability",
+    "text": "Requirement: Maintainability\n\nDifferent roles (ML engineers, DevOps, SMEs) must collaborate using comfortable tools\nDocumentation and versioning of code, data, and artifacts are essential\nModels must be reproducible so new contributors can build on old work\nInfrastructure should support cross-functional visibility\nMaintainability ensures that teams can identify and fix problems without finger-pointing"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#requirement-adaptability",
+    "href": "materials/lect01-mlsystem/slide1.html#requirement-adaptability",
+    "title": "Machine Learning System",
+    "section": "Requirement: Adaptability",
+    "text": "Requirement: Adaptability\n\nSystems must evolve quickly to handle shifting data and business needs\nAdaptability is tightly linked to maintainability\nThe system should have capacity for discovering performance improvements\nUpdates should happen without service interruption\nThis requires infrastructure for continual learning and monitoring for shifts"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#the-ml-lifecycle-steps-1-3",
+    "href": "materials/lect01-mlsystem/slide1.html#the-ml-lifecycle-steps-1-3",
+    "title": "Machine Learning System",
+    "section": "The ML Lifecycle: Steps 1-3",
+    "text": "The ML Lifecycle: Steps 1-3\n\n1. Project Scoping: Identifying goals, stakeholders, and constraints\n2. Data Engineering: Handling data sources, sampling, and labeling\n3. ML Model Development: Feature engineering, training, and evaluation\nData engineering starts with curated training data derived from raw data\nModel development is where domain expertise and ML knowledge are most needed"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#the-ml-lifecycle-steps-4-6",
+    "href": "materials/lect01-mlsystem/slide1.html#the-ml-lifecycle-steps-4-6",
+    "title": "Machine Learning System",
+    "section": "The ML Lifecycle: Steps 4-6",
+    "text": "The ML Lifecycle: Steps 4-6\n\n4. Deployment: Making the model accessible to users\n5. Monitoring and Continual Learning: Maintaining performance in production\n6. Business Analysis: Evaluating performance against business goals\nInsights from analysis often lead to rescoping or eliminating projects\nThe process is a cycle with constant back-and-forth between steps"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#framing-ml-problems",
+    "href": "materials/lect01-mlsystem/slide1.html#framing-ml-problems",
+    "title": "Machine Learning System",
+    "section": "Framing ML Problems",
+    "text": "Framing ML Problems\n\nA problem must be defined by inputs, outputs, and an objective function\nThe difficulty of a task changes based on how it is framed\nCommon task types include classification and regression\nA task can be reframed (e.g., house price prediction as classification buckets)\nChoosing the right framing can make a problem significantly easier to solve"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#classification-vs.-regression",
+    "href": "materials/lect01-mlsystem/slide1.html#classification-vs.-regression",
+    "title": "Machine Learning System",
+    "section": "Classification vs. Regression",
+    "text": "Classification vs. Regression\n\nClassification categorizes inputs into discrete classes\nRegression outputs continuous values\nBinary classification is the simplest form with two classes\nMulticlass classification involves more than two classes\nHigh cardinality tasks (thousands of classes) are very challenging"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#multilabel-classification",
+    "href": "materials/lect01-mlsystem/slide1.html#multilabel-classification",
+    "title": "Machine Learning System",
+    "section": "Multilabel Classification",
+    "text": "Multilabel Classification\n\nExamples can belong to multiple classes at once\nOne approach is treating labels as a vector of Booleans\nAnother approach is turning it into multiple binary classification problems\nThis framing makes label annotation difficult due to disagreements\nIt is also hard to extract predictions from raw probability distributions"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#framing-for-simple-solutions",
+    "href": "materials/lect01-mlsystem/slide1.html#framing-for-simple-solutions",
+    "title": "Machine Learning System",
+    "section": "Framing for Simple Solutions",
+    "text": "Framing for Simple Solutions\n\nReframing a task can avoid frequent retraining\nInstead of predicting a probability for every app on a phone (classification), use app features as input (regression)\nIn the regression framing, adding a new app doesn’t require retraining from scratch\nThis makes the model more scalable and flexible\nThe output in the regression frame is a single value denoting likelihood of use"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#objective-functions",
+    "href": "materials/lect01-mlsystem/slide1.html#objective-functions",
+    "title": "Machine Learning System",
+    "section": "Objective Functions",
+    "text": "Objective Functions\n\nGuided by a loss function to minimize errors from wrong predictions\nIn supervised learning, the model compares outputs to ground truth labels\nCommon functions include RMSE for regression and cross-entropy for classification\nChoosing a function requires algebra knowledge, but most use standard ones\nThe objective function is different from business objectives"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#decoupling-conflicting-objectives",
+    "href": "materials/lect01-mlsystem/slide1.html#decoupling-conflicting-objectives",
+    "title": "Machine Learning System",
+    "section": "Decoupling Conflicting Objectives",
+    "text": "Decoupling Conflicting Objectives\n\nSystems often have multiple goals, such as engagement vs. quality\nConflicting objectives make it hard to rank items using a single model\nOne approach combines losses into a weighted sum, but requires retraining to tune\nA better approach is to train separate models for each objective and combine scores\nDecoupling makes maintenance easier as different goals shift at different rates"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#the-role-of-data",
+    "href": "materials/lect01-mlsystem/slide1.html#the-role-of-data",
+    "title": "Machine Learning System",
+    "section": "The Role of Data",
+    "text": "The Role of Data\n\nSuccess in ML has been driven largely by the quantity and quality of data\nThe “Data Science Hierarchy of Needs” places data collection/storage at the foundation\nSome argue that computation and data trump “mind” (architectural design)\nDataset sizes for language models grew from 0.8 billion to 500 billion tokens in seven years\nHowever, more data isn’t always better if it is low quality or outdated"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#research-vs.-production-summary",
+    "href": "materials/lect01-mlsystem/slide1.html#research-vs.-production-summary",
+    "title": "Machine Learning System",
+    "section": "Research vs. Production Summary",
+    "text": "Research vs. Production Summary\n\nProduction requires handling shifting data; research uses static data\nProduction prioritizes fairness and interpretability; research often does not\nTraining is the bottleneck in research; inference is the bottleneck in production\nProduction involves messy, unstructured data with delayed labels\nSuccess in research does not guarantee usability in the real world"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#traditional-software-vs.-ml-summary",
+    "href": "materials/lect01-mlsystem/slide1.html#traditional-software-vs.-ml-summary",
+    "title": "Machine Learning System",
+    "section": "Traditional Software vs. ML Summary",
+    "text": "Traditional Software vs. ML Summary\n\nTraditional software focuses on code versioning; ML requires data versioning\nTraditional software assumes separation of concerns; ML combines code/data\nML models can reach gigabytes in size, creating deployment hurdles\nML systems require adaptive development cycles due to data changes\nSilent failures make ML debugging a cross-functional complexity"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#business-objectives-summary",
+    "href": "materials/lect01-mlsystem/slide1.html#business-objectives-summary",
+    "title": "Machine Learning System",
+    "section": "Business Objectives Summary",
+    "text": "Business Objectives Summary\n\nProjects must be driven by business objectives to survive\nProfit maximization is the indirect or direct goal of most projects\nCompanies use custom metrics (take-rate, purchase-through rate) to map goals\nA/B testing is essential to prove the business value of an ML model\nReturns increase as the maturity of adoption improves efficiency"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#framing-and-task-summary",
+    "href": "materials/lect01-mlsystem/slide1.html#framing-and-task-summary",
+    "title": "Machine Learning System",
+    "section": "Framing and Task Summary",
+    "text": "Framing and Task Summary\n\nML problems are defined by inputs, outputs, and an objective function\nClassification is for categories; Regression is for continuous values\nHierarchical classification helps manage high cardinality\nDecoupling objectives simplifies tuning and maintenance\nFraming influences how easy it is to add new features or labels"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#system-requirements-summary",
+    "href": "materials/lect01-mlsystem/slide1.html#system-requirements-summary",
+    "title": "Machine Learning System",
+    "section": "System Requirements Summary",
+    "text": "System Requirements Summary\n\nReliability: Correct performance despite adversity\nScalability: Ability to handle growth in traffic and complexity\nMaintainability: Support for cross-functional contributors and reproducibility\nAdaptability: Capacity to evolve with shifting data distributions\nRequirements vary but these four are generally essential for good systems."
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#the-iterative-cycle-summary",
+    "href": "materials/lect01-mlsystem/slide1.html#the-iterative-cycle-summary",
+    "title": "Machine Learning System",
+    "section": "The Iterative Cycle Summary",
+    "text": "The Iterative Cycle Summary\n\nML development is a never-ending, non-linear process\nThe six steps range from scoping to business analysis\nError analysis often forces developers to re-label data or re-engineer features\nDeployment is not the end; monitoring leads back to earlier stages\nData engineering is the foundation for most modern ML models"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#the-bitter-lesson-of-ai",
+    "href": "materials/lect01-mlsystem/slide1.html#the-bitter-lesson-of-ai",
+    "title": "Machine Learning System",
+    "section": "The “Bitter Lesson” of AI",
+    "text": "The “Bitter Lesson” of AI\n\n70 years of AI research shows that leveraging computation is the most effective method\nHuman domain knowledge provides short-term gains but is trumped by scale in the long run\nGoogle’s success is attributed to having more data, not necessarily better algorithms\nThe quantity of tokens used in training has exploded exponentially\nAccess to large amounts of data fueled the progress of deep learning"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#quality-over-quantity",
+    "href": "materials/lect01-mlsystem/slide1.html#quality-over-quantity",
+    "title": "Machine Learning System",
+    "section": "Quality over Quantity",
+    "text": "Quality over Quantity\n\nMore data isn’t always better\nIncorrect labels in training data can hurt model performance\nOutdated data prevents the model from generalizing to current trends\nSuccess relies on managing and improving data quality\nData scientists must be wary of poisoning or noise in their datasets"
+  },
+  {
+    "objectID": "materials/lect01-mlsystem/slide1.html#specific-requirements",
+    "href": "materials/lect01-mlsystem/slide1.html#specific-requirements",
+    "title": "Machine Learning System",
+    "section": "Specific Requirements",
+    "text": "Specific Requirements\n\nEMA Reflection Paper on Artificial Intelligence\nAnnex 11 Revision Draft document\nAnnex 22 Draft\nGAMP 5 D11\nSupporting framework conditions (QRM, data integrity, change Management)"
+  },
+  {
+    "objectID": "materials/lect02-dataeng/index.html",
+    "href": "materials/lect02-dataeng/index.html",
+    "title": "2. Data Engineering",
+    "section": "",
+    "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen",
+    "crumbs": [
+      "2. Data Engineering"
+    ]
+  },
+  {
+    "objectID": "materials/lect03-featureeng/index.html",
+    "href": "materials/lect03-featureeng/index.html",
+    "title": "3. Feature Engineering",
+    "section": "",
+    "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen",
+    "crumbs": [
+      "3. Feature Engineering"
+    ]
+  }
+]

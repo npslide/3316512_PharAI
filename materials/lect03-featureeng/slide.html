@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Natapol Pornputtapong, PhD">
-  <meta name="dcterms.date" content="2026-02-05">
+  <meta name="dcterms.date" content="2026-02-12">
   <title>3316512 Pharmaceutical AI – 3. Feature Engineering</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -225,7 +225,7 @@ Natapol Pornputtapong, PhD
     </div>
 </div>
 
-  <p class="date">05 Feb 2026</p>
+  <p class="date">12 Feb 2026</p>
 </section>
 <section id="feature-engineering" class="slide level2">
 <h2>Feature Engineering</h2>
@@ -253,7 +253,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="dictvectorizer" class="slide level2">
 <h2>DictVectorizer</h2>
-<div id="5a692d0e" class="cell" data-execution_count="1">
+<div id="ad2a7f75" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>measurements <span class="op">=</span> [</span>
 <span id="cb1-2"><a></a>    {<span class="st">'city'</span>: <span class="st">'Dubai'</span>, <span class="st">'temperature'</span>: <span class="fl">33.</span>},</span>
 <span id="cb1-3"><a></a>    {<span class="st">'city'</span>: <span class="st">'London'</span>, <span class="st">'temperature'</span>: <span class="fl">12.</span>},</span>
@@ -283,7 +283,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="featurehasher" class="slide level2">
 <h2>FeatureHasher</h2>
-<div id="a60ce0e9" class="cell" data-execution_count="2">
+<div id="17de7bbe" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="kw">def</span> token_features(token, part_of_speech):</span>
 <span id="cb3-2"><a></a>    <span class="cf">if</span> token.isdigit():</span>
 <span id="cb3-3"><a></a>        <span class="cf">yield</span> <span class="st">"numeric"</span></span>
@@ -321,7 +321,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="countvectorizer" class="slide level2">
 <h2>CountVectorizer</h2>
-<div id="08be3b0b" class="cell" data-execution_count="3">
+<div id="253084ac" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
 <span id="cb4-2"><a></a>vectorizer <span class="op">=</span> CountVectorizer()</span>
 <span id="cb4-3"><a></a>corpus <span class="op">=</span> [</span>
@@ -349,7 +349,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="tfidfvectorizer" class="slide level2">
 <h2>TfidfVectorizer</h2>
-<div id="7afddcc6" class="cell" data-execution_count="4">
+<div id="6849d09b" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> TfidfVectorizer</span>
 <span id="cb6-2"><a></a>vectorizer <span class="op">=</span> TfidfVectorizer()</span>
 <span id="cb6-3"><a></a>X <span class="op">=</span> vectorizer.fit_transform(corpus)</span>
@@ -392,7 +392,7 @@ Natapol Pornputtapong, PhD
 <ul>
 <li>log transform</li>
 </ul>
-<div id="aeeee0c4" class="cell" data-execution_count="5">
+<div id="1aabcd9c" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> FunctionTransformer</span>
 <span id="cb8-3"><a></a>transformer <span class="op">=</span> FunctionTransformer(np.log1p, validate<span class="op">=</span><span class="va">True</span>)</span>
@@ -421,7 +421,7 @@ Natapol Pornputtapong, PhD
 <li>removing the mean and scaling to unit variance</li>
 <li>sensitive to outliers</li>
 </ul>
-<div id="0a196234" class="cell" data-execution_count="7">
+<div id="197a3cd7" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb10-2"><a></a>data <span class="op">=</span> [[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">1</span>]]</span>
 <span id="cb10-3"><a></a>scaler <span class="op">=</span> StandardScaler()</span>
@@ -444,7 +444,7 @@ Natapol Pornputtapong, PhD
 <li>rescales the data in the range [0, 1] based on the min and max values of the feature</li>
 <li>very sensitive to outliers</li>
 </ul>
-<div id="b2239ed7" class="cell" data-execution_count="8">
+<div id="e2ef44d4" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
 <span id="cb12-2"><a></a>data <span class="op">=</span> [[<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</span>], [<span class="op">-</span><span class="fl">0.5</span>, <span class="dv">6</span>], [<span class="dv">0</span>, <span class="dv">10</span>], [<span class="dv">1</span>, <span class="dv">18</span>]]</span>
 <span id="cb12-3"><a></a>scaler <span class="op">=</span> MinMaxScaler()</span>
@@ -471,7 +471,7 @@ Natapol Pornputtapong, PhD
 </ul></li>
 <li>sensitive to outliers</li>
 </ul>
-<div id="bd7b6ec0" class="cell" data-execution_count="9">
+<div id="4943c3e1" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MaxAbsScaler</span>
 <span id="cb14-2"><a></a>X <span class="op">=</span> [[ <span class="fl">1.</span>, <span class="op">-</span><span class="fl">1.</span>,  <span class="fl">2.</span>],</span>
 <span id="cb14-3"><a></a>     [ <span class="fl">2.</span>,  <span class="fl">0.</span>,  <span class="fl">0.</span>],</span>
@@ -491,7 +491,7 @@ Natapol Pornputtapong, PhD
 <li>scales the data according to the percentiles</li>
 <li>robust to outliers</li>
 </ul>
-<div id="6bb2f737" class="cell" data-execution_count="10">
+<div id="a10f816e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> RobustScaler</span>
 <span id="cb16-2"><a></a>X <span class="op">=</span> [[ <span class="fl">1.</span>, <span class="op">-</span><span class="fl">2.</span>,  <span class="fl">2.</span>],</span>
 <span id="cb16-3"><a></a>     [ <span class="op">-</span><span class="fl">2.</span>,  <span class="fl">1.</span>,  <span class="fl">3.</span>],</span>
@@ -516,7 +516,7 @@ Natapol Pornputtapong, PhD
 <li>make the data more normally distributed</li>
 <li>robust to outliers</li>
 </ul>
-<div id="52c10d66" class="cell" data-execution_count="11">
+<div id="360e78af" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb18-2"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PowerTransformer</span>
 <span id="cb18-3"><a></a>pt <span class="op">=</span> PowerTransformer(method<span class="op">=</span><span class="st">'yeo-johnson'</span>)</span>
@@ -541,7 +541,7 @@ Natapol Pornputtapong, PhD
 </ul></li>
 <li>robust to outliers</li>
 </ul>
-<div id="6e2d30c8" class="cell" data-execution_count="12">
+<div id="e36c9e12" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb20-2"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> QuantileTransformer</span>
 <span id="cb20-3"><a></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">0</span>)</span>
@@ -583,7 +583,7 @@ Natapol Pornputtapong, PhD
 <li><a href="https://scikit-learn.org/stable/auto_examples/neighbors/plot_lof_outlier_detection.html">LocalOutlierFactor</a></li>
 <li><a href="https://scikit-learn.org/stable/auto_examples/ensemble/plot_isolation_forest.html#sphx-glr-auto-examples-ensemble-plot-isolation-forest-py">IsolationForest</a></li>
 </ul>
-<div id="b299ef5f" class="cell" data-execution_count="13">
+<div id="5964d555" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> IsolationForest</span>
 <span id="cb22-2"><a></a>X <span class="op">=</span> [[<span class="op">-</span><span class="fl">1.1</span>], [<span class="fl">0.3</span>], [<span class="fl">0.5</span>], [<span class="dv">100</span>]]</span>
 <span id="cb22-3"><a></a>clf <span class="op">=</span> IsolationForest(random_state<span class="op">=</span><span class="dv">0</span>).fit(X)</span>
@@ -596,7 +596,7 @@ Natapol Pornputtapong, PhD
 <section id="unsupervised-dimensionality-reduction" class="slide level2">
 <h2>Unsupervised dimensionality reduction</h2>
 <p><a href="https://scikit-learn.org/stable/modules/decomposition.html#decompositions">PCA: principal component analysis</a></p>
-<div id="601f3806" class="cell" data-execution_count="14">
+<div id="b2acce47" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb24-2"><a></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb24-3"><a></a>X <span class="op">=</span> np.array([[<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">2</span>], [<span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">2</span>, <span class="dv">1</span>], [<span class="dv">3</span>, <span class="dv">2</span>]])</span>
@@ -620,7 +620,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="one-hot-encoding" class="slide level2">
 <h2>One-Hot Encoding</h2>
-<div id="d9563f00" class="cell" data-execution_count="15">
+<div id="d61c6716" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
 <span id="cb26-2"><a></a>enc <span class="op">=</span> OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">'ignore'</span>)</span>
 <span id="cb26-3"><a></a>X <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="dv">1</span>], [<span class="st">'Female'</span>, <span class="dv">3</span>], [<span class="st">'Female'</span>, <span class="dv">2</span>]]</span>
@@ -634,7 +634,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="ordinal-encoding" class="slide level2">
 <h2>Ordinal Encoding</h2>
-<div id="a719c947" class="cell" data-execution_count="16">
+<div id="424f35b6" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OrdinalEncoder</span>
 <span id="cb28-2"><a></a>enc <span class="op">=</span> OrdinalEncoder()</span>
 <span id="cb28-3"><a></a>X <span class="op">=</span> [[<span class="st">'Male'</span>, <span class="dv">1</span>], [<span class="st">'Female'</span>, <span class="dv">3</span>], [<span class="st">'Female'</span>, <span class="dv">2</span>]]</span>
@@ -652,7 +652,7 @@ Natapol Pornputtapong, PhD
 <li>KBinsDiscretizer</li>
 <li>Binarizer</li>
 </ul>
-<div id="647a42ca" class="cell" data-execution_count="17">
+<div id="990f1e37" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> KBinsDiscretizer</span>
 <span id="cb30-2"><a></a>X <span class="op">=</span> [[<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">4</span>,   <span class="op">-</span><span class="dv">1</span>],</span>
 <span id="cb30-3"><a></a>     [<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</span>, <span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="fl">0.5</span>],</span>
@@ -668,9 +668,238 @@ Natapol Pornputtapong, PhD
        [2., 2., 2., 2.]])</code></pre>
 </div>
 </div>
-
-
 </section>
+<section id="pca-using-scikit-learn" class="slide level2">
+<h2>PCA using Scikit-Learn</h2>
+<p>For this example, we’ll use the classic Iris dataset. It has 4 features, but we’ll compress it into 2 dimensions to see how well we can separate the classes.</p>
+</section>
+<section id="the-setup-preprocessing" class="slide level2">
+<h2>The Setup &amp; Preprocessing</h2>
+<p>Standardization is mandatory for PCA. Since PCA maximizes variance, a feature with a large scale (like “Salary” in the thousands) would dominate a feature with a small scale (like “Years of Experience”), even if it’s less important.</p>
+<div id="d1ae30b7" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb32-2"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb32-3"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb32-4"><a></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb32-5"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb32-6"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb32-7"><a></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb32-8"><a></a></span>
+<span id="cb32-9"><a></a><span class="co"># Load data</span></span>
+<span id="cb32-10"><a></a>iris <span class="op">=</span> load_iris()</span>
+<span id="cb32-11"><a></a>X <span class="op">=</span> iris.data</span>
+<span id="cb32-12"><a></a>y <span class="op">=</span> iris.target</span>
+<span id="cb32-13"><a></a>feature_names <span class="op">=</span> iris.feature_names</span>
+<span id="cb32-14"><a></a></span>
+<span id="cb32-15"><a></a><span class="co"># 1. Standardize the data (Mean=0, Variance=1)</span></span>
+<span id="cb32-16"><a></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb32-17"><a></a>X_scaled <span class="op">=</span> scaler.fit_transform(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section>
+<section id="applying-pca" class="title-slide slide level1 center">
+<h1>2. Applying PCA</h1>
+<p>We will reduce the 4D data into 2D.</p>
+<div id="b59b1bbc" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a></a><span class="co"># 2. Initialize and fit PCA</span></span>
+<span id="cb33-2"><a></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb33-3"><a></a>X_pca <span class="op">=</span> pca.fit_transform(X_scaled)</span>
+<span id="cb33-4"><a></a></span>
+<span id="cb33-5"><a></a><span class="co"># Create a DataFrame for the PCA results</span></span>
+<span id="cb33-6"><a></a>pca_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>X_pca, columns<span class="op">=</span>[<span class="st">'PC1'</span>, <span class="st">'PC2'</span>])</span>
+<span id="cb33-7"><a></a>pca_df[<span class="st">'Target'</span>] <span class="op">=</span> y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-scree-plot-explained-variance" class="slide level2">
+<h2>The Scree Plot (Explained Variance)</h2>
+<p>This tells you how much “information” (variance) each principal component captures.</p>
+<div id="dc2aa5e2" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb34-2"><a></a>explained_var <span class="op">=</span> pca.explained_variance_ratio_</span>
+<span id="cb34-3"><a></a>plt.bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(explained_var)<span class="op">+</span><span class="dv">1</span>), explained_var, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'Individual variance'</span>)</span>
+<span id="cb34-4"><a></a>plt.step(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(explained_var)<span class="op">+</span><span class="dv">1</span>), np.cumsum(explained_var), where<span class="op">=</span><span class="st">'mid'</span>, label<span class="op">=</span><span class="st">'Cumulative variance'</span>)</span>
+<span id="cb34-5"><a></a>plt.ylabel(<span class="st">'Explained variance ratio'</span>)</span>
+<span id="cb34-6"><a></a>plt.xlabel(<span class="st">'Principal components'</span>)</span>
+<span id="cb34-7"><a></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)</span>
+<span id="cb34-8"><a></a>plt.title(<span class="st">'Scree Plot: Variance Explained by Components'</span>)</span>
+<span id="cb34-9"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-21-output-1.png" width="663" height="376"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="d-projection" class="slide level2">
+<h2>2D Projection</h2>
+<p>This is where we see if our dimensionality reduction actually preserved the structure of the data.</p>
+<div id="3cd45b1d" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb35-2"><a></a>targets <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb35-3"><a></a>colors <span class="op">=</span> [<span class="st">'r'</span>, <span class="st">'g'</span>, <span class="st">'b'</span>]</span>
+<span id="cb35-4"><a></a><span class="cf">for</span> target, color <span class="kw">in</span> <span class="bu">zip</span>(targets, colors):</span>
+<span id="cb35-5"><a></a>    indicesToKeep <span class="op">=</span> pca_df[<span class="st">'Target'</span>] <span class="op">==</span> target</span>
+<span id="cb35-6"><a></a>    plt.scatter(pca_df.loc[indicesToKeep, <span class="st">'PC1'</span>],</span>
+<span id="cb35-7"><a></a>                pca_df.loc[indicesToKeep, <span class="st">'PC2'</span>],</span>
+<span id="cb35-8"><a></a>                c<span class="op">=</span>color, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb35-9"><a></a></span>
+<span id="cb35-10"><a></a>plt.xlabel(<span class="ss">f'PC1 (</span><span class="sc">{</span>explained_var[<span class="dv">0</span>]<span class="sc">:.2%}</span><span class="ss"> variance)'</span>)</span>
+<span id="cb35-11"><a></a>plt.ylabel(<span class="ss">f'PC2 (</span><span class="sc">{</span>explained_var[<span class="dv">1</span>]<span class="sc">:.2%}</span><span class="ss"> variance)'</span>)</span>
+<span id="cb35-12"><a></a>plt.title(<span class="st">'2D PCA Projection of Iris Dataset'</span>)</span>
+<span id="cb35-13"><a></a>plt.legend(iris.target_names)</span>
+<span id="cb35-14"><a></a>plt.grid()</span>
+<span id="cb35-15"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-22-output-1.png" width="662" height="523"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="feature-selection" class="slide level2">
+<h2>Feature Selection</h2>
+<ul>
+<li>Removing features with low variance</li>
+<li>Univariate feature selection</li>
+<li>Recursive feature elimination</li>
+<li>Feature selection using SelectFromModel</li>
+</ul>
+</section>
+<section id="removing-features-with-low-variance" class="slide level2">
+<h2>Removing features with low variance</h2>
+<ul>
+<li><code>VarianceThreshold</code></li>
+<li>a simple baseline approach to feature selection</li>
+<li>It removes all features whose variance doesn’t meet some threshold.</li>
+<li>By default, it removes all zero-variance features</li>
+</ul>
+</section>
+<section id="variancethreshold" class="slide level2">
+<h2>VarianceThreshold</h2>
+<div id="bde3d4dc" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> VarianceThreshold</span>
+<span id="cb36-2"><a></a>X <span class="op">=</span> [[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]]</span>
+<span id="cb36-3"><a></a>sel <span class="op">=</span> VarianceThreshold(threshold<span class="op">=</span>(<span class="fl">.8</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="fl">.8</span>)))</span>
+<span id="cb36-4"><a></a>sel.fit_transform(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>array([[0, 1],
+       [1, 0],
+       [0, 0],
+       [1, 1],
+       [1, 0],
+       [1, 1]])</code></pre>
+</div>
+</div>
+</section>
+<section id="univariate-feature-selection" class="slide level2">
+<h2>Univariate feature selection</h2>
+<ul>
+<li>selects the best features based on univariate statistical tests</li>
+<li><code>SelectKBest</code> removes all but the <span class="math inline">k</span> highest scoring features</li>
+<li><code>SelectPercentile</code> removes all but a user-specified highest scoring percentage of features</li>
+</ul>
+</section>
+<section id="selectkbest" class="slide level2">
+<h2>SelectKBest</h2>
+<div id="1b66378e" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb38-2"><a></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectKBest</span>
+<span id="cb38-3"><a></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> chi2</span>
+<span id="cb38-4"><a></a>X, y <span class="op">=</span> load_iris(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb38-5"><a></a><span class="bu">print</span>(X.shape)</span>
+<span id="cb38-6"><a></a>X_new <span class="op">=</span> SelectKBest(chi2, k<span class="op">=</span><span class="dv">2</span>).fit_transform(X, y)</span>
+<span id="cb38-7"><a></a><span class="bu">print</span>(X_new.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(150, 4)
+(150, 2)</code></pre>
+</div>
+</div>
+</section>
+<section id="recursive-feature-elimination" class="slide level2">
+<h2>Recursive feature elimination</h2>
+<ul>
+<li>given an external estimator that assigns weights to features</li>
+<li>select features by recursively considering smaller and smaller sets of features</li>
+<li><code>RFE</code></li>
+</ul>
+</section>
+<section id="rfe" class="slide level2">
+<h2>RFE</h2>
+<div id="113804af" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_friedman1</span>
+<span id="cb40-2"><a></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> RFE</span>
+<span id="cb40-3"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVR</span>
+<span id="cb40-4"><a></a>X, y <span class="op">=</span> make_friedman1(n_samples<span class="op">=</span><span class="dv">50</span>, n_features<span class="op">=</span><span class="dv">10</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb40-5"><a></a>estimator <span class="op">=</span> SVR(kernel<span class="op">=</span><span class="st">"linear"</span>)</span>
+<span id="cb40-6"><a></a>selector <span class="op">=</span> RFE(estimator, n_features_to_select<span class="op">=</span><span class="dv">5</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb40-7"><a></a>selector <span class="op">=</span> selector.fit(X, y)</span>
+<span id="cb40-8"><a></a><span class="bu">print</span>(selector.support_)</span>
+<span id="cb40-9"><a></a><span class="bu">print</span>(selector.ranking_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ True  True  True  True  True False False False False False]
+[1 1 1 1 1 6 4 3 2 5]</code></pre>
+</div>
+</div>
+</section>
+<section id="feature-selection-using-selectfrommodel" class="slide level2">
+<h2>Feature selection using SelectFromModel</h2>
+<ul>
+<li><code>SelectFromModel</code> is a meta-transformer that can be used alongside any estimator that assigns importance to each feature</li>
+<li>(e.g.&nbsp;<code>coef_</code>, <code>feature_importances_</code>)</li>
+</ul>
+</section>
+<section id="l1-based-feature-selection" class="slide level2">
+<h2>L1-based feature selection</h2>
+<ul>
+<li>Linear models penalized with the L1 norm have sparse solutions</li>
+<li>estimated coefficients are zero</li>
+</ul>
+<div id="fc2b5437" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> LinearSVC</span>
+<span id="cb42-2"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb42-3"><a></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectFromModel</span>
+<span id="cb42-4"><a></a>X, y <span class="op">=</span> load_iris(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb42-5"><a></a><span class="bu">print</span>(X.shape)</span>
+<span id="cb42-6"><a></a>lsvc <span class="op">=</span> LinearSVC(C<span class="op">=</span><span class="fl">0.01</span>, penalty<span class="op">=</span><span class="st">"l1"</span>, dual<span class="op">=</span><span class="va">False</span>).fit(X, y)</span>
+<span id="cb42-7"><a></a>model <span class="op">=</span> SelectFromModel(lsvc, prefit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb42-8"><a></a>X_new <span class="op">=</span> model.transform(X)</span>
+<span id="cb42-9"><a></a><span class="bu">print</span>(X_new.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(150, 4)
+(150, 3)</code></pre>
+</div>
+</div>
+</section>
+<section id="tree-based-feature-selection" class="slide level2">
+<h2>Tree-based feature selection</h2>
+<ul>
+<li>Tree-based estimators can be used to compute impurity-based feature importances</li>
+</ul>
+<div id="f6add877" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> ExtraTreesClassifier</span>
+<span id="cb44-2"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb44-3"><a></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> SelectFromModel</span>
+<span id="cb44-4"><a></a>X, y <span class="op">=</span> load_iris(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-5"><a></a><span class="bu">print</span>(X.shape)</span>
+<span id="cb44-6"><a></a>clf <span class="op">=</span> ExtraTreesClassifier(n_estimators<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb44-7"><a></a>clf <span class="op">=</span> clf.fit(X, y)</span>
+<span id="cb44-8"><a></a><span class="bu">print</span>(clf.feature_importances_)  </span>
+<span id="cb44-9"><a></a>model <span class="op">=</span> SelectFromModel(clf, prefit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-10"><a></a>X_new <span class="op">=</span> model.transform(X)</span>
+<span id="cb44-11"><a></a><span class="bu">print</span>(X_new.shape)               </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(150, 4)
+[0.11511731 0.04965997 0.35412289 0.48109983]
+(150, 2)</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/dept_fac-logo.png" class="slide-logo"></p>

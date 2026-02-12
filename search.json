@@ -1,5 +1,47 @@
 [
   {
+    "objectID": "materials/lect04-trainingdata/slide.html#overview-the-role-of-training-data",
+    "href": "materials/lect04-trainingdata/slide.html#overview-the-role-of-training-data",
+    "title": "4. Training Data",
+    "section": "Overview: The Role of Training Data",
+    "text": "Overview: The Role of Training Data\n\nContext: While ML curricula often focus on modeling, practitioners spend a significant amount of time wrangling training data.\nImpact: No matter how clever the algorithm, bad training data leads to poor performance.\nCore Topics:\n\nSampling Methods\nLabeling Challenges\nClass Imbalance\nData Augmentation"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#sampling-probability-vs.-nonprobability",
+    "href": "materials/lect04-trainingdata/slide.html#sampling-probability-vs.-nonprobability",
+    "title": "4. Training Data",
+    "section": "Sampling: Probability vs. Nonprobability",
+    "text": "Sampling: Probability vs. Nonprobability\nSampling is the first step in creating training data.\n\nNonprobability Sampling: Based on convenience or availability (e.g., convenience, snowball, judgment, or quota sampling). These often suffer from selection bias.\nSimple Random Sampling: Every member of the population has an equal chance of being selected.\nStratified Sampling: The population is divided into groups (strata), and each group is sampled separately to ensure representation.\nReservoir Sampling: Useful for streaming data when the total size of the population is unknown."
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#example-weighted-sampling-in-python",
+    "href": "materials/lect04-trainingdata/slide.html#example-weighted-sampling-in-python",
+    "title": "4. Training Data",
+    "section": "Example: Weighted Sampling in Python",
+    "text": "Example: Weighted Sampling in Python\nWeighted sampling allows you to leverage domain expertise by giving certain subpopulations higher probabilities of being selected. This is often used to ensure models learn from more recent or more valuable data.\nimport random\n\n# Example: Selecting 2 items from a list\n# Items 1, 2, 3, 4 each have a 20% chance\n# Items 100 and 1000 each have only a 10% chance\npopulation =\nweights = [0.2, 0.2, 0.2, 0.2, 0.1, 0.1]\n\nselection = random.choices(population=population, weights=weights, k=2)\nprint(selection)\n[Source: 89]"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#handling-the-lack-of-labels",
+    "href": "materials/lect04-trainingdata/slide.html#handling-the-lack-of-labels",
+    "title": "4. Training Data",
+    "section": "Handling the Lack of Labels",
+    "text": "Handling the Lack of Labels\nLabeling is often expensive and slow. Four major techniques to address this include:\n\nWeak Supervision: Uses noisy heuristics (labeling functions) to programmatically label data.\nSemi-Supervision: Uses a small set of initial labels as “seeds” to generate more labels based on structural assumptions.\nTransfer Learning: Leverages models pretrained on a different (often abundant) task as a starting point.\nActive Learning: The model identifies which unlabeled samples would be most useful to learn from and queries a human for those specific labels."
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#challenges-of-class-imbalance",
+    "href": "materials/lect04-trainingdata/slide.html#challenges-of-class-imbalance",
+    "title": "4. Training Data",
+    "section": "Challenges of Class Imbalance",
+    "text": "Challenges of Class Imbalance\nClass imbalance occurs when there is a substantial difference in the number of samples across classes.\n\nWhy it’s hard: The model lacks sufficient signal to detect minority classes and may assume they don’t exist.\nEvaluation: Accuracy is often misleading; practitioners should use Precision, Recall, and F1 scores.\nMitigation:\n\nData-level: Resampling (Oversampling the minority or Undersampling the majority).\nAlgorithm-level: Modifying the loss function (e.g., Cost-sensitive learning or Focal loss)."
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#data-augmentation",
+    "href": "materials/lect04-trainingdata/slide.html#data-augmentation",
+    "title": "4. Training Data",
+    "section": "Data Augmentation",
+    "text": "Data Augmentation\nThis family of techniques increases training data volume to make models more robust to noise and adversarial attacks.\n\nSimple Transformations: Label-preserving modifications like cropping/flipping images or replacing words with synonyms in NLP.\nPerturbation: Adding a small amount of noise to inputs to improve the model’s resilience.\nData Synthesis: Creating entirely new data samples from scratch or by combining existing examples (e.g., using Mixup or generative models like CycleGAN). ```\n\nSummary of what was created:\n\nSampling Overview: Explains the difference between probability and nonprobability sampling methods.\nPython Code Example: Includes the random.choices implementation for weighted sampling directly from the source material.\nLabeling & Imbalance: Highlights key strategies for overcoming a lack of labels and managing imbalanced datasets.\nData Augmentation: Summarizes how to increase data volume through transformations and synthesis."
+  },
+  {
     "objectID": "materials/lect03-featureeng/slide.html#feature-engineering",
     "href": "materials/lect03-featureeng/slide.html#feature-engineering",
     "title": "3. Feature Engineering",
@@ -187,6 +229,104 @@
     "title": "3. Feature Engineering",
     "section": "Binning",
     "text": "Binning\n\nKBinsDiscretizer\nBinarizer\n\n\nfrom sklearn.preprocessing import KBinsDiscretizer\nX = [[-2, 1, -4,   -1],\n     [-1, 2, -3, -0.5],\n     [ 0, 3, -2,  0.5],\n     [ 1, 4, -1,    2]]\nest = KBinsDiscretizer(n_bins=3, encode='ordinal', strategy='uniform')\nest.fit(X)\nest.transform(X)\n\narray([[0., 0., 0., 0.],\n       [1., 1., 1., 0.],\n       [2., 2., 2., 1.],\n       [2., 2., 2., 2.]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#pca-using-scikit-learn",
+    "href": "materials/lect03-featureeng/slide.html#pca-using-scikit-learn",
+    "title": "3. Feature Engineering",
+    "section": "PCA using Scikit-Learn",
+    "text": "PCA using Scikit-Learn\nFor this example, we’ll use the classic Iris dataset. It has 4 features, but we’ll compress it into 2 dimensions to see how well we can separate the classes."
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#the-setup-preprocessing",
+    "href": "materials/lect03-featureeng/slide.html#the-setup-preprocessing",
+    "title": "3. Feature Engineering",
+    "section": "The Setup & Preprocessing",
+    "text": "The Setup & Preprocessing\nStandardization is mandatory for PCA. Since PCA maximizes variance, a feature with a large scale (like “Salary” in the thousands) would dominate a feature with a small scale (like “Years of Experience”), even if it’s less important.\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.datasets import load_iris\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.decomposition import PCA\n\n# Load data\niris = load_iris()\nX = iris.data\ny = iris.target\nfeature_names = iris.feature_names\n\n# 1. Standardize the data (Mean=0, Variance=1)\nscaler = StandardScaler()\nX_scaled = scaler.fit_transform(X)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#the-scree-plot-explained-variance",
+    "href": "materials/lect03-featureeng/slide.html#the-scree-plot-explained-variance",
+    "title": "3. Feature Engineering",
+    "section": "The Scree Plot (Explained Variance)",
+    "text": "The Scree Plot (Explained Variance)\nThis tells you how much “information” (variance) each principal component captures.\n\nplt.figure(figsize=(8, 4))\nexplained_var = pca.explained_variance_ratio_\nplt.bar(range(1, len(explained_var)+1), explained_var, alpha=0.7, label='Individual variance')\nplt.step(range(1, len(explained_var)+1), np.cumsum(explained_var), where='mid', label='Cumulative variance')\nplt.ylabel('Explained variance ratio')\nplt.xlabel('Principal components')\nplt.legend(loc='best')\nplt.title('Scree Plot: Variance Explained by Components')\nplt.show()"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#d-projection",
+    "href": "materials/lect03-featureeng/slide.html#d-projection",
+    "title": "3. Feature Engineering",
+    "section": "2D Projection",
+    "text": "2D Projection\nThis is where we see if our dimensionality reduction actually preserved the structure of the data.\n\nplt.figure(figsize=(8, 6))\ntargets = [0, 1, 2]\ncolors = ['r', 'g', 'b']\nfor target, color in zip(targets, colors):\n    indicesToKeep = pca_df['Target'] == target\n    plt.scatter(pca_df.loc[indicesToKeep, 'PC1'],\n                pca_df.loc[indicesToKeep, 'PC2'],\n                c=color, s=50)\n\nplt.xlabel(f'PC1 ({explained_var[0]:.2%} variance)')\nplt.ylabel(f'PC2 ({explained_var[1]:.2%} variance)')\nplt.title('2D PCA Projection of Iris Dataset')\nplt.legend(iris.target_names)\nplt.grid()\nplt.show()"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#feature-selection",
+    "href": "materials/lect03-featureeng/slide.html#feature-selection",
+    "title": "3. Feature Engineering",
+    "section": "Feature Selection",
+    "text": "Feature Selection\n\nRemoving features with low variance\nUnivariate feature selection\nRecursive feature elimination\nFeature selection using SelectFromModel"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#removing-features-with-low-variance",
+    "href": "materials/lect03-featureeng/slide.html#removing-features-with-low-variance",
+    "title": "3. Feature Engineering",
+    "section": "Removing features with low variance",
+    "text": "Removing features with low variance\n\nVarianceThreshold\na simple baseline approach to feature selection\nIt removes all features whose variance doesn’t meet some threshold.\nBy default, it removes all zero-variance features"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#variancethreshold",
+    "href": "materials/lect03-featureeng/slide.html#variancethreshold",
+    "title": "3. Feature Engineering",
+    "section": "VarianceThreshold",
+    "text": "VarianceThreshold\n\nfrom sklearn.feature_selection import VarianceThreshold\nX = [[0, 0, 1], [0, 1, 0], [1, 0, 0], [0, 1, 1], [0, 1, 0], [0, 1, 1]]\nsel = VarianceThreshold(threshold=(.8 * (1 - .8)))\nsel.fit_transform(X)\n\narray([[0, 1],\n       [1, 0],\n       [0, 0],\n       [1, 1],\n       [1, 0],\n       [1, 1]])"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#univariate-feature-selection",
+    "href": "materials/lect03-featureeng/slide.html#univariate-feature-selection",
+    "title": "3. Feature Engineering",
+    "section": "Univariate feature selection",
+    "text": "Univariate feature selection\n\nselects the best features based on univariate statistical tests\nSelectKBest removes all but the k highest scoring features\nSelectPercentile removes all but a user-specified highest scoring percentage of features"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#selectkbest",
+    "href": "materials/lect03-featureeng/slide.html#selectkbest",
+    "title": "3. Feature Engineering",
+    "section": "SelectKBest",
+    "text": "SelectKBest\n\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectKBest\nfrom sklearn.feature_selection import chi2\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nX_new = SelectKBest(chi2, k=2).fit_transform(X, y)\nprint(X_new.shape)\n\n(150, 4)\n(150, 2)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#recursive-feature-elimination",
+    "href": "materials/lect03-featureeng/slide.html#recursive-feature-elimination",
+    "title": "3. Feature Engineering",
+    "section": "Recursive feature elimination",
+    "text": "Recursive feature elimination\n\ngiven an external estimator that assigns weights to features\nselect features by recursively considering smaller and smaller sets of features\nRFE"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#rfe",
+    "href": "materials/lect03-featureeng/slide.html#rfe",
+    "title": "3. Feature Engineering",
+    "section": "RFE",
+    "text": "RFE\n\nfrom sklearn.datasets import make_friedman1\nfrom sklearn.feature_selection import RFE\nfrom sklearn.svm import SVR\nX, y = make_friedman1(n_samples=50, n_features=10, random_state=0)\nestimator = SVR(kernel=\"linear\")\nselector = RFE(estimator, n_features_to_select=5, step=1)\nselector = selector.fit(X, y)\nprint(selector.support_)\nprint(selector.ranking_)\n\n[ True  True  True  True  True False False False False False]\n[1 1 1 1 1 6 4 3 2 5]"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#feature-selection-using-selectfrommodel",
+    "href": "materials/lect03-featureeng/slide.html#feature-selection-using-selectfrommodel",
+    "title": "3. Feature Engineering",
+    "section": "Feature selection using SelectFromModel",
+    "text": "Feature selection using SelectFromModel\n\nSelectFromModel is a meta-transformer that can be used alongside any estimator that assigns importance to each feature\n(e.g. coef_, feature_importances_)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#l1-based-feature-selection",
+    "href": "materials/lect03-featureeng/slide.html#l1-based-feature-selection",
+    "title": "3. Feature Engineering",
+    "section": "L1-based feature selection",
+    "text": "L1-based feature selection\n\nLinear models penalized with the L1 norm have sparse solutions\nestimated coefficients are zero\n\n\nfrom sklearn.svm import LinearSVC\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nlsvc = LinearSVC(C=0.01, penalty=\"l1\", dual=False).fit(X, y)\nmodel = SelectFromModel(lsvc, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)\n\n(150, 4)\n(150, 3)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#tree-based-feature-selection",
+    "href": "materials/lect03-featureeng/slide.html#tree-based-feature-selection",
+    "title": "3. Feature Engineering",
+    "section": "Tree-based feature selection",
+    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.11511731 0.04965997 0.35412289 0.48109983]\n(150, 2)"
   },
   {
     "objectID": "materials/lect02-dataeng/slide.html#data-engineering",
@@ -916,6 +1056,16 @@
     "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen",
     "crumbs": [
       "3. Feature Engineering"
+    ]
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/index.html",
+    "href": "materials/lect04-trainingdata/index.html",
+    "title": "4. Training Data",
+    "section": "",
+    "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen",
+    "crumbs": [
+      "4. Training Data"
     ]
   }
 ]

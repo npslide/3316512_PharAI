@@ -9,9 +9,8 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.27">
 
-  <meta name="author" content="Natapol Pornputtapong, PhD">
-  <meta name="dcterms.date" content="2026-02-12">
-  <title>3316512 Pharmaceutical AI – Machine Learning System</title>
+  <meta name="author" content="Based on Chip Huyen’s Work">
+  <title>3316512 Pharmaceutical AI – 4. Training Data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,8 +28,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6aa3cccf5014b6f4870a5cffe4c1dc60.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -46,7 +111,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -128,217 +192,101 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/bcm-bg.png" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Machine Learning System</h1>
-  <p class="subtitle">3316512 Pharmaceutical AI</p>
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">4. Training Data</h1>
+  <p class="subtitle">Designing Machine Learning Systems</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Natapol Pornputtapong, PhD 
+Based on Chip Huyen’s Work 
 </div>
-        <p class="quarto-title-affiliation">
-            Chulalongkorn University
-          </p>
-    </div>
+</div>
 </div>
 
-  <p class="date">12 Feb 2026</p>
 </section>
-<section id="ai-application" class="slide level2">
-<h2>AI application</h2>
-
-<img data-src="../assets/02-02.png" class="r-stretch"></section>
-<section id="ml-systems-vs.-traditional-software" class="slide level2">
-<h2>ML Systems vs.&nbsp;Traditional Software</h2>
-
-<img data-src="../assets/02-01.png" class="r-stretch"></section>
-<section id="development-vs.-production" class="slide level2">
-<h2>Development vs.&nbsp;Production</h2>
-
-<img data-src="../assets/02-03.png" class="r-stretch"></section>
-<section id="concerns-in-development" class="slide level2">
-<h2>Concerns in development</h2>
+<section id="overview-the-role-of-training-data" class="slide level2">
+<h2>Overview: The Role of Training Data</h2>
 <ul>
-<li><strong>Fairness</strong> is often an afterthought in research but a <strong>requirement in production</strong></li>
-<li>Biased algorithms can <strong>discriminate at scale</strong> against minority groups</li>
-<li><strong>Interpretability</strong> is required for users to trust the system and for developers to debug it</li>
-<li>Business leaders often prefer a <strong>human expert</strong> over a “black box” AI if the AI can’t explain its decision</li>
-<li>Only a small percentage of companies currently take steps to <strong>mitigate algorithmic bias</strong></li>
+<li><strong>Context</strong>: While ML curricula often focus on modeling, practitioners spend a significant amount of time wrangling training data.</li>
+<li><strong>Impact</strong>: No matter how clever the algorithm, bad training data leads to poor performance.</li>
+<li><strong>Core Topics</strong>:
+<ul>
+<li>Sampling Methods</li>
+<li>Labeling Challenges</li>
+<li>Class Imbalance</li>
+<li>Data Augmentation</li>
+</ul></li>
 </ul>
 </section>
-<section id="engineering-challenges-in-ml" class="slide level2">
-<h2>Engineering Challenges in ML</h2>
+<section id="sampling-probability-vs.-nonprobability" class="slide level2">
+<h2>Sampling: Probability vs.&nbsp;Nonprobability</h2>
+<p>Sampling is the first step in creating training data.</p>
 <ul>
-<li>Modern ML models can have <strong>billions of parameters</strong>, requiring massive RAM</li>
-<li>Deploying large models on <strong>edge devices</strong> is a major engineering challenge</li>
-<li>ML models often <strong>fail silently</strong>, making monitoring and debugging difficult</li>
-<li>Speed of inference is critical; a slow autocomplete model is <strong>useless</strong></li>
-<li>Engineering challenges for models like <strong>BERT</strong> are being solved at a breakneck pace</li>
+<li><strong>Nonprobability Sampling</strong>: Based on convenience or availability (e.g., convenience, snowball, judgment, or quota sampling). These often suffer from selection bias.</li>
+<li><strong>Simple Random Sampling</strong>: Every member of the population has an equal chance of being selected.</li>
+<li><strong>Stratified Sampling</strong>: The population is divided into groups (strata), and each group is sampled separately to ensure representation.</li>
+<li><strong>Reservoir Sampling</strong>: Useful for streaming data when the total size of the population is unknown.</li>
 </ul>
 </section>
-<section id="business-and-ml-objectives" class="slide level2">
-<h2>Business and ML Objectives</h2>
-<ul>
-<li>Most businesses only care about <strong>profit maximization</strong></li>
-<li>ML metrics (like F1 score) must be <strong>translated into business metrics</strong> (like revenue)</li>
-<li><strong>Ad click-through rates</strong> are popular because they map directly to revenue</li>
-<li>Netflix uses <strong>“take-rate”</strong> to bridge the gap between recommendations and streaming hours</li>
-<li><strong>Experiments (A/B testing)</strong> are often needed to find the actual relationship between metrics</li>
-</ul>
+<section id="example-weighted-sampling-in-python" class="slide level2">
+<h2>Example: Weighted Sampling in Python</h2>
+<p><strong>Weighted sampling</strong> allows you to leverage domain expertise by giving certain subpopulations higher probabilities of being selected. This is often used to ensure models learn from more recent or more valuable data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> random</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a><span class="co"># Example: Selecting 2 items from a list</span></span>
+<span id="cb1-4"><a></a><span class="co"># Items 1, 2, 3, 4 each have a 20% chance</span></span>
+<span id="cb1-5"><a></a><span class="co"># Items 100 and 1000 each have only a 10% chance</span></span>
+<span id="cb1-6"><a></a>population <span class="op">=</span></span>
+<span id="cb1-7"><a></a>weights <span class="op">=</span> [<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>]</span>
+<span id="cb1-8"><a></a></span>
+<span id="cb1-9"><a></a>selection <span class="op">=</span> random.choices(population<span class="op">=</span>population, weights<span class="op">=</span>weights, k<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-10"><a></a><span class="bu">print</span>(selection)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>[Source: 89]</em></p>
 </section>
-<section id="returns-on-investment-roi" class="slide level2">
-<h2>Returns on Investment (ROI)</h2>
-<ul>
-<li>ML gain doesn’t happen <strong>overnight</strong>; Google has invested for decades</li>
-<li>ROI depends on the <strong>maturity stage</strong> of ML adoption</li>
-<li>Sophisticated companies can deploy models in <strong>under 30 days</strong></li>
-<li>Early adopters spend more time on engineering and have <strong>higher cloud bills</strong></li>
-<li>Efficiency increases as the <strong>ML pipeline matures</strong></li>
-</ul>
-</section>
-<section id="adoption-rate" class="slide level2">
-<h2>Adoption rate</h2>
-
-<img data-src="../assets/02-04.png" class="r-stretch"></section>
-<section id="requirements-for-production-ml" class="slide level2 scrollable">
-<h2>4 requirements for production ML</h2>
+<section id="handling-the-lack-of-labels" class="slide level2">
+<h2>Handling the Lack of Labels</h2>
+<p>Labeling is often expensive and slow. Four major techniques to address this include:</p>
 <ol type="1">
-<li><strong>Reliability</strong></li>
-<li><strong>Scalability</strong></li>
-<li><strong>Maintainability</strong></li>
-<li><strong>Adaptability</strong></li>
+<li><strong>Weak Supervision</strong>: Uses noisy heuristics (labeling functions) to programmatically label data.</li>
+<li><strong>Semi-Supervision</strong>: Uses a small set of initial labels as “seeds” to generate more labels based on structural assumptions.</li>
+<li><strong>Transfer Learning</strong>: Leverages models pretrained on a different (often abundant) task as a starting point.</li>
+<li><strong>Active Learning</strong>: The model identifies which unlabeled samples would be most useful to learn from and queries a human for those specific labels.</li>
 </ol>
 </section>
-<section id="requirement-reliability" class="slide level2">
-<h2>Requirement: Reliability</h2>
+<section id="challenges-of-class-imbalance" class="slide level2">
+<h2>Challenges of Class Imbalance</h2>
+<p>Class imbalance occurs when there is a substantial difference in the number of samples across classes.</p>
 <ul>
-<li>The system must perform <strong>correctly even in the face of faults</strong></li>
-<li><strong>Correctness</strong> is harder to define in ML than in traditional software</li>
-<li>ML models can <strong>fail silently</strong>, serving wrong predictions without crashing</li>
-<li>System health must be monitored to ensure it meets <strong>performance expectations</strong></li>
-<li>Reliability includes handling <strong>hardware, software, and human errors</strong></li>
+<li><strong>Why it’s hard</strong>: The model lacks sufficient signal to detect minority classes and may assume they don’t exist.</li>
+<li><strong>Evaluation</strong>: Accuracy is often misleading; practitioners should use <strong>Precision, Recall, and F1 scores</strong>.</li>
+<li><strong>Mitigation</strong>:
+<ul>
+<li><strong>Data-level</strong>: Resampling (Oversampling the minority or Undersampling the majority).</li>
+<li><strong>Algorithm-level</strong>: Modifying the loss function (e.g., Cost-sensitive learning or Focal loss).</li>
+</ul></li>
 </ul>
 </section>
-<section id="requirement-scalability" class="slide level2">
-<h2>Requirement: Scalability</h2>
+<section id="data-augmentation" class="slide level2">
+<h2>Data Augmentation</h2>
+<p>This family of techniques increases training data volume to make models more robust to noise and adversarial attacks.</p>
 <ul>
-<li>Systems must handle growth in <strong>complexity, traffic, and model count</strong></li>
-<li><strong>Autoscaling</strong> is a standard cloud feature but can be tricky to implement</li>
-<li>Scalability involves <strong>resource scaling</strong> (GPUs/CPUs) and <strong>artifact management</strong></li>
-<li>Managing <strong>thousands of models</strong> requires automated monitoring and retraining</li>
-<li>Handling growth requires <strong>reproducible code generation</strong></li>
+<li><strong>Simple Transformations</strong>: Label-preserving modifications like cropping/flipping images or replacing words with synonyms in NLP.</li>
+<li><strong>Perturbation</strong>: Adding a small amount of noise to inputs to improve the model’s resilience.</li>
+<li><strong>Data Synthesis</strong>: Creating entirely new data samples from scratch or by combining existing examples (e.g., using <strong>Mixup</strong> or generative models like CycleGAN). ```</li>
 </ul>
-</section>
-<section id="requirement-maintainability" class="slide level2">
-<h2>Requirement: Maintainability</h2>
+<h3 id="summary-of-what-was-created">Summary of what was created:</h3>
 <ul>
-<li>Different roles (ML engineers, DevOps, SMEs) must <strong>collaborate using comfortable tools</strong></li>
-<li><strong>Documentation and versioning</strong> of code, data, and artifacts are essential</li>
-<li>Models must be <strong>reproducible</strong> so new contributors can build on old work</li>
-<li>Infrastructure should support <strong>cross-functional visibility</strong></li>
-<li>Maintainability ensures that teams can <strong>identify and fix problems</strong> without finger-pointing</li>
-</ul>
-</section>
-<section id="requirement-adaptability" class="slide level2">
-<h2>Requirement: Adaptability</h2>
-<ul>
-<li>Systems must <strong>evolve quickly</strong> to handle shifting data and business needs</li>
-<li>Adaptability is tightly linked to <strong>maintainability</strong></li>
-<li>The system should have capacity for <strong>discovering performance improvements</strong></li>
-<li>Updates should happen <strong>without service interruption</strong></li>
-<li>This requires infrastructure for <strong>continual learning</strong> and monitoring for shifts</li>
-</ul>
-</section>
-<section id="the-ml-lifecycle" class="slide level2">
-<h2>The ML Lifecycle</h2>
-
-<img data-src="../assets/02-05.png" class="r-stretch"></section>
-<section id="framing-ml-problems" class="slide level2">
-<h2>Framing ML Problems</h2>
-<ul>
-<li>A problem must be defined by <strong>inputs, outputs, and an objective function</strong></li>
-<li>The difficulty of a task changes based on <strong>how it is framed</strong></li>
-<li>Common task types include <strong>classification and regression</strong></li>
-<li>A task can be <strong>reframed</strong> (e.g., house price prediction as classification buckets)</li>
-<li>Choosing the right framing can make a problem <strong>significantly easier</strong> to solve</li>
-</ul>
-</section>
-<section id="task-types" class="slide level2">
-<h2>Task types</h2>
-
-<img data-src="../assets/02-06.png" class="r-stretch"></section>
-<section id="framing-for-simple-solutions" class="slide level2">
-<h2>Framing for Simple Solutions</h2>
-<ul>
-<li>Reframing a task can avoid <strong>frequent retraining</strong></li>
-<li>Instead of predicting a probability for every app on a phone (<strong>classification</strong>), use app features as input (<strong>regression</strong>)</li>
-<li>In the regression framing, adding a new app doesn’t require <strong>retraining from scratch</strong></li>
-<li>This makes the model <strong>more scalable and flexible</strong></li>
-<li>The output in the regression frame is a <strong>single value</strong> denoting likelihood of use</li>
-</ul>
-</section>
-<section id="examples" class="slide level2">
-<h2>Examples</h2>
-
-<img data-src="../assets/02-07.png" class="r-stretch"></section>
-<section id="examples-1" class="slide level2">
-<h2>Examples</h2>
-
-<img data-src="../assets/02-08.png" class="r-stretch"></section>
-<section id="examples-2" class="slide level2">
-<h2>Examples</h2>
-
-<img data-src="../assets/02-09.png" class="r-stretch"></section>
-<section id="objective-functions" class="slide level2">
-<h2>Objective Functions</h2>
-<ul>
-<li>Guided by a <strong>loss function</strong> to minimize errors from wrong predictions</li>
-<li>In supervised learning, the model compares outputs to <strong>ground truth labels</strong></li>
-<li>Common functions include <strong>RMSE</strong> for regression and <strong>cross-entropy</strong> for classification</li>
-<li>Choosing a function requires <strong>algebra knowledge</strong>, but most use standard ones</li>
-<li>The objective function is <strong>different from business objectives</strong></li>
-</ul>
-</section>
-<section id="decoupling-conflicting-objectives" class="slide level2">
-<h2>Decoupling Conflicting Objectives</h2>
-<ul>
-<li>Systems often have <strong>multiple goals</strong>, such as engagement vs.&nbsp;quality</li>
-<li>Conflicting objectives make it hard to rank items <strong>using a single model</strong></li>
-<li>One approach combines losses into a <strong>weighted sum</strong>, but requires retraining to tune</li>
-<li>A better approach is to <strong>train separate models</strong> for each objective and combine scores</li>
-<li>Decoupling makes <strong>maintenance easier</strong> as different goals shift at different rates</li>
-</ul>
-</section>
-<section id="the-role-of-data" class="slide level2">
-<h2>The Role of Data</h2>
-
-<img data-src="../assets/02-10.png" class="r-stretch"></section>
-<section id="quality-over-quantity" class="slide level2">
-<h2>Quality over Quantity</h2>
-<ul>
-<li><strong>More data isn’t always better</strong></li>
-<li><strong>Incorrect labels</strong> in training data can hurt model performance</li>
-<li><strong>Outdated data</strong> prevents the model from generalizing to current trends</li>
-<li>Success relies on <strong>managing and improving data quality</strong></li>
-<li>Data scientists must be wary of <strong>poisoning or noise</strong> in their datasets</li>
-</ul>
-</section>
-<section id="specific-requirements" class="slide level2">
-<h2>Specific Requirements</h2>
-<ul>
-<li>EMA Reflection Paper on Artificial Intelligence</li>
-<li>Annex 11 Revision Draft document</li>
-<li>Annex 22 Draft</li>
-<li>GAMP 5 D11</li>
-<li>Supporting framework conditions (QRM, data integrity, change Management)</li>
+<li><strong>Sampling Overview</strong>: Explains the difference between probability and nonprobability sampling methods.</li>
+<li><strong>Python Code Example</strong>: Includes the <code>random.choices</code> implementation for <strong>weighted sampling</strong> directly from the source material.</li>
+<li><strong>Labeling &amp; Imbalance</strong>: Highlights key strategies for overcoming a lack of labels and managing imbalanced datasets.</li>
+<li><strong>Data Augmentation</strong>: Summarizes how to increase data volume through transformations and synthesis.</li>
 </ul>
 
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/dept_fac-logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
@@ -357,6 +305,7 @@ Natapol Pornputtapong, PhD
   <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -392,7 +341,7 @@ Natapol Pornputtapong, PhD
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -524,9 +473,27 @@ Natapol Pornputtapong, PhD
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
+          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -701,23 +668,6 @@ Natapol Pornputtapong, PhD
         }
       });
       </script>
-    <script type="text/javascript">
-      Reveal.on('ready', event => {
-        if (event.indexh === 0) {
-          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
-        }
-      });
-      Reveal.addEventListener('slidechanged', (event) => {
-        if (event.indexh === 0) {
-          Reveal.configure({ slideNumber: null });
-          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
-        }
-        if (event.indexh === 1) { 
-          Reveal.configure({ slideNumber: 'c/t' });
-          document.querySelector("div.has-logo > img.slide-logo").style.display = null;
-        }
-      });
-    </script>
     
 
 </body></html>

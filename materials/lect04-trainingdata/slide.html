@@ -293,29 +293,54 @@ Natapol Pornputtapong, PhD
 <section id="semi-supervised-self-training" class="slide level2">
 <h2>Semi-Supervised: Self-Training</h2>
 <p><strong>Self-training</strong> involves training a model on labeled data, predicting labels for unlabeled data, and adding high-confidence predictions to the training set.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> SelfTrainingClassifier</span>
-<span id="cb4-2"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb4-3"><a></a></span>
-<span id="cb4-4"><a></a><span class="co"># Base classifier (must support probability estimates)</span></span>
-<span id="cb4-5"><a></a>base_clf <span class="op">=</span> SVC(probability<span class="op">=</span><span class="va">True</span>, gamma<span class="op">=</span><span class="st">"auto"</span>)</span>
-<span id="cb4-6"><a></a></span>
-<span id="cb4-7"><a></a><span class="co"># Self-training wrapper</span></span>
-<span id="cb4-8"><a></a><span class="co"># -1 indicates unlabeled points in y</span></span>
-<span id="cb4-9"><a></a>self_training_model <span class="op">=</span> SelfTrainingClassifier(base_clf)</span>
-<span id="cb4-10"><a></a>self_training_model.fit(X, y_with_unlabeled)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb4-3"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> SelfTrainingClassifier</span>
+<span id="cb4-4"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">42</span>)</span>
+<span id="cb4-7"><a></a>iris <span class="op">=</span> datasets.load_iris()</span>
+<span id="cb4-8"><a></a></span>
+<span id="cb4-9"><a></a>X <span class="op">=</span> iris.data</span>
+<span id="cb4-10"><a></a></span>
+<span id="cb4-11"><a></a><span class="co"># random select 30% of the data as unlabeled unlabeled are masked with -1</span></span>
+<span id="cb4-12"><a></a></span>
+<span id="cb4-13"><a></a>y_with_unlabeled <span class="op">=</span> iris.target</span>
+<span id="cb4-14"><a></a>random_unlabeled_points <span class="op">=</span> rng.rand(X.shape[<span class="dv">0</span>]) <span class="op">&lt;</span> <span class="fl">0.3</span></span>
+<span id="cb4-15"><a></a>y_with_unlabeled[random_unlabeled_points] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-16"><a></a></span>
+<span id="cb4-17"><a></a>svc <span class="op">=</span> SVC(probability<span class="op">=</span><span class="va">True</span>, gamma<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb4-18"><a></a>self_training_model <span class="op">=</span> SelfTrainingClassifier(svc)</span>
+<span id="cb4-19"><a></a>self_training_model.fit(X, y_with_unlabeled)</span>
+<span id="cb4-20"><a></a></span>
+<span id="cb4-21"><a></a>y_with_self_training <span class="op">=</span> self_training_model.predict(X)</span>
+<span id="cb4-22"><a></a></span>
+<span id="cb4-23"><a></a>svc.fit(X, y_with_self_training)</span>
+<span id="cb4-24"><a></a>y_pred <span class="op">=</span> svc.predict(X)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="semi-supervised-label-spreading" class="slide level2">
 <h2>Semi-Supervised: Label Spreading</h2>
 <p><strong>Label Spreading</strong> propagates labels through the data graph. Points close to each other in feature space are likely to share the same label.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> LabelSpreading</span>
-<span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a><span class="co"># Kernel='knn' constructs a graph using k-nearest neighbors</span></span>
-<span id="cb5-4"><a></a>label_prop_model <span class="op">=</span> LabelSpreading(kernel<span class="op">=</span><span class="st">'knn'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb5-3"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> LabelSpreading</span>
+<span id="cb5-4"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb5-5"><a></a></span>
-<span id="cb5-6"><a></a><span class="co"># Fit on data with mixed labeled/unlabeled points (-1)</span></span>
-<span id="cb5-7"><a></a>label_prop_model.fit(X, y_with_unlabeled)</span>
+<span id="cb5-6"><a></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">42</span>)</span>
+<span id="cb5-7"><a></a>iris <span class="op">=</span> datasets.load_iris()</span>
 <span id="cb5-8"><a></a></span>
-<span id="cb5-9"><a></a><span class="bu">print</span>(<span class="st">"Predicted labels:"</span>, label_prop_model.transduction_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-9"><a></a>X <span class="op">=</span> iris.data</span>
+<span id="cb5-10"><a></a>y_with_unlabeled <span class="op">=</span> iris.target</span>
+<span id="cb5-11"><a></a>random_unlabeled_points <span class="op">=</span> rng.rand(X.shape[<span class="dv">0</span>]) <span class="op">&lt;</span> <span class="fl">0.3</span></span>
+<span id="cb5-12"><a></a>y_with_unlabeled[random_unlabeled_points] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb5-13"><a></a></span>
+<span id="cb5-14"><a></a><span class="co"># Kernel='knn' constructs a graph using k-nearest neighbors</span></span>
+<span id="cb5-15"><a></a>label_prop_model <span class="op">=</span> LabelSpreading(kernel<span class="op">=</span><span class="st">'knn'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb5-16"><a></a></span>
+<span id="cb5-17"><a></a><span class="co"># Fit on data with mixed labeled/unlabeled points (-1)</span></span>
+<span id="cb5-18"><a></a>label_prop_model.fit(X, y_with_unlabeled)</span>
+<span id="cb5-19"><a></a></span>
+<span id="cb5-20"><a></a><span class="bu">print</span>(<span class="st">"Predicted labels:"</span>, label_prop_model.transduction_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="active-learning" class="slide level2">
 <h2>Active Learning</h2>
@@ -324,18 +349,36 @@ Natapol Pornputtapong, PhD
 <section id="active-learning-uncertainty-sampling" class="slide level2">
 <h2>Active Learning: Uncertainty Sampling</h2>
 <p>In <strong>uncertainty sampling</strong>, we query labels for instances where the model is least confident (probability closest to 0.5).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="co"># Train model on currently labeled data</span></span>
-<span id="cb6-2"><a></a>clf <span class="op">=</span> LogisticRegression().fit(X_labeled, y_labeled)</span>
-<span id="cb6-3"><a></a></span>
-<span id="cb6-4"><a></a><span class="co"># Predict probabilities on pool of unlabeled data</span></span>
-<span id="cb6-5"><a></a>probs <span class="op">=</span> clf.predict_proba(X_pool)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb6-3"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> LabelSpreading</span>
+<span id="cb6-4"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb6-5"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb6-6"><a></a></span>
-<span id="cb6-7"><a></a><span class="co"># Calculate uncertainty (e.g., 1 - max_probability)</span></span>
-<span id="cb6-8"><a></a>uncertainty <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> probs.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-7"><a></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">42</span>)</span>
+<span id="cb6-8"><a></a>iris <span class="op">=</span> datasets.load_iris()</span>
 <span id="cb6-9"><a></a></span>
-<span id="cb6-10"><a></a><span class="co"># Select top K most uncertain samples to query</span></span>
-<span id="cb6-11"><a></a>query_indices <span class="op">=</span> np.argsort(uncertainty)[<span class="op">-</span><span class="dv">5</span>:] </span>
-<span id="cb6-12"><a></a><span class="bu">print</span>(<span class="st">"Query these samples:"</span>, query_indices)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-10"><a></a>X <span class="op">=</span> iris.data</span>
+<span id="cb6-11"><a></a></span>
+<span id="cb6-12"><a></a>y <span class="op">=</span> iris.target</span>
+<span id="cb6-13"><a></a></span>
+<span id="cb6-14"><a></a>X_labeled, X_no_labeled, y_labeled, _ <span class="op">=</span> train_test_split(</span>
+<span id="cb6-15"><a></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb6-16"><a></a>)</span>
+<span id="cb6-17"><a></a></span>
+<span id="cb6-18"><a></a></span>
+<span id="cb6-19"><a></a><span class="co"># Train model on currently labeled data</span></span>
+<span id="cb6-20"><a></a>clf <span class="op">=</span> LogisticRegression().fit(X_labeled, y_labeled)</span>
+<span id="cb6-21"><a></a></span>
+<span id="cb6-22"><a></a><span class="co"># Predict probabilities on pool of unlabeled data</span></span>
+<span id="cb6-23"><a></a>probs <span class="op">=</span> clf.predict_proba(X_no_labeled)</span>
+<span id="cb6-24"><a></a></span>
+<span id="cb6-25"><a></a><span class="co"># Calculate uncertainty (e.g., 1 - max_probability)</span></span>
+<span id="cb6-26"><a></a>uncertainty <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> probs.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-27"><a></a></span>
+<span id="cb6-28"><a></a><span class="co"># Select top K most uncertain samples to query</span></span>
+<span id="cb6-29"><a></a>query_indices <span class="op">=</span> np.argsort(uncertainty)[<span class="op">-</span><span class="dv">5</span>:] </span>
+<span id="cb6-30"><a></a><span class="bu">print</span>(<span class="st">"Query these samples:"</span>, query_indices)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="transfer-learning-for-labeling" class="slide level2">
 <h2>Transfer Learning for Labeling</h2>

@@ -46,14 +46,14 @@
     "href": "materials/lect04-trainingdata/slide.html#semi-supervised-self-training",
     "title": "4. Training Data",
     "section": "Semi-Supervised: Self-Training",
-    "text": "Semi-Supervised: Self-Training\nSelf-training involves training a model on labeled data, predicting labels for unlabeled data, and adding high-confidence predictions to the training set.\nfrom sklearn.semi_supervised import SelfTrainingClassifier\nfrom sklearn.svm import SVC\n\n# Base classifier (must support probability estimates)\nbase_clf = SVC(probability=True, gamma=\"auto\")\n\n# Self-training wrapper\n# -1 indicates unlabeled points in y\nself_training_model = SelfTrainingClassifier(base_clf)\nself_training_model.fit(X, y_with_unlabeled)"
+    "text": "Semi-Supervised: Self-Training\nSelf-training involves training a model on labeled data, predicting labels for unlabeled data, and adding high-confidence predictions to the training set.\nimport numpy as np\nfrom sklearn import datasets\nfrom sklearn.semi_supervised import SelfTrainingClassifier\nfrom sklearn.svm import SVC\n\nrng = np.random.RandomState(42)\niris = datasets.load_iris()\n\nX = iris.data\n\n# random select 30% of the data as unlabeled unlabeled are masked with -1\n\ny_with_unlabeled = iris.target\nrandom_unlabeled_points = rng.rand(X.shape[0]) &lt; 0.3\ny_with_unlabeled[random_unlabeled_points] = -1\n\nsvc = SVC(probability=True, gamma=\"auto\")\nself_training_model = SelfTrainingClassifier(svc)\nself_training_model.fit(X, y_with_unlabeled)\n\ny_with_self_training = self_training_model.predict(X)\n\nsvc.fit(X, y_with_self_training)\ny_pred = svc.predict(X)"
   },
   {
     "objectID": "materials/lect04-trainingdata/slide.html#semi-supervised-label-spreading",
     "href": "materials/lect04-trainingdata/slide.html#semi-supervised-label-spreading",
     "title": "4. Training Data",
     "section": "Semi-Supervised: Label Spreading",
-    "text": "Semi-Supervised: Label Spreading\nLabel Spreading propagates labels through the data graph. Points close to each other in feature space are likely to share the same label.\nfrom sklearn.semi_supervised import LabelSpreading\n\n# Kernel='knn' constructs a graph using k-nearest neighbors\nlabel_prop_model = LabelSpreading(kernel='knn', alpha=0.8)\n\n# Fit on data with mixed labeled/unlabeled points (-1)\nlabel_prop_model.fit(X, y_with_unlabeled)\n\nprint(\"Predicted labels:\", label_prop_model.transduction_)"
+    "text": "Semi-Supervised: Label Spreading\nLabel Spreading propagates labels through the data graph. Points close to each other in feature space are likely to share the same label.\nimport numpy as np\nfrom sklearn import datasets\nfrom sklearn.semi_supervised import LabelSpreading\nfrom sklearn.svm import SVC\n\nrng = np.random.RandomState(42)\niris = datasets.load_iris()\n\nX = iris.data\ny_with_unlabeled = iris.target\nrandom_unlabeled_points = rng.rand(X.shape[0]) &lt; 0.3\ny_with_unlabeled[random_unlabeled_points] = -1\n\n# Kernel='knn' constructs a graph using k-nearest neighbors\nlabel_prop_model = LabelSpreading(kernel='knn', alpha=0.8)\n\n# Fit on data with mixed labeled/unlabeled points (-1)\nlabel_prop_model.fit(X, y_with_unlabeled)\n\nprint(\"Predicted labels:\", label_prop_model.transduction_)"
   },
   {
     "objectID": "materials/lect04-trainingdata/slide.html#active-learning",
@@ -67,7 +67,7 @@
     "href": "materials/lect04-trainingdata/slide.html#active-learning-uncertainty-sampling",
     "title": "4. Training Data",
     "section": "Active Learning: Uncertainty Sampling",
-    "text": "Active Learning: Uncertainty Sampling\nIn uncertainty sampling, we query labels for instances where the model is least confident (probability closest to 0.5).\n# Train model on currently labeled data\nclf = LogisticRegression().fit(X_labeled, y_labeled)\n\n# Predict probabilities on pool of unlabeled data\nprobs = clf.predict_proba(X_pool)\n\n# Calculate uncertainty (e.g., 1 - max_probability)\nuncertainty = 1 - probs.max(axis=1)\n\n# Select top K most uncertain samples to query\nquery_indices = np.argsort(uncertainty)[-5:] \nprint(\"Query these samples:\", query_indices)"
+    "text": "Active Learning: Uncertainty Sampling\nIn uncertainty sampling, we query labels for instances where the model is least confident (probability closest to 0.5).\nimport numpy as np\nfrom sklearn import datasets\nfrom sklearn.semi_supervised import LabelSpreading\nfrom sklearn.svm import SVC\nfrom sklearn.linear_model import LogisticRegression\n\nrng = np.random.RandomState(42)\niris = datasets.load_iris()\n\nX = iris.data\n\ny = iris.target\n\nX_labeled, X_no_labeled, y_labeled, _ = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\n\n\n# Train model on currently labeled data\nclf = LogisticRegression().fit(X_labeled, y_labeled)\n\n# Predict probabilities on pool of unlabeled data\nprobs = clf.predict_proba(X_no_labeled)\n\n# Calculate uncertainty (e.g., 1 - max_probability)\nuncertainty = 1 - probs.max(axis=1)\n\n# Select top K most uncertain samples to query\nquery_indices = np.argsort(uncertainty)[-5:] \nprint(\"Query these samples:\", query_indices)"
   },
   {
     "objectID": "materials/lect04-trainingdata/slide.html#transfer-learning-for-labeling",
@@ -403,7 +403,7 @@
     "href": "materials/lect03-featureeng/slide.html#tree-based-feature-selection",
     "title": "3. Feature Engineering",
     "section": "Tree-based feature selection",
-    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.11204815 0.06238213 0.38798729 0.43758243]\n(150, 2)"
+    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.10108007 0.0702032  0.43353195 0.39518479]\n(150, 2)"
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#data-leakage",

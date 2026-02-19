@@ -11,21 +11,70 @@
     "href": "materials/lect04-trainingdata/slide.html#sampling-probability-vs.-nonprobability",
     "title": "4. Training Data",
     "section": "Sampling: Probability vs. Nonprobability",
-    "text": "Sampling: Probability vs. Nonprobability\nSampling is the first step in creating training data.\n\nNonprobability Sampling: Based on convenience or availability (e.g., convenience, snowball, judgment, or quota sampling). These often suffer from selection bias.\nSimple Random Sampling: Every member of the population has an equal chance of being selected.\nStratified Sampling: The population is divided into groups (strata), and each group is sampled separately to ensure representation.\nReservoir Sampling: Useful for streaming data when the total size of the population is unknown."
+    "text": "Sampling: Probability vs. Nonprobability\nSampling is the first step in creating training data.\n\nNonprobability Sampling: Based on convenience or availability (e.g., convenience, snowball, judgment, or quota sampling). These often suffer from selection bias.\nSimple Random Sampling: Every member of the population has an equal chance of being selected.\nStratified Sampling: The population is divided into groups (strata), and each group is sampled separately to ensure representation."
   },
   {
-    "objectID": "materials/lect04-trainingdata/slide.html#example-weighted-sampling-in-python",
-    "href": "materials/lect04-trainingdata/slide.html#example-weighted-sampling-in-python",
+    "objectID": "materials/lect04-trainingdata/slide.html#train-test-split-with-scikit-learn",
+    "href": "materials/lect04-trainingdata/slide.html#train-test-split-with-scikit-learn",
     "title": "4. Training Data",
-    "section": "Example: Weighted Sampling in Python",
-    "text": "Example: Weighted Sampling in Python\nWeighted sampling allows you to leverage domain expertise by giving certain subpopulations higher probabilities of being selected. This is often used to ensure models learn from more recent or more valuable data.\nimport random\n\n# Example: Selecting 2 items from a list\n# Items 1, 2, 3, 4 each have a 20% chance\n# Items 100 and 1000 each have only a 10% chance\npopulation =\nweights = [0.2, 0.2, 0.2, 0.2, 0.1, 0.1]\n\nselection = random.choices(population=population, weights=weights, k=2)\nprint(selection)\n[Source: 89]"
+    "section": "Train-Test Split with Scikit-Learn",
+    "text": "Train-Test Split with Scikit-Learn\nThe most basic sampling method is splitting your dataset into training and testing sets.\nfrom sklearn.model_selection import train_test_split\nimport numpy as np\n\nX, y = np.arange(10).reshape((5, 2)), range(5)\n\n# Split dataset: 80% training, 20% testing\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\n\nprint(\"Training data:\\n\", X_train)\nprint(\"Testing data:\\n\", X_test)"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#stratified-sampling",
+    "href": "materials/lect04-trainingdata/slide.html#stratified-sampling",
+    "title": "4. Training Data",
+    "section": "Stratified Sampling",
+    "text": "Stratified Sampling\nWhen classes are imbalanced, random splitting might result in a test set with no examples of the minority class. Stratified sampling ensures the class distribution is preserved.\n# y has an imbalance: class 0 (8 samples), class 1 (2 samples)\ny_imbalanced = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]\nX_imbalanced = np.arange(20).reshape((10, 2))\n\n# Stratify ensure both train and test sets have class 1\nX_train, X_test, y_train, y_test = train_test_split(\n    X_imbalanced, y_imbalanced, test_size=0.2, \n    stratify=y_imbalanced, random_state=42\n)\n\nprint(\"Test class distribution:\", y_test) \n# Likely to include both classes or at least proportional representation"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#resampling-with-scikit-learn",
+    "href": "materials/lect04-trainingdata/slide.html#resampling-with-scikit-learn",
+    "title": "4. Training Data",
+    "section": "Resampling with Scikit-Learn",
+    "text": "Resampling with Scikit-Learn\nYou can manually resample your data (upsample minority or downsample majority) using sklearn.utils.resample.\nfrom sklearn.utils import resample\n\n# Upsample minority class (class 1)\nX_upsampled, y_upsampled = resample(\n    X_imbalanced[y_imbalanced == 1],\n    y_imbalanced[y_imbalanced == 1],\n    replace=True,     # sample with replacement\n    n_samples=4,      # match number of majority class or desired number\n    random_state=42\n) \nprint(\"Upsampled class 1:\", y_upsampled)"
   },
   {
     "objectID": "materials/lect04-trainingdata/slide.html#handling-the-lack-of-labels",
     "href": "materials/lect04-trainingdata/slide.html#handling-the-lack-of-labels",
     "title": "4. Training Data",
     "section": "Handling the Lack of Labels",
-    "text": "Handling the Lack of Labels\nLabeling is often expensive and slow. Four major techniques to address this include:\n\nWeak Supervision: Uses noisy heuristics (labeling functions) to programmatically label data.\nSemi-Supervision: Uses a small set of initial labels as “seeds” to generate more labels based on structural assumptions.\nTransfer Learning: Leverages models pretrained on a different (often abundant) task as a starting point.\nActive Learning: The model identifies which unlabeled samples would be most useful to learn from and queries a human for those specific labels."
+    "text": "Handling the Lack of Labels\nLabeling is often expensive and slow. Four major techniques to address this include:\n\nSemi-Supervision: Uses a small set of initial labels as “seeds” to generate more labels based on structural assumptions.\nActive Learning: The model identifies which unlabeled samples would be most useful to learn from and queries a human for those specific labels.\nTransfer Learning: Leverages models pretrained on a different (often abundant) task as a starting point."
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#semi-supervised-self-training",
+    "href": "materials/lect04-trainingdata/slide.html#semi-supervised-self-training",
+    "title": "4. Training Data",
+    "section": "Semi-Supervised: Self-Training",
+    "text": "Semi-Supervised: Self-Training\nSelf-training involves training a model on labeled data, predicting labels for unlabeled data, and adding high-confidence predictions to the training set.\nfrom sklearn.semi_supervised import SelfTrainingClassifier\nfrom sklearn.svm import SVC\n\n# Base classifier (must support probability estimates)\nbase_clf = SVC(probability=True, gamma=\"auto\")\n\n# Self-training wrapper\n# -1 indicates unlabeled points in y\nself_training_model = SelfTrainingClassifier(base_clf)\nself_training_model.fit(X, y_with_unlabeled)"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#semi-supervised-label-spreading",
+    "href": "materials/lect04-trainingdata/slide.html#semi-supervised-label-spreading",
+    "title": "4. Training Data",
+    "section": "Semi-Supervised: Label Spreading",
+    "text": "Semi-Supervised: Label Spreading\nLabel Spreading propagates labels through the data graph. Points close to each other in feature space are likely to share the same label.\nfrom sklearn.semi_supervised import LabelSpreading\n\n# Kernel='knn' constructs a graph using k-nearest neighbors\nlabel_prop_model = LabelSpreading(kernel='knn', alpha=0.8)\n\n# Fit on data with mixed labeled/unlabeled points (-1)\nlabel_prop_model.fit(X, y_with_unlabeled)\n\nprint(\"Predicted labels:\", label_prop_model.transduction_)"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#active-learning",
+    "href": "materials/lect04-trainingdata/slide.html#active-learning",
+    "title": "4. Training Data",
+    "section": "Active Learning",
+    "text": "Active Learning"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#active-learning-uncertainty-sampling",
+    "href": "materials/lect04-trainingdata/slide.html#active-learning-uncertainty-sampling",
+    "title": "4. Training Data",
+    "section": "Active Learning: Uncertainty Sampling",
+    "text": "Active Learning: Uncertainty Sampling\nIn uncertainty sampling, we query labels for instances where the model is least confident (probability closest to 0.5).\n# Train model on currently labeled data\nclf = LogisticRegression().fit(X_labeled, y_labeled)\n\n# Predict probabilities on pool of unlabeled data\nprobs = clf.predict_proba(X_pool)\n\n# Calculate uncertainty (e.g., 1 - max_probability)\nuncertainty = 1 - probs.max(axis=1)\n\n# Select top K most uncertain samples to query\nquery_indices = np.argsort(uncertainty)[-5:] \nprint(\"Query these samples:\", query_indices)"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#transfer-learning-for-labeling",
+    "href": "materials/lect04-trainingdata/slide.html#transfer-learning-for-labeling",
+    "title": "4. Training Data",
+    "section": "Transfer Learning for Labeling",
+    "text": "Transfer Learning for Labeling\nTransfer Learning (or Domain Adaptation) uses a model trained on a source domain (abundant labels) to predict on a target domain (scarce labels). High-confidence predictions can be used as “pseudo-labels”.\nfrom sklearn.ensemble import RandomForestClassifier\n\n# 1. Train on Source Domain (Abundant Labels)\nclf = RandomForestClassifier().fit(X_source, y_source)\n\n# 2. Predict on Target Domain (Key: Domain Similarity)\nprobs = clf.predict_proba(X_target)\npreds = clf.predict(X_target)\n\n# 3. Filter High-Confidence Predictions (Pseudo-Labeling)\nconfidence = probs.max(axis=1)\nhigh_conf_mask = confidence &gt; 0.9\n\nX_pseudo = X_target[high_conf_mask]\ny_pseudo = preds[high_conf_mask]\nprint(f\"Generated {len(y_pseudo)} pseudo-labels\")"
   },
   {
     "objectID": "materials/lect04-trainingdata/slide.html#challenges-of-class-imbalance",
@@ -35,11 +84,32 @@
     "text": "Challenges of Class Imbalance\nClass imbalance occurs when there is a substantial difference in the number of samples across classes.\n\nWhy it’s hard: The model lacks sufficient signal to detect minority classes and may assume they don’t exist.\nEvaluation: Accuracy is often misleading; practitioners should use Precision, Recall, and F1 scores.\nMitigation:\n\nData-level: Resampling (Oversampling the minority or Undersampling the majority).\nAlgorithm-level: Modifying the loss function (e.g., Cost-sensitive learning or Focal loss)."
   },
   {
+    "objectID": "materials/lect04-trainingdata/slide.html#addressing-imbalance-class-weights",
+    "href": "materials/lect04-trainingdata/slide.html#addressing-imbalance-class-weights",
+    "title": "4. Training Data",
+    "section": "Addressing Imbalance: Class Weights",
+    "text": "Addressing Imbalance: Class Weights\nMost scikit-learn classifiers support a class_weight parameter to penalize mistakes on the minority class more heavily.\nfrom sklearn.linear_model import LogisticRegression\nfrom sklearn.ensemble import RandomForestClassifier\n\n# 'balanced' mode automatically adjusts weights inversely proportional\n# to class frequencies in the input data\nclf_rf = RandomForestClassifier(class_weight='balanced')\nclf_lr = LogisticRegression(class_weight='balanced')\n\nclf_rf.fit(X_train, y_train)"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#evaluation-metrics-for-imbalance",
+    "href": "materials/lect04-trainingdata/slide.html#evaluation-metrics-for-imbalance",
+    "title": "4. Training Data",
+    "section": "Evaluation Metrics for Imbalance",
+    "text": "Evaluation Metrics for Imbalance\nAccuracy is misleading when classes are imbalanced (e.g., 99% accuracy if 99% of data is negative). Use Precision, Recall, and F1-Score.\nfrom sklearn.metrics import classification_report, confusion_matrix\n\ny_pred = clf_rf.predict(X_test)\n\nprint(confusion_matrix(y_test, y_pred))\nprint(classification_report(y_test, y_pred))\n\n# Recall: Correct positive predictions / Total actual positives\n# F1-Score: Harmonic mean of Precision and Recall"
+  },
+  {
+    "objectID": "materials/lect04-trainingdata/slide.html#library-imbalanced-learn",
+    "href": "materials/lect04-trainingdata/slide.html#library-imbalanced-learn",
+    "title": "4. Training Data",
+    "section": "Library: Imbalanced-Learn",
+    "text": "Library: Imbalanced-Learn\nImbalanced-Learn (imblearn) is a library compatible with scikit-learn that provides advanced re-sampling techniques.\nfrom imblearn.over_sampling import SMOTE\nfrom imblearn.under_sampling import RandomUnderSampler\nfrom imblearn.pipeline import Pipeline\n\n# Pipeline: Upsample minority -&gt; Downsample majority -&gt; Train\nmodel = Pipeline([\n    ('over', SMOTE(sampling_strategy=0.1)),\n    ('under', RandomUnderSampler(sampling_strategy=0.5)),\n    ('model', RandomForestClassifier())\n])\n\nmodel.fit(X_train, y_train)"
+  },
+  {
     "objectID": "materials/lect04-trainingdata/slide.html#data-augmentation",
     "href": "materials/lect04-trainingdata/slide.html#data-augmentation",
     "title": "4. Training Data",
     "section": "Data Augmentation",
-    "text": "Data Augmentation\nThis family of techniques increases training data volume to make models more robust to noise and adversarial attacks.\n\nSimple Transformations: Label-preserving modifications like cropping/flipping images or replacing words with synonyms in NLP.\nPerturbation: Adding a small amount of noise to inputs to improve the model’s resilience.\nData Synthesis: Creating entirely new data samples from scratch or by combining existing examples (e.g., using Mixup or generative models like CycleGAN). ```\n\nSummary of what was created:\n\nSampling Overview: Explains the difference between probability and nonprobability sampling methods.\nPython Code Example: Includes the random.choices implementation for weighted sampling directly from the source material.\nLabeling & Imbalance: Highlights key strategies for overcoming a lack of labels and managing imbalanced datasets.\nData Augmentation: Summarizes how to increase data volume through transformations and synthesis."
+    "text": "Data Augmentation\nThis family of techniques increases training data volume to make models more robust to noise and adversarial attacks.\n\nSimple Transformations: Label-preserving modifications like cropping/flipping images or replacing words with synonyms in NLP.\nPerturbation: Adding a small amount of noise to inputs to improve the model’s resilience.\nData Synthesis: Creating entirely new data samples from scratch or by combining existing examples (e.g., using Mixup or generative models like CycleGAN). ```"
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#feature-engineering",
@@ -53,7 +123,7 @@
     "href": "materials/lect03-featureeng/slide.html#feature-engineering-methods",
     "title": "3. Feature Engineering",
     "section": "Feature Engineering methods",
-    "text": "Feature Engineering methods\n\nExtraction\nTransformation\nSelection"
+    "text": "Feature Engineering methods\n\nExtraction\nTransformation\nSelection\nImage augmentation"
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#extraction",
@@ -196,13 +266,6 @@
     "text": "Outlier Detection\n\nLocalOutlierFactor\nIsolationForest\n\n\nfrom sklearn.ensemble import IsolationForest\nX = [[-1.1], [0.3], [0.5], [100]]\nclf = IsolationForest(random_state=0).fit(X)\nclf.predict([[0.1], [0], [90]])\n\narray([ 1,  1, -1])"
   },
   {
-    "objectID": "materials/lect03-featureeng/slide.html#unsupervised-dimensionality-reduction",
-    "href": "materials/lect03-featureeng/slide.html#unsupervised-dimensionality-reduction",
-    "title": "3. Feature Engineering",
-    "section": "Unsupervised dimensionality reduction",
-    "text": "Unsupervised dimensionality reduction\nPCA: principal component analysis\n\nimport numpy as np\nfrom sklearn.decomposition import PCA\nX = np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])\npca = PCA(n_components=2)\npca.fit(X)\nprint(pca.explained_variance_ratio_)\nprint(pca.singular_values_)\n\n[0.99244289 0.00755711]\n[6.30061232 0.54980396]"
-  },
-  {
     "objectID": "materials/lect03-featureeng/slide.html#encoding",
     "href": "materials/lect03-featureeng/slide.html#encoding",
     "title": "3. Feature Engineering",
@@ -231,11 +294,18 @@
     "text": "Binning\n\nKBinsDiscretizer\nBinarizer\n\n\nfrom sklearn.preprocessing import KBinsDiscretizer\nX = [[-2, 1, -4,   -1],\n     [-1, 2, -3, -0.5],\n     [ 0, 3, -2,  0.5],\n     [ 1, 4, -1,    2]]\nest = KBinsDiscretizer(n_bins=3, encode='ordinal', strategy='uniform')\nest.fit(X)\nest.transform(X)\n\narray([[0., 0., 0., 0.],\n       [1., 1., 1., 0.],\n       [2., 2., 2., 1.],\n       [2., 2., 2., 2.]])"
   },
   {
+    "objectID": "materials/lect03-featureeng/slide.html#curse-of-dimensionality",
+    "href": "materials/lect03-featureeng/slide.html#curse-of-dimensionality",
+    "title": "3. Feature Engineering",
+    "section": "curse of dimensionality",
+    "text": "curse of dimensionality"
+  },
+  {
     "objectID": "materials/lect03-featureeng/slide.html#pca-using-scikit-learn",
     "href": "materials/lect03-featureeng/slide.html#pca-using-scikit-learn",
     "title": "3. Feature Engineering",
     "section": "PCA using Scikit-Learn",
-    "text": "PCA using Scikit-Learn\nFor this example, we’ll use the classic Iris dataset. It has 4 features, but we’ll compress it into 2 dimensions to see how well we can separate the classes."
+    "text": "PCA using Scikit-Learn\nPCA: principal component analysis\nFor this example, we’ll use the classic Iris dataset. It has 4 features, but we’ll compress it into 2 dimensions to see how well we can separate the classes."
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#the-setup-preprocessing",
@@ -250,6 +320,13 @@
     "title": "3. Feature Engineering",
     "section": "The Scree Plot (Explained Variance)",
     "text": "The Scree Plot (Explained Variance)\nThis tells you how much “information” (variance) each principal component captures.\n\nplt.figure(figsize=(8, 4))\nexplained_var = pca.explained_variance_ratio_\nplt.bar(range(1, len(explained_var)+1), explained_var, alpha=0.7, label='Individual variance')\nplt.step(range(1, len(explained_var)+1), np.cumsum(explained_var), where='mid', label='Cumulative variance')\nplt.ylabel('Explained variance ratio')\nplt.xlabel('Principal components')\nplt.legend(loc='best')\nplt.title('Scree Plot: Variance Explained by Components')\nplt.show()"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#pca-loading-plot",
+    "href": "materials/lect03-featureeng/slide.html#pca-loading-plot",
+    "title": "3. Feature Engineering",
+    "section": "PCA loading plot",
+    "text": "PCA loading plot"
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#d-projection",
@@ -326,7 +403,14 @@
     "href": "materials/lect03-featureeng/slide.html#tree-based-feature-selection",
     "title": "3. Feature Engineering",
     "section": "Tree-based feature selection",
-    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.11511731 0.04965997 0.35412289 0.48109983]\n(150, 2)"
+    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.11204815 0.06238213 0.38798729 0.43758243]\n(150, 2)"
+  },
+  {
+    "objectID": "materials/lect03-featureeng/slide.html#data-leakage",
+    "href": "materials/lect03-featureeng/slide.html#data-leakage",
+    "title": "3. Feature Engineering",
+    "section": "Data leakage",
+    "text": "Data leakage"
   },
   {
     "objectID": "materials/lect02-dataeng/slide.html#data-engineering",

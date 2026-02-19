@@ -9,7 +9,8 @@
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.27">
 
-  <meta name="author" content="Based on Chip Huyen’s Work">
+  <meta name="author" content="Natapol Pornputtapong, PhD">
+  <meta name="dcterms.date" content="2026-02-19">
   <title>3316512 Pharmaceutical AI – 4. Training Data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6aa3cccf5014b6f4870a5cffe4c1dc60.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -111,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -192,18 +194,22 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/bcm-bg.png" data-background-size="contain" class="quarto-title-block center">
   <h1 class="title">4. Training Data</h1>
-  <p class="subtitle">Designing Machine Learning Systems</p>
+  <p class="subtitle">3316512 Pharmaceutical AI</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Based on Chip Huyen’s Work 
+Natapol Pornputtapong, PhD 
 </div>
-</div>
+        <p class="quarto-title-affiliation">
+            Chulalongkorn University
+          </p>
+    </div>
 </div>
 
+  <p class="date">19 Feb 2026</p>
 </section>
 <section id="overview-the-role-of-training-data" class="slide level2">
 <h2>Overview: The Role of Training Data</h2>
@@ -226,33 +232,130 @@ Based on Chip Huyen’s Work
 <li><strong>Nonprobability Sampling</strong>: Based on convenience or availability (e.g., convenience, snowball, judgment, or quota sampling). These often suffer from selection bias.</li>
 <li><strong>Simple Random Sampling</strong>: Every member of the population has an equal chance of being selected.</li>
 <li><strong>Stratified Sampling</strong>: The population is divided into groups (strata), and each group is sampled separately to ensure representation.</li>
-<li><strong>Reservoir Sampling</strong>: Useful for streaming data when the total size of the population is unknown.</li>
 </ul>
 </section>
-<section id="example-weighted-sampling-in-python" class="slide level2">
-<h2>Example: Weighted Sampling in Python</h2>
-<p><strong>Weighted sampling</strong> allows you to leverage domain expertise by giving certain subpopulations higher probabilities of being selected. This is often used to ensure models learn from more recent or more valuable data.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> random</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a><span class="co"># Example: Selecting 2 items from a list</span></span>
-<span id="cb1-4"><a></a><span class="co"># Items 1, 2, 3, 4 each have a 20% chance</span></span>
-<span id="cb1-5"><a></a><span class="co"># Items 100 and 1000 each have only a 10% chance</span></span>
-<span id="cb1-6"><a></a>population <span class="op">=</span></span>
-<span id="cb1-7"><a></a>weights <span class="op">=</span> [<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>]</span>
-<span id="cb1-8"><a></a></span>
-<span id="cb1-9"><a></a>selection <span class="op">=</span> random.choices(population<span class="op">=</span>population, weights<span class="op">=</span>weights, k<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb1-10"><a></a><span class="bu">print</span>(selection)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><em>[Source: 89]</em></p>
+<section id="train-test-split-with-scikit-learn" class="slide level2">
+<h2>Train-Test Split with Scikit-Learn</h2>
+<p>The most basic sampling method is splitting your dataset into training and testing sets.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a></a></span>
+<span id="cb1-4"><a></a>X, y <span class="op">=</span> np.arange(<span class="dv">10</span>).reshape((<span class="dv">5</span>, <span class="dv">2</span>)), <span class="bu">range</span>(<span class="dv">5</span>)</span>
+<span id="cb1-5"><a></a></span>
+<span id="cb1-6"><a></a><span class="co"># Split dataset: 80% training, 20% testing</span></span>
+<span id="cb1-7"><a></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb1-8"><a></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb1-9"><a></a>)</span>
+<span id="cb1-10"><a></a></span>
+<span id="cb1-11"><a></a><span class="bu">print</span>(<span class="st">"Training data:</span><span class="ch">\n</span><span class="st">"</span>, X_train)</span>
+<span id="cb1-12"><a></a><span class="bu">print</span>(<span class="st">"Testing data:</span><span class="ch">\n</span><span class="st">"</span>, X_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="handling-the-lack-of-labels" class="slide level2">
+<section id="stratified-sampling" class="slide level2">
+<h2>Stratified Sampling</h2>
+<p>When classes are imbalanced, random splitting might result in a test set with no examples of the minority class. <strong>Stratified sampling</strong> ensures the class distribution is preserved.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># y has an imbalance: class 0 (8 samples), class 1 (2 samples)</span></span>
+<span id="cb2-2"><a></a>y_imbalanced <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb2-3"><a></a>X_imbalanced <span class="op">=</span> np.arange(<span class="dv">20</span>).reshape((<span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a><span class="co"># Stratify ensure both train and test sets have class 1</span></span>
+<span id="cb2-6"><a></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(</span>
+<span id="cb2-7"><a></a>    X_imbalanced, y_imbalanced, test_size<span class="op">=</span><span class="fl">0.2</span>, </span>
+<span id="cb2-8"><a></a>    stratify<span class="op">=</span>y_imbalanced, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb2-9"><a></a>)</span>
+<span id="cb2-10"><a></a></span>
+<span id="cb2-11"><a></a><span class="bu">print</span>(<span class="st">"Test class distribution:"</span>, y_test) </span>
+<span id="cb2-12"><a></a><span class="co"># Likely to include both classes or at least proportional representation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="resampling-with-scikit-learn" class="slide level2">
+<h2>Resampling with Scikit-Learn</h2>
+<p>You can manually resample your data (upsample minority or downsample majority) using <code>sklearn.utils.resample</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.utils <span class="im">import</span> resample</span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a><span class="co"># Upsample minority class (class 1)</span></span>
+<span id="cb3-4"><a></a>X_upsampled, y_upsampled <span class="op">=</span> resample(</span>
+<span id="cb3-5"><a></a>    X_imbalanced[y_imbalanced <span class="op">==</span> <span class="dv">1</span>],</span>
+<span id="cb3-6"><a></a>    y_imbalanced[y_imbalanced <span class="op">==</span> <span class="dv">1</span>],</span>
+<span id="cb3-7"><a></a>    replace<span class="op">=</span><span class="va">True</span>,     <span class="co"># sample with replacement</span></span>
+<span id="cb3-8"><a></a>    n_samples<span class="op">=</span><span class="dv">4</span>,      <span class="co"># match number of majority class or desired number</span></span>
+<span id="cb3-9"><a></a>    random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb3-10"><a></a>) </span>
+<span id="cb3-11"><a></a><span class="bu">print</span>(<span class="st">"Upsampled class 1:"</span>, y_upsampled)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="handling-the-lack-of-labels" class="slide level2 scrollable">
 <h2>Handling the Lack of Labels</h2>
 <p>Labeling is often expensive and slow. Four major techniques to address this include:</p>
 <ol type="1">
-<li><strong>Weak Supervision</strong>: Uses noisy heuristics (labeling functions) to programmatically label data.</li>
 <li><strong>Semi-Supervision</strong>: Uses a small set of initial labels as “seeds” to generate more labels based on structural assumptions.</li>
-<li><strong>Transfer Learning</strong>: Leverages models pretrained on a different (often abundant) task as a starting point.</li>
 <li><strong>Active Learning</strong>: The model identifies which unlabeled samples would be most useful to learn from and queries a human for those specific labels.</li>
+<li><strong>Transfer Learning</strong>: Leverages models pretrained on a different (often abundant) task as a starting point.</li>
 </ol>
+</section>
+<section id="semi-supervised-self-training" class="slide level2">
+<h2>Semi-Supervised: Self-Training</h2>
+<p><strong>Self-training</strong> involves training a model on labeled data, predicting labels for unlabeled data, and adding high-confidence predictions to the training set.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> SelfTrainingClassifier</span>
+<span id="cb4-2"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb4-3"><a></a></span>
+<span id="cb4-4"><a></a><span class="co"># Base classifier (must support probability estimates)</span></span>
+<span id="cb4-5"><a></a>base_clf <span class="op">=</span> SVC(probability<span class="op">=</span><span class="va">True</span>, gamma<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a><span class="co"># Self-training wrapper</span></span>
+<span id="cb4-8"><a></a><span class="co"># -1 indicates unlabeled points in y</span></span>
+<span id="cb4-9"><a></a>self_training_model <span class="op">=</span> SelfTrainingClassifier(base_clf)</span>
+<span id="cb4-10"><a></a>self_training_model.fit(X, y_with_unlabeled)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="semi-supervised-label-spreading" class="slide level2">
+<h2>Semi-Supervised: Label Spreading</h2>
+<p><strong>Label Spreading</strong> propagates labels through the data graph. Points close to each other in feature space are likely to share the same label.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="im">from</span> sklearn.semi_supervised <span class="im">import</span> LabelSpreading</span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a><span class="co"># Kernel='knn' constructs a graph using k-nearest neighbors</span></span>
+<span id="cb5-4"><a></a>label_prop_model <span class="op">=</span> LabelSpreading(kernel<span class="op">=</span><span class="st">'knn'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a><span class="co"># Fit on data with mixed labeled/unlabeled points (-1)</span></span>
+<span id="cb5-7"><a></a>label_prop_model.fit(X, y_with_unlabeled)</span>
+<span id="cb5-8"><a></a></span>
+<span id="cb5-9"><a></a><span class="bu">print</span>(<span class="st">"Predicted labels:"</span>, label_prop_model.transduction_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="active-learning" class="slide level2">
+<h2>Active Learning</h2>
+
+<img data-src="../assets/04-01.png" class="r-stretch"></section>
+<section id="active-learning-uncertainty-sampling" class="slide level2">
+<h2>Active Learning: Uncertainty Sampling</h2>
+<p>In <strong>uncertainty sampling</strong>, we query labels for instances where the model is least confident (probability closest to 0.5).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="co"># Train model on currently labeled data</span></span>
+<span id="cb6-2"><a></a>clf <span class="op">=</span> LogisticRegression().fit(X_labeled, y_labeled)</span>
+<span id="cb6-3"><a></a></span>
+<span id="cb6-4"><a></a><span class="co"># Predict probabilities on pool of unlabeled data</span></span>
+<span id="cb6-5"><a></a>probs <span class="op">=</span> clf.predict_proba(X_pool)</span>
+<span id="cb6-6"><a></a></span>
+<span id="cb6-7"><a></a><span class="co"># Calculate uncertainty (e.g., 1 - max_probability)</span></span>
+<span id="cb6-8"><a></a>uncertainty <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> probs.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-9"><a></a></span>
+<span id="cb6-10"><a></a><span class="co"># Select top K most uncertain samples to query</span></span>
+<span id="cb6-11"><a></a>query_indices <span class="op">=</span> np.argsort(uncertainty)[<span class="op">-</span><span class="dv">5</span>:] </span>
+<span id="cb6-12"><a></a><span class="bu">print</span>(<span class="st">"Query these samples:"</span>, query_indices)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="transfer-learning-for-labeling" class="slide level2">
+<h2>Transfer Learning for Labeling</h2>
+<p><strong>Transfer Learning</strong> (or Domain Adaptation) uses a model trained on a source domain (abundant labels) to predict on a target domain (scarce labels). High-confidence predictions can be used as “pseudo-labels”.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a><span class="co"># 1. Train on Source Domain (Abundant Labels)</span></span>
+<span id="cb7-4"><a></a>clf <span class="op">=</span> RandomForestClassifier().fit(X_source, y_source)</span>
+<span id="cb7-5"><a></a></span>
+<span id="cb7-6"><a></a><span class="co"># 2. Predict on Target Domain (Key: Domain Similarity)</span></span>
+<span id="cb7-7"><a></a>probs <span class="op">=</span> clf.predict_proba(X_target)</span>
+<span id="cb7-8"><a></a>preds <span class="op">=</span> clf.predict(X_target)</span>
+<span id="cb7-9"><a></a></span>
+<span id="cb7-10"><a></a><span class="co"># 3. Filter High-Confidence Predictions (Pseudo-Labeling)</span></span>
+<span id="cb7-11"><a></a>confidence <span class="op">=</span> probs.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-12"><a></a>high_conf_mask <span class="op">=</span> confidence <span class="op">&gt;</span> <span class="fl">0.9</span></span>
+<span id="cb7-13"><a></a></span>
+<span id="cb7-14"><a></a>X_pseudo <span class="op">=</span> X_target[high_conf_mask]</span>
+<span id="cb7-15"><a></a>y_pseudo <span class="op">=</span> preds[high_conf_mask]</span>
+<span id="cb7-16"><a></a><span class="bu">print</span>(<span class="ss">f"Generated </span><span class="sc">{</span><span class="bu">len</span>(y_pseudo)<span class="sc">}</span><span class="ss"> pseudo-labels"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="challenges-of-class-imbalance" class="slide level2">
 <h2>Challenges of Class Imbalance</h2>
@@ -267,6 +370,48 @@ Based on Chip Huyen’s Work
 </ul></li>
 </ul>
 </section>
+<section id="addressing-imbalance-class-weights" class="slide level2">
+<h2>Addressing Imbalance: Class Weights</h2>
+<p>Most scikit-learn classifiers support a <code>class_weight</code> parameter to penalize mistakes on the minority class more heavily.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb8-2"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb8-3"><a></a></span>
+<span id="cb8-4"><a></a><span class="co"># 'balanced' mode automatically adjusts weights inversely proportional</span></span>
+<span id="cb8-5"><a></a><span class="co"># to class frequencies in the input data</span></span>
+<span id="cb8-6"><a></a>clf_rf <span class="op">=</span> RandomForestClassifier(class_weight<span class="op">=</span><span class="st">'balanced'</span>)</span>
+<span id="cb8-7"><a></a>clf_lr <span class="op">=</span> LogisticRegression(class_weight<span class="op">=</span><span class="st">'balanced'</span>)</span>
+<span id="cb8-8"><a></a></span>
+<span id="cb8-9"><a></a>clf_rf.fit(X_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="evaluation-metrics-for-imbalance" class="slide level2">
+<h2>Evaluation Metrics for Imbalance</h2>
+<p>Accuracy is misleading when classes are imbalanced (e.g., 99% accuracy if 99% of data is negative). Use <strong>Precision</strong>, <strong>Recall</strong>, and <strong>F1-Score</strong>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report, confusion_matrix</span>
+<span id="cb9-2"><a></a></span>
+<span id="cb9-3"><a></a>y_pred <span class="op">=</span> clf_rf.predict(X_test)</span>
+<span id="cb9-4"><a></a></span>
+<span id="cb9-5"><a></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred))</span>
+<span id="cb9-6"><a></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span>
+<span id="cb9-7"><a></a></span>
+<span id="cb9-8"><a></a><span class="co"># Recall: Correct positive predictions / Total actual positives</span></span>
+<span id="cb9-9"><a></a><span class="co"># F1-Score: Harmonic mean of Precision and Recall</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="library-imbalanced-learn" class="slide level2">
+<h2>Library: Imbalanced-Learn</h2>
+<p><strong>Imbalanced-Learn</strong> (<code>imblearn</code>) is a library compatible with scikit-learn that provides advanced re-sampling techniques.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> imblearn.over_sampling <span class="im">import</span> SMOTE</span>
+<span id="cb10-2"><a></a><span class="im">from</span> imblearn.under_sampling <span class="im">import</span> RandomUnderSampler</span>
+<span id="cb10-3"><a></a><span class="im">from</span> imblearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb10-4"><a></a></span>
+<span id="cb10-5"><a></a><span class="co"># Pipeline: Upsample minority -&gt; Downsample majority -&gt; Train</span></span>
+<span id="cb10-6"><a></a>model <span class="op">=</span> Pipeline([</span>
+<span id="cb10-7"><a></a>    (<span class="st">'over'</span>, SMOTE(sampling_strategy<span class="op">=</span><span class="fl">0.1</span>)),</span>
+<span id="cb10-8"><a></a>    (<span class="st">'under'</span>, RandomUnderSampler(sampling_strategy<span class="op">=</span><span class="fl">0.5</span>)),</span>
+<span id="cb10-9"><a></a>    (<span class="st">'model'</span>, RandomForestClassifier())</span>
+<span id="cb10-10"><a></a>])</span>
+<span id="cb10-11"><a></a></span>
+<span id="cb10-12"><a></a>model.fit(X_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="data-augmentation" class="slide level2">
 <h2>Data Augmentation</h2>
 <p>This family of techniques increases training data volume to make models more robust to noise and adversarial attacks.</p>
@@ -275,18 +420,12 @@ Based on Chip Huyen’s Work
 <li><strong>Perturbation</strong>: Adding a small amount of noise to inputs to improve the model’s resilience.</li>
 <li><strong>Data Synthesis</strong>: Creating entirely new data samples from scratch or by combining existing examples (e.g., using <strong>Mixup</strong> or generative models like CycleGAN). ```</li>
 </ul>
-<h3 id="summary-of-what-was-created">Summary of what was created:</h3>
-<ul>
-<li><strong>Sampling Overview</strong>: Explains the difference between probability and nonprobability sampling methods.</li>
-<li><strong>Python Code Example</strong>: Includes the <code>random.choices</code> implementation for <strong>weighted sampling</strong> directly from the source material.</li>
-<li><strong>Labeling &amp; Imbalance</strong>: Highlights key strategies for overcoming a lack of labels and managing imbalanced datasets.</li>
-<li><strong>Data Augmentation</strong>: Summarizes how to increase data volume through transformations and synthesis.</li>
-</ul>
 
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/dept_fac-logo.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
@@ -305,7 +444,6 @@ Based on Chip Huyen’s Work
   <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
   <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
   <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -341,7 +479,7 @@ Based on Chip Huyen’s Work
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -473,27 +611,9 @@ Based on Chip Huyen’s Work
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -668,6 +788,23 @@ Based on Chip Huyen’s Work
         }
       });
       </script>
+    <script type="text/javascript">
+      Reveal.on('ready', event => {
+        if (event.indexh === 0) {
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        }
+      });
+      Reveal.addEventListener('slidechanged', (event) => {
+        if (event.indexh === 0) {
+          Reveal.configure({ slideNumber: null });
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        }
+        if (event.indexh === 1) { 
+          Reveal.configure({ slideNumber: 'c/t' });
+          document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+        }
+      });
+    </script>
     
 
 </body></html>

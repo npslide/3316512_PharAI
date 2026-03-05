@@ -283,7 +283,7 @@ Natapol Pornputtapong, PhD
 <blockquote>
 <p><strong>Visualization:</strong> imagine a tight linear line vs an overly wiggly curve.</p>
 </blockquote>
-<div id="926bd5a7" class="cell" data-execution_count="1">
+<div id="bfcf7b48" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -295,7 +295,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="traintest-curves" class="slide level2">
 <h2>Train‑Test Curves</h2>
-<div id="a7d0c525" class="cell" data-execution_count="2">
+<div id="564ca62e" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -458,25 +458,40 @@ Natapol Pornputtapong, PhD
 <section id="example-breast-cancer-dataset" class="slide level2">
 <h2>Example: Breast Cancer Dataset</h2>
 <p>We’ll use scikit-learn’s built-in <em>breast cancer</em> toy dataset to illustrate model selection.</p>
+<div id="6f946590" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
+<span id="cb3-2"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, GridSearchCV</span>
+<span id="cb3-3"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb3-4"><a></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb3-5"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb3-6"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb3-7"><a></a></span>
+<span id="cb3-8"><a></a><span class="co"># load data</span></span>
+<span id="cb3-9"><a></a>X, y <span class="op">=</span> load_breast_cancer(return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-10"><a></a></span>
+<span id="cb3-11"><a></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y,</span>
+<span id="cb3-12"><a></a>                                                        test_size<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb3-13"><a></a>                                                        random_state<span class="op">=</span><span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="grid-search-with-crossvalidation" class="slide level2">
 <h2>Grid Search with Cross‑Validation</h2>
-<div id="f6286c25" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>param_grid <span class="op">=</span> {</span>
-<span id="cb3-2"><a></a>    <span class="st">'C'</span>: [<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>],</span>
-<span id="cb3-3"><a></a>    <span class="st">'kernel'</span>: [<span class="st">'linear'</span>, <span class="st">'rbf'</span>],</span>
-<span id="cb3-4"><a></a>    <span class="st">'gamma'</span>: [<span class="st">'scale'</span>, <span class="st">'auto'</span>]</span>
-<span id="cb3-5"><a></a>}</span>
-<span id="cb3-6"><a></a></span>
-<span id="cb3-7"><a></a>svc <span class="op">=</span> SVC()</span>
-<span id="cb3-8"><a></a>grid <span class="op">=</span> GridSearchCV(svc, param_grid, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
-<span id="cb3-9"><a></a>grid.fit(X_train, y_train)</span>
-<span id="cb3-10"><a></a><span class="bu">print</span>(<span class="st">'Best params:'</span>, grid.best_params_)</span>
-<span id="cb3-11"><a></a><span class="bu">print</span>(<span class="st">'Best CV score:'</span>, grid.best_score_)</span>
-<span id="cb3-12"><a></a></span>
-<span id="cb3-13"><a></a>best_model <span class="op">=</span> grid.best_estimator_</span>
-<span id="cb3-14"><a></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
-<span id="cb3-15"><a></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="41afe052" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>param_grid <span class="op">=</span> {</span>
+<span id="cb4-2"><a></a>    <span class="st">'C'</span>: [<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>],</span>
+<span id="cb4-3"><a></a>    <span class="st">'kernel'</span>: [<span class="st">'linear'</span>, <span class="st">'rbf'</span>],</span>
+<span id="cb4-4"><a></a>    <span class="st">'gamma'</span>: [<span class="st">'scale'</span>, <span class="st">'auto'</span>]</span>
+<span id="cb4-5"><a></a>}</span>
+<span id="cb4-6"><a></a></span>
+<span id="cb4-7"><a></a>svc <span class="op">=</span> SVC()</span>
+<span id="cb4-8"><a></a>grid <span class="op">=</span> GridSearchCV(svc, param_grid, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
+<span id="cb4-9"><a></a>grid.fit(X_train, y_train)</span>
+<span id="cb4-10"><a></a><span class="bu">print</span>(<span class="st">'Best params:'</span>, grid.best_params_)</span>
+<span id="cb4-11"><a></a><span class="bu">print</span>(<span class="st">'Best CV score:'</span>, grid.best_score_)</span>
+<span id="cb4-12"><a></a></span>
+<span id="cb4-13"><a></a>best_model <span class="op">=</span> grid.best_estimator_</span>
+<span id="cb4-14"><a></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
+<span id="cb4-15"><a></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best params: {'C': 1, 'gamma': 'scale', 'kernel': 'linear'}
 Best CV score: 0.956043956043956
@@ -498,17 +513,17 @@ weighted avg       0.96      0.96      0.96       114
 </section>
 <section id="comparison-multiple-algorithms" class="slide level2">
 <h2>Comparison: Multiple Algorithms</h2>
-<div id="b55b3cd9" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>models <span class="op">=</span> [</span>
-<span id="cb5-2"><a></a>    (<span class="st">'svc'</span>, SVC()),</span>
-<span id="cb5-3"><a></a>    (<span class="st">'dt'</span>, DecisionTreeClassifier()),</span>
-<span id="cb5-4"><a></a>    (<span class="st">'rf'</span>, RandomForestClassifier())</span>
-<span id="cb5-5"><a></a>]</span>
-<span id="cb5-6"><a></a></span>
-<span id="cb5-7"><a></a><span class="cf">for</span> name, model <span class="kw">in</span> models:</span>
-<span id="cb5-8"><a></a>    grid <span class="op">=</span> GridSearchCV(model, {}, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
-<span id="cb5-9"><a></a>    grid.fit(X_train, y_train)</span>
-<span id="cb5-10"><a></a>    <span class="bu">print</span>(name, <span class="st">'CV acc'</span>, grid.best_score_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="787ca87e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>models <span class="op">=</span> [</span>
+<span id="cb6-2"><a></a>    (<span class="st">'svc'</span>, SVC()),</span>
+<span id="cb6-3"><a></a>    (<span class="st">'dt'</span>, DecisionTreeClassifier()),</span>
+<span id="cb6-4"><a></a>    (<span class="st">'rf'</span>, RandomForestClassifier())</span>
+<span id="cb6-5"><a></a>]</span>
+<span id="cb6-6"><a></a></span>
+<span id="cb6-7"><a></a><span class="cf">for</span> name, model <span class="kw">in</span> models:</span>
+<span id="cb6-8"><a></a>    grid <span class="op">=</span> GridSearchCV(model, {}, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
+<span id="cb6-9"><a></a>    grid.fit(X_train, y_train)</span>
+<span id="cb6-10"><a></a>    <span class="bu">print</span>(name, <span class="st">'CV acc'</span>, grid.best_score_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>svc CV acc 0.9032967032967033
 dt CV acc 0.9252747252747252
@@ -522,10 +537,10 @@ rf CV acc 0.9582417582417582</code></pre>
 </section>
 <section id="accuracy-1" class="slide level2">
 <h2>Accuracy</h2>
-<div id="7cd8c5d7" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb7-2"><a></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb7-3"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="caeaf4cc" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb8-2"><a></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb8-3"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test accuracy 0.956140350877193</code></pre>
 </div>
@@ -533,11 +548,11 @@ rf CV acc 0.9582417582417582</code></pre>
 </section>
 <section id="precision-recall-f1-1" class="slide level2">
 <h2>Precision / Recall / F1</h2>
-<div id="fc7489b5" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score, f1_score</span>
-<span id="cb9-2"><a></a><span class="bu">print</span>(<span class="st">'Precision'</span>, precision_score(y_test, y_pred))</span>
-<span id="cb9-3"><a></a><span class="bu">print</span>(<span class="st">'Recall'</span>, recall_score(y_test, y_pred))</span>
-<span id="cb9-4"><a></a><span class="bu">print</span>(<span class="st">'F1'</span>, f1_score(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b7bbe78a" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score, f1_score</span>
+<span id="cb10-2"><a></a><span class="bu">print</span>(<span class="st">'Precision'</span>, precision_score(y_test, y_pred))</span>
+<span id="cb10-3"><a></a><span class="bu">print</span>(<span class="st">'Recall'</span>, recall_score(y_test, y_pred))</span>
+<span id="cb10-4"><a></a><span class="bu">print</span>(<span class="st">'F1'</span>, f1_score(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Precision 0.9459459459459459
 Recall 0.9859154929577465
@@ -547,9 +562,9 @@ F1 0.9655172413793104</code></pre>
 </section>
 <section id="confusion-matrix-1" class="slide level2">
 <h2>Confusion Matrix</h2>
-<div id="e34cb97f" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb11-2"><a></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="9de4f683" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb12-2"><a></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[39  4]
  [ 1 70]]</code></pre>
@@ -558,18 +573,18 @@ F1 0.9655172413793104</code></pre>
 </section>
 <section id="roc-curve-auc-calculation" class="slide level2">
 <h2>ROC Curve &amp; AUC calculation</h2>
-<div id="ec84c268" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb13-2"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, roc_curve, accuracy_score</span>
-<span id="cb13-3"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-4"><a></a></span>
-<span id="cb13-5"><a></a><span class="co"># train a simple classifier (could be result of grid search)</span></span>
-<span id="cb13-6"><a></a>model <span class="op">=</span> SVC(probability<span class="op">=</span><span class="va">True</span>, kernel<span class="op">=</span><span class="st">'rbf'</span>, C<span class="op">=</span><span class="fl">1.0</span>).fit(X_train, y_train)</span>
-<span id="cb13-7"><a></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
-<span id="cb13-8"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy_score(y_test, y_pred))</span>
-<span id="cb13-9"><a></a></span>
-<span id="cb13-10"><a></a>proba <span class="op">=</span> model.predict_proba(X_test)[:,<span class="dv">1</span>]</span>
-<span id="cb13-11"><a></a><span class="bu">print</span>(<span class="st">'ROC AUC'</span>, roc_auc_score(y_test, proba))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2971e234" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb14-2"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, roc_curve, accuracy_score</span>
+<span id="cb14-3"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb14-4"><a></a></span>
+<span id="cb14-5"><a></a><span class="co"># train a simple classifier (could be result of grid search)</span></span>
+<span id="cb14-6"><a></a>model <span class="op">=</span> SVC(probability<span class="op">=</span><span class="va">True</span>, kernel<span class="op">=</span><span class="st">'rbf'</span>, C<span class="op">=</span><span class="fl">1.0</span>).fit(X_train, y_train)</span>
+<span id="cb14-7"><a></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb14-8"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy_score(y_test, y_pred))</span>
+<span id="cb14-9"><a></a></span>
+<span id="cb14-10"><a></a>proba <span class="op">=</span> model.predict_proba(X_test)[:,<span class="dv">1</span>]</span>
+<span id="cb14-11"><a></a><span class="bu">print</span>(<span class="st">'ROC AUC'</span>, roc_auc_score(y_test, proba))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test accuracy 0.9473684210526315
 ROC AUC 0.9934490664919751</code></pre>
@@ -578,17 +593,17 @@ ROC AUC 0.9934490664919751</code></pre>
 </section>
 <section id="roc-curve-plotting" class="slide level2">
 <h2>ROC Curve plotting</h2>
-<div id="11502ada" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a><span class="co"># compute ROC curve</span></span>
-<span id="cb15-2"><a></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_test, proba)</span>
-<span id="cb15-3"><a></a>plt.figure()</span>
-<span id="cb15-4"><a></a>plt.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f'AUC = </span><span class="sc">{</span>roc_auc_score(y_test, proba)<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb15-5"><a></a>plt.plot([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], <span class="st">'k--'</span>, label<span class="op">=</span><span class="st">'random'</span>)</span>
-<span id="cb15-6"><a></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
-<span id="cb15-7"><a></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
-<span id="cb15-8"><a></a>plt.title(<span class="st">'ROC Curve'</span>)</span>
-<span id="cb15-9"><a></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
-<span id="cb15-10"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dcc9e83f" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a><span class="co"># compute ROC curve</span></span>
+<span id="cb16-2"><a></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_test, proba)</span>
+<span id="cb16-3"><a></a>plt.figure()</span>
+<span id="cb16-4"><a></a>plt.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f'AUC = </span><span class="sc">{</span>roc_auc_score(y_test, proba)<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb16-5"><a></a>plt.plot([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], <span class="st">'k--'</span>, label<span class="op">=</span><span class="st">'random'</span>)</span>
+<span id="cb16-6"><a></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
+<span id="cb16-7"><a></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
+<span id="cb16-8"><a></a>plt.title(<span class="st">'ROC Curve'</span>)</span>
+<span id="cb16-9"><a></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb16-10"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure>

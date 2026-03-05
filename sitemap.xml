@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://npslide.github.io/3316512_PharAI/materials/lect05-traintuneeval/slide.html</loc>
+    <lastmod>2026-03-05T05:24:32.780Z</lastmod>
+  </url>
+  <url>
     <loc>https://npslide.github.io/3316512_PharAI/materials/lect04-trainingdata/slide.html</loc>
     <lastmod>2026-02-19T07:22:22.945Z</lastmod>
   </url>
@@ -39,5 +43,9 @@
   <url>
     <loc>https://npslide.github.io/3316512_PharAI/materials/lect04-trainingdata/index.html</loc>
     <lastmod>2026-02-17T03:38:17.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://npslide.github.io/3316512_PharAI/materials/lect05-traintuneeval/index.html</loc>
+    <lastmod>2026-03-05T02:06:16.927Z</lastmod>
   </url>
 </urlset>

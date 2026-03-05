@@ -1,5 +1,194 @@
 [
   {
+    "objectID": "materials/lect05-traintuneeval/slide.html#overview-the-role-of-training-data",
+    "href": "materials/lect05-traintuneeval/slide.html#overview-the-role-of-training-data",
+    "title": "5. Train Tune Evaluate",
+    "section": "Overview: The Role of Training Data",
+    "text": "Overview: The Role of Training Data"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#model-selection",
+    "href": "materials/lect05-traintuneeval/slide.html#model-selection",
+    "title": "5. Train Tune Evaluate",
+    "section": "Model Selection",
+    "text": "Model Selection\n\nChoosing the right algorithm and hyperparameters is critical for good performance.\nWe rely on validation techniques to compare models fairly and avoid overfitting."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#fitting-and-generalization",
+    "href": "materials/lect05-traintuneeval/slide.html#fitting-and-generalization",
+    "title": "5. Train Tune Evaluate",
+    "section": "Fitting and Generalization",
+    "text": "Fitting and Generalization\n\nFit: training a model means adjusting its parameters to minimize error on the training data.\nGoal is generalization – low error on unseen data, not just the training set."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#underfitting-vs-overfitting",
+    "href": "materials/lect05-traintuneeval/slide.html#underfitting-vs-overfitting",
+    "title": "5. Train Tune Evaluate",
+    "section": "Underfitting vs Overfitting",
+    "text": "Underfitting vs Overfitting\n\n\n\n\n\n\n\n\nPhenomenon\nDescription\nSymptoms\n\n\n\n\nUnderfitting\nModel too simple for the data\nhigh error on train and test\n\n\nOverfitting\nModel too complex; memorizes noise\nlow train error but high test error\n\n\nJust right (generalizes)\nComplexity matches data\nlow error on both train and test"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#plot-compare",
+    "href": "materials/lect05-traintuneeval/slide.html#plot-compare",
+    "title": "5. Train Tune Evaluate",
+    "section": "plot compare",
+    "text": "plot compare\n\nVisualization: imagine a tight linear line vs an overly wiggly curve."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#traintest-curves",
+    "href": "materials/lect05-traintuneeval/slide.html#traintest-curves",
+    "title": "5. Train Tune Evaluate",
+    "section": "Train‑Test Curves",
+    "text": "Train‑Test Curves"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#crossvalidation-techniques",
+    "href": "materials/lect05-traintuneeval/slide.html#crossvalidation-techniques",
+    "title": "5. Train Tune Evaluate",
+    "section": "Cross‑Validation Techniques",
+    "text": "Cross‑Validation Techniques\nThe basic idea is to partition data into folds, train on some and validate on others.\n\nk‑fold CV: split into k equal parts, rotate which fold is held out.\nStratified k‑fold CV: split into k equal parts, rotate which fold is held out.\nLeave‑one‑out (LOO): extreme case of k‑fold where k equals number of samples. Good for small datasets but expensive."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#when-to-use-which",
+    "href": "materials/lect05-traintuneeval/slide.html#when-to-use-which",
+    "title": "5. Train Tune Evaluate",
+    "section": "When to Use Which",
+    "text": "When to Use Which\n\nLOO: small datasets, high variance & high compute\nk‑fold: standard choice, use 5 or 10 folds\nStratified: always for classification unless data is balanced"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#evaluation-metrics-provided-by-scikit-learn",
+    "href": "materials/lect05-traintuneeval/slide.html#evaluation-metrics-provided-by-scikit-learn",
+    "title": "5. Train Tune Evaluate",
+    "section": "Evaluation Metrics Provided by scikit-learn",
+    "text": "Evaluation Metrics Provided by scikit-learn\n\nconfusion_matrix\naccuracy\nprecision\nrecall\nf1\nroc_auc"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#confusion-matrix",
+    "href": "materials/lect05-traintuneeval/slide.html#confusion-matrix",
+    "title": "5. Train Tune Evaluate",
+    "section": "Confusion Matrix",
+    "text": "Confusion Matrix\nReal vs Predicted table form:\n\n\n\n\nPredicted Positive\nPredicted Negative\n\n\n\n\nActual Positive\nTP\nFN\n\n\nActual Negative\nFP\nTN"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#accuracy",
+    "href": "materials/lect05-traintuneeval/slide.html#accuracy",
+    "title": "5. Train Tune Evaluate",
+    "section": "Accuracy",
+    "text": "Accuracy\n\\text{Accuracy} = \\frac{TP + TN}{TP + TN + FP + FN}"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#precision-recall-f1",
+    "href": "materials/lect05-traintuneeval/slide.html#precision-recall-f1",
+    "title": "5. Train Tune Evaluate",
+    "section": "Precision / Recall / F1",
+    "text": "Precision / Recall / F1\nPrecision = \\frac{TP}{TP + FP} Recall (Sensitivity) = \\frac{TP}{TP + FN} F1 score = 2 \\cdot \\frac{\\text{precision} \\cdot \\text{recall}}{\\text{precision} + \\text{recall}}"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#roc-curve-auc",
+    "href": "materials/lect05-traintuneeval/slide.html#roc-curve-auc",
+    "title": "5. Train Tune Evaluate",
+    "section": "ROC Curve & AUC",
+    "text": "ROC Curve & AUC\n\n\n\nROC plots True Positive Rate vs False Positive Rate.\nAUC is area under the curve: a summary of separability."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#crossvalidation-kfold-cv-loo",
+    "href": "materials/lect05-traintuneeval/slide.html#crossvalidation-kfold-cv-loo",
+    "title": "5. Train Tune Evaluate",
+    "section": "Cross‑Validation: k‑fold CV, LOO",
+    "text": "Cross‑Validation: k‑fold CV, LOO\nfrom sklearn.model_selection import cross_val_score, LeaveOneOut\nscores = cross_val_score(model, X, y, cv=5)\nloo_scores = cross_val_score(model, X, y, cv=LeaveOneOut())"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#stratified-kfold-cv",
+    "href": "materials/lect05-traintuneeval/slide.html#stratified-kfold-cv",
+    "title": "5. Train Tune Evaluate",
+    "section": "Stratified k‑fold CV",
+    "text": "Stratified k‑fold CV\nfrom sklearn.model_selection import StratifiedKFold\nskf = StratifiedKFold(n_splits=5)\nfor train_idx, val_idx in skf.split(X, y):\n    # use the indices to split\n    pass"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#what-are-hyperparameters",
+    "href": "materials/lect05-traintuneeval/slide.html#what-are-hyperparameters",
+    "title": "5. Train Tune Evaluate",
+    "section": "What Are Hyperparameters?",
+    "text": "What Are Hyperparameters?\n\nParameters are learned from training data (weights, coefficients).\nHyperparameters are set before training (e.g. regularization strength, number of trees).\nThey control model complexity, learning rate, and other behaviors.\n\nExample: in SVC(C=1.0, kernel='rbf'), C and kernel are hyperparameters; the support vectors are parameters.\nOnce set, the model is trained with those hyperparameters using data."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#example-hyperparameters",
+    "href": "materials/lect05-traintuneeval/slide.html#example-hyperparameters",
+    "title": "5. Train Tune Evaluate",
+    "section": "Example hyperparameters",
+    "text": "Example hyperparameters\n\n\n\n\n\n\n\nModel\nTypical hyperparameters\n\n\n\n\nSVM (SVC)\nC, kernel, gamma\n\n\nRandomForestClassifier\nn_estimators, max_depth, min_samples_split\n\n\nKNeighborsClassifier\nn_neighbors, weights, p\n\n\nLogisticRegression\nC, penalty, solver"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#hyperparameter-tuning-common-algorithms",
+    "href": "materials/lect05-traintuneeval/slide.html#hyperparameter-tuning-common-algorithms",
+    "title": "5. Train Tune Evaluate",
+    "section": "Hyperparameter Tuning & Common Algorithms",
+    "text": "Hyperparameter Tuning & Common Algorithms\nHyperparameters are settings that cannot be learned from data; tuning them can dramatically improve performance.\n\nGrid search: exhaustive search over a predefined grid (see next slide for code).\nRandomized search: sample a fixed number of parameter settings from distributions.\nBayesian optimization (libraries like scikit-optimize, optuna): smarter exploration."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#grid-search",
+    "href": "materials/lect05-traintuneeval/slide.html#grid-search",
+    "title": "5. Train Tune Evaluate",
+    "section": "Grid Search",
+    "text": "Grid Search\nGrid search exhaustively explores a specified parameter grid. Each combination is evaluated using cross‑validation, and the best set is selected based on a scoring metric.\nKey points:\n\nDefine a parameter grid as dict of lists.\nUse GridSearchCV to wrap an estimator.\nIt runs fit repeatedly on CV folds, so computational cost grows with grid size.\nFor large spaces, consider RandomizedSearchCV or Bayesian optimization."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#example-breast-cancer-dataset",
+    "href": "materials/lect05-traintuneeval/slide.html#example-breast-cancer-dataset",
+    "title": "5. Train Tune Evaluate",
+    "section": "Example: Breast Cancer Dataset",
+    "text": "Example: Breast Cancer Dataset\nWe’ll use scikit-learn’s built-in breast cancer toy dataset to illustrate model selection."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#grid-search-with-crossvalidation",
+    "href": "materials/lect05-traintuneeval/slide.html#grid-search-with-crossvalidation",
+    "title": "5. Train Tune Evaluate",
+    "section": "Grid Search with Cross‑Validation",
+    "text": "Grid Search with Cross‑Validation\n\nparam_grid = {\n    'C': [0.1, 1, 10],\n    'kernel': ['linear', 'rbf'],\n    'gamma': ['scale', 'auto']\n}\n\nsvc = SVC()\ngrid = GridSearchCV(svc, param_grid, cv=5, scoring='accuracy')\ngrid.fit(X_train, y_train)\nprint('Best params:', grid.best_params_)\nprint('Best CV score:', grid.best_score_)\n\nbest_model = grid.best_estimator_\ny_pred = best_model.predict(X_test)\nprint(classification_report(y_test, y_pred))\n\nBest params: {'C': 1, 'gamma': 'scale', 'kernel': 'linear'}\nBest CV score: 0.956043956043956\n              precision    recall  f1-score   support\n\n           0       0.97      0.91      0.94        43\n           1       0.95      0.99      0.97        71\n\n    accuracy                           0.96       114\n   macro avg       0.96      0.95      0.95       114\nweighted avg       0.96      0.96      0.96       114\n\n\n\n\nThe grid search tries combinations of hyperparameters and evaluates with 5‑fold CV.\nBest model is then tested on the held‑out test set for an unbiased estimate."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#comparison-multiple-algorithms",
+    "href": "materials/lect05-traintuneeval/slide.html#comparison-multiple-algorithms",
+    "title": "5. Train Tune Evaluate",
+    "section": "Comparison: Multiple Algorithms",
+    "text": "Comparison: Multiple Algorithms\n\nmodels = [\n    ('svc', SVC()),\n    ('dt', DecisionTreeClassifier()),\n    ('rf', RandomForestClassifier())\n]\n\nfor name, model in models:\n    grid = GridSearchCV(model, {}, cv=5, scoring='accuracy')\n    grid.fit(X_train, y_train)\n    print(name, 'CV acc', grid.best_score_)\n\nsvc CV acc 0.9032967032967033\ndt CV acc 0.9252747252747252\nrf CV acc 0.9582417582417582\n\n\n\nHere we compare SVM, decision tree, and random forest using default settings.\nThe model with highest cross‑validation accuracy is preferred, but hyperparameter tuning is often necessary."
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#accuracy-1",
+    "href": "materials/lect05-traintuneeval/slide.html#accuracy-1",
+    "title": "5. Train Tune Evaluate",
+    "section": "Accuracy",
+    "text": "Accuracy\n\nfrom sklearn.metrics import accuracy_score\naccuracy = accuracy_score(y_test, y_pred)\nprint('Test accuracy', accuracy)\n\nTest accuracy 0.956140350877193"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#precision-recall-f1-1",
+    "href": "materials/lect05-traintuneeval/slide.html#precision-recall-f1-1",
+    "title": "5. Train Tune Evaluate",
+    "section": "Precision / Recall / F1",
+    "text": "Precision / Recall / F1\n\nfrom sklearn.metrics import precision_score, recall_score, f1_score\nprint('Precision', precision_score(y_test, y_pred))\nprint('Recall', recall_score(y_test, y_pred))\nprint('F1', f1_score(y_test, y_pred))\n\nPrecision 0.9459459459459459\nRecall 0.9859154929577465\nF1 0.9655172413793104"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#confusion-matrix-1",
+    "href": "materials/lect05-traintuneeval/slide.html#confusion-matrix-1",
+    "title": "5. Train Tune Evaluate",
+    "section": "Confusion Matrix",
+    "text": "Confusion Matrix\n\nfrom sklearn.metrics import confusion_matrix\nprint(confusion_matrix(y_test, y_pred))\n\n[[39  4]\n [ 1 70]]"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#roc-curve-auc-calculation",
+    "href": "materials/lect05-traintuneeval/slide.html#roc-curve-auc-calculation",
+    "title": "5. Train Tune Evaluate",
+    "section": "ROC Curve & AUC calculation",
+    "text": "ROC Curve & AUC calculation\n\nfrom sklearn.svm import SVC\nfrom sklearn.metrics import roc_auc_score, roc_curve, accuracy_score\nimport matplotlib.pyplot as plt\n\n# train a simple classifier (could be result of grid search)\nmodel = SVC(probability=True, kernel='rbf', C=1.0).fit(X_train, y_train)\ny_pred = model.predict(X_test)\nprint('Test accuracy', accuracy_score(y_test, y_pred))\n\nproba = model.predict_proba(X_test)[:,1]\nprint('ROC AUC', roc_auc_score(y_test, proba))\n\nTest accuracy 0.9473684210526315\nROC AUC 0.9934490664919751"
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/slide.html#roc-curve-plotting",
+    "href": "materials/lect05-traintuneeval/slide.html#roc-curve-plotting",
+    "title": "5. Train Tune Evaluate",
+    "section": "ROC Curve plotting",
+    "text": "ROC Curve plotting\n\n# compute ROC curve\nfpr, tpr, thresholds = roc_curve(y_test, proba)\nplt.figure()\nplt.plot(fpr, tpr, label=f'AUC = {roc_auc_score(y_test, proba):.3f}')\nplt.plot([0,1], [0,1], 'k--', label='random')\nplt.xlabel('False Positive Rate')\nplt.ylabel('True Positive Rate')\nplt.title('ROC Curve')\nplt.legend(loc='lower right')\nplt.show()"
+  },
+  {
     "objectID": "materials/lect04-trainingdata/slide.html#overview-the-role-of-training-data",
     "href": "materials/lect04-trainingdata/slide.html#overview-the-role-of-training-data",
     "title": "4. Training Data",
@@ -403,7 +592,7 @@
     "href": "materials/lect03-featureeng/slide.html#tree-based-feature-selection",
     "title": "3. Feature Engineering",
     "section": "Tree-based feature selection",
-    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.10108007 0.0702032  0.43353195 0.39518479]\n(150, 2)"
+    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.08323259 0.05520544 0.40658366 0.45497831]\n(150, 2)"
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#data-leakage",
@@ -1150,6 +1339,16 @@
     "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen",
     "crumbs": [
       "4. Training Data"
+    ]
+  },
+  {
+    "objectID": "materials/lect05-traintuneeval/index.html",
+    "href": "materials/lect05-traintuneeval/index.html",
+    "title": "5. Train Tune Evaluate",
+    "section": "",
+    "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nFull Screen",
+    "crumbs": [
+      "5. Train Tune Evaluate"
     ]
   }
 ]

@@ -11,7 +11,7 @@
 
   <meta name="author" content="Natapol Pornputtapong, PhD">
   <meta name="dcterms.date" content="2026-03-05">
-  <title>3316512 Pharmaceutical AI – Data Engineering</title>
+  <title>3316512 Pharmaceutical AI – 5. Train Tune Evaluate</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -97,6 +97,22 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6aa3cccf5014b6f4870a5cffe4c1dc60.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -112,7 +128,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -195,7 +210,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/bcm-bg.png" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Data Engineering</h1>
+  <h1 class="title">5. Train Tune Evaluate</h1>
   <p class="subtitle">3316512 Pharmaceutical AI</p>
 
 <div class="quarto-title-authors">
@@ -211,300 +226,380 @@ Natapol Pornputtapong, PhD
 
   <p class="date">05 Mar 2026</p>
 </section>
-<section id="data-engineering" class="slide level2">
-<h2>Data Engineering</h2>
-<ul>
-<li>data: scraping, API, feature engineering, all part of EDA</li>
-<li>compute: python, R, julia</li>
-<li>storage/database: pandas, SQL, NoSQL, HBase, disk, memory</li>
-<li>flow: Pandas, Apache Airflow, Prefect, Luigi</li>
-</ul>
-</section>
-<section id="data-sciences-workflow" class="slide level2 scrollable">
-<h2>Data sciences workflow</h2>
-<p><img data-src="../assets/03-data-science-life-cycle.webp" height="400"><sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>https://www.springboard.com/blog/data-science/data-science-process/</p></li></ol></aside></section>
-<section id="downloading-file-format" class="slide level2">
-<h2>Downloading: file format</h2>
-<ul>
-<li>Excel</li>
-<li>JSON</li>
-<li>table: CSV, TSV</li>
-<li>XML: HTML</li>
-</ul>
-</section>
-<section id="json" class="slide level2">
-<h2>JSON</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {json} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a></a>{</span>
-<span id="cb1-2"><a></a>    "name": "John",</span>
-<span id="cb1-3"><a></a>    "age": 30,</span>
-<span id="cb1-4"><a></a>    "city": "New York"</span>
-<span id="cb1-5"><a></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="csv" class="slide level2">
-<h2>CSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {csv} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a></a>name,age,city</span>
-<span id="cb2-2"><a></a>John,30,New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="tsv" class="slide level2">
-<h2>TSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {tsv} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a></a>name    age city</span>
-<span id="cb3-2"><a></a>John    30  New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="api-application-programming-interface" class="slide level2">
-<h2>API (Application Programming Interface)</h2>
-<ul>
-<li>REST</li>
-<li>GraphQL</li>
-</ul>
-</section>
-<section id="web-scraping" class="slide level2">
-<h2>Web scraping</h2>
-<p>copyrights and permission:</p>
-<ul>
-<li>be careful and polite</li>
-<li>give credit</li>
-<li>care about media law</li>
-<li>don’t be evil (no spam, overloading sites, etc.)</li>
-</ul>
-</section>
-<section id="html" class="slide level2">
-<h2>HTML</h2>
-<p>Tags are in angle brackets should be in pairs, eg <code>&lt;p&gt;Hello&lt;/p&gt;</code> maybe in implicit tags, such as <code>&lt;br/&gt;</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {html} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a></a>&lt;!DOCTYPE html&gt;</span>
-<span id="cb4-2"><a></a>&lt;html&gt;</span>
-<span id="cb4-3"><a></a>&lt;head&gt;</span>
-<span id="cb4-4"><a></a>    &lt;title&gt;Title&lt;/title&gt;</span>
-<span id="cb4-5"><a></a>&lt;/head&gt;</span>
-<span id="cb4-6"><a></a>&lt;body&gt;</span>
-<span id="cb4-7"><a></a>    &lt;h1&gt;Body Title&lt;/h1&gt;</span>
-<span id="cb4-8"><a></a>    &lt;p &gt;Body Content&lt;/p&gt;</span>
-<span id="cb4-9"><a></a>    &lt;/body&gt;</span>
-<span id="cb4-10"><a></a>&lt;/html&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="developer-tools" class="slide level2">
-<h2>Developer Tools</h2>
-<p>ctrl/cmd shift- i in chrome cmd-option-i in safari look for “inspect element” locate details of tags</p>
-</section>
-<section id="beautifulsoup" class="slide level2">
-<h2>BeautifulSoup</h2>
-</section>
-<section id="relational-database" class="slide level2">
-<h2>Relational Database</h2>
-<ul>
-<li>Tables, Rows, and Columns</li>
-<li>Keys</li>
-<li>Primary Key (PK)</li>
-<li>Foreign Key (FK)</li>
-<li>Structured Query Language (SQL)</li>
-<li>ACID Properties</li>
-</ul>
-</section>
-<section id="acid" class="slide level2">
-<h2>ACID</h2>
-<ul>
-<li><strong>Atomicity</strong> - each statement in a transaction Either the entire statement is executed, or none of it is executed</li>
-<li><strong>Consistency</strong> - ensures that transactions only make changes to tables in predefined, predictable ways.</li>
-<li><strong>Isolation</strong> - when multiple users are reading and writing from the same table all at once, isolation of their transactions ensures that the concurrent transactions don’t interfere with or affect one another</li>
-<li><strong>Durability</strong> - ensures that changes to your data made by successfully executed transactions will be saved, even in the event of system failure.</li>
-</ul>
-</section>
-<section>
-<section id="nosql-features-strengths-and-challenges" class="title-slide slide level1 center">
-<h1>NoSQL features, strengths and challenges</h1>
+<section id="overview-the-role-of-training-data" class="slide level2">
+<h2>Overview: The Role of Training Data</h2>
 
+<img data-src="../assets/05-10.png" class="r-stretch"></section>
+<section id="model-selection" class="slide level2">
+<h2>Model Selection</h2>
+<ul>
+<li>Choosing the right algorithm and hyperparameters is critical for good performance.</li>
+<li>We rely on validation techniques to compare models fairly and avoid overfitting.</li>
+</ul>
 </section>
-<section id="motivations-for-not-justno-sql-nosql-databases" class="slide level2">
-<h2><span class="r-fit-text">Motivations for Not Just/No SQL (NoSQL) Databases</span></h2>
-<p><strong>Scalability</strong>: ability to efficiently meet the needs for varying workloads</p>
-<p><strong>Cost</strong>: opensource</p>
-<p><strong>Flexibility</strong>: do not require a fixed table structure</p>
-<p><strong>Availability</strong>: distributed</p>
+<section id="fitting-and-generalization" class="slide level2">
+<h2>Fitting and Generalization</h2>
+<ul>
+<li><strong>Fit</strong>: training a model means adjusting its parameters to minimize error on the training data.</li>
+<li>Goal is <strong>generalization</strong> – low error on unseen data, not just the training set.</li>
+</ul>
 </section>
-<section id="nosql-comparison" class="slide level2">
-<h2>NoSQL comparison</h2>
+<section id="underfitting-vs-overfitting" class="slide level2">
+<h2>Underfitting vs Overfitting</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 32%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Phenomenon</th>
+<th>Description</th>
+<th>Symptoms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Underfitting</td>
+<td>Model too simple for the data</td>
+<td>high error on train and test</td>
+</tr>
+<tr class="even">
+<td>Overfitting</td>
+<td>Model too complex; memorizes noise</td>
+<td>low train error but high test error</td>
+</tr>
+<tr class="odd">
+<td>Just right (generalizes)</td>
+<td>Complexity matches data</td>
+<td>low error on both train and test</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="plot-compare" class="slide level2">
+<h2>plot compare</h2>
+<blockquote>
+<p><strong>Visualization:</strong> imagine a tight linear line vs an overly wiggly curve.</p>
+</blockquote>
+<div id="926bd5a7" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-2-output-1.png" width="941" height="376"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="traintest-curves" class="slide level2">
+<h2>Train‑Test Curves</h2>
+<div id="a7d0c525" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-3-output-1.png" width="812" height="449"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="crossvalidation-techniques" class="slide level2">
+<h2>Cross‑Validation Techniques</h2>
+<p>The basic idea is to partition data into folds, train on some and validate on others.</p>
+<ul>
+<li><strong>k‑fold CV</strong>: split into k equal parts, rotate which fold is held out.</li>
+<li><strong>Stratified k‑fold CV</strong>: split into k equal parts, rotate which fold is held out.</li>
+<li><strong>Leave‑one‑out (LOO)</strong>: extreme case of k‑fold where k equals number of samples. Good for small datasets but expensive.</li>
+</ul>
+</section>
+<section id="when-to-use-which" class="slide level2">
+<h2>When to Use Which</h2>
+<ol type="1">
+<li><strong>LOO</strong>: small datasets, high variance &amp; high compute</li>
+<li><strong>k‑fold</strong>: standard choice, use 5 or 10 folds</li>
+<li><strong>Stratified</strong>: always for classification unless data is balanced</li>
+</ol>
+</section>
+<section id="evaluation-metrics-provided-by-scikit-learn" class="slide level2">
+<h2>Evaluation Metrics Provided by scikit-learn</h2>
+<ul>
+<li>confusion_matrix</li>
+<li>accuracy</li>
+<li>precision</li>
+<li>recall</li>
+<li>f1</li>
+<li>roc_auc</li>
+</ul>
+</section>
+<section id="confusion-matrix" class="slide level2">
+<h2>Confusion Matrix</h2>
+<p>Real vs Predicted table form:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th></th>
-<th>Document</th>
-<th>Column Store</th>
-<th>Key-Value Store</th>
-<th>Graph</th>
+<th>Predicted Positive</th>
+<th>Predicted Negative</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Performance</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
+<td><strong>Actual Positive</strong></td>
+<td>TP</td>
+<td>FN</td>
 </tr>
 <tr class="even">
-<td>Availability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="odd">
-<td>Flexibility</td>
-<td>High</td>
-<td>Moderate</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="even">
-<td>Scalability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="odd">
-<td>Complexity</td>
-<td>Low</td>
-<td>Low</td>
-<td>Moderate</td>
-<td>High</td>
+<td><strong>Actual Negative</strong></td>
+<td>FP</td>
+<td>TN</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="data-wrangling-steps" class="slide level2">
-<h2>Data Wrangling Steps</h2>
+<section id="accuracy" class="slide level2">
+<h2>Accuracy</h2>
+<p><span class="math display">\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}</span></p>
+</section>
+<section id="precision-recall-f1" class="slide level2">
+<h2>Precision / Recall / F1</h2>
+<p><span class="math display">Precision = \frac{TP}{TP + FP}</span> <span class="math display">Recall (Sensitivity) = \frac{TP}{TP + FN}</span> <span class="math display">F1 score = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}</span></p>
+</section>
+<section id="roc-curve-auc" class="slide level2">
+<h2>ROC Curve &amp; AUC</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li>Iterative process</li>
-<li>Understand</li>
-<li>Explore</li>
-<li>Transform</li>
-<li>Augment</li>
-<li>Visualize</li>
+<li><strong>ROC</strong> plots True Positive Rate vs False Positive Rate.</li>
+<li><strong>AUC</strong> is area under the curve: a summary of separability.</li>
 </ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="../assets/Roc_curve.png"></p>
+</div></div>
 </section>
-<section id="scales-of-measurement" class="slide level2 scrollable">
-<h2>Scales of Measurement<sup>1</sup></h2>
+<section id="crossvalidation-kfold-cv-loo" class="slide level2">
+<h2>Cross‑Validation: k‑fold CV, LOO</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score, LeaveOneOut</span>
+<span id="cb1-2"><a></a>scores <span class="op">=</span> cross_val_score(model, X, y, cv<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb1-3"><a></a>loo_scores <span class="op">=</span> cross_val_score(model, X, y, cv<span class="op">=</span>LeaveOneOut())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="stratified-kfold-cv" class="slide level2">
+<h2>Stratified k‑fold CV</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> StratifiedKFold</span>
+<span id="cb2-2"><a></a>skf <span class="op">=</span> StratifiedKFold(n_splits<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb2-3"><a></a><span class="cf">for</span> train_idx, val_idx <span class="kw">in</span> skf.split(X, y):</span>
+<span id="cb2-4"><a></a>    <span class="co"># use the indices to split</span></span>
+<span id="cb2-5"><a></a>    <span class="cf">pass</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="what-are-hyperparameters" class="slide level2">
+<h2>What Are Hyperparameters?</h2>
 <ul>
-<li>Quantitative (Interval and Ratio)</li>
-<li>Ordinal</li>
-<li>Nominal</li>
+<li><strong>Parameters</strong> are learned from training data (weights, coefficients).</li>
+<li><strong>Hyperparameters</strong> are set before training (e.g.&nbsp;regularization strength, number of trees).</li>
+<li>They control model complexity, learning rate, and other behaviors.</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>S. S. Stevens, Science, New Series, Vol. 103, No.&nbsp;2684 (Jun.&nbsp;7, 1946), pp.&nbsp;677-680</p></li></ol></aside></section>
-<section id="the-basic-exploratory-data-analysis-eda-workflow" class="slide level2 scrollable">
-<h2>The basic Exploratory Data Analysis (EDA) workflow</h2>
-<ol type="1">
-<li>Import data into a DataFrame</li>
-<li>Tidy the DataFrame
-<ul>
-<li>Each row describes a single object</li>
-<li>Each column describes a property of that object</li>
-<li>Columns are numeric whenever appropriate</li>
-<li>Columns contain atomic properties that cannot be further decomposed</li>
-</ul></li>
-<li>Data Cleansing: Missing values, Format, Measurement Units, Outliers, Data Errors Per Domain</li>
-<li>Explore global properties. Use histograms, scatter plots, and aggregation functions to summarize the data.</li>
-<li>Explore group properties. Use groupby, queries, and small multiples to compare subsets of the data.</li>
-</ol>
+<p>Example: in <code>SVC(C=1.0, kernel='rbf')</code>, <code>C</code> and <code>kernel</code> are hyperparameters; the support vectors are parameters.</p>
+<p>Once set, the model is trained with those hyperparameters using data.</p>
 </section>
-<section id="grammar-of-data" class="slide level2">
-<h2>Grammar of Data</h2>
-<ul>
-<li>SQL, Pandas, formalized in dplyr4</li>
-<li>provide simple verbs for simple things. These are functions corresponding to common data manipulation tasks.</li>
-<li>second idea is that backend does not matter, multiple backends implemented in Pandas, Spark, Impala, Pig, dplyr, ibis, blaze</li>
-</ul>
-</section>
-<section id="grammar-of-data-1" class="slide level2">
-<h2>Grammar of Data</h2>
-<p>Why bother? - learn how to do core data manipulations, no matter what the system is. - databases critical for non-memory fits.</p>
-</section>
-<section id="grammar-of-data-cleaning-and-transforma1on" class="slide level2">
-<h2>Grammar of Data: cleaning and transforma1on</h2>
+<section id="example-hyperparameters" class="slide level2">
+<h2>Example hyperparameters</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 25%">
-<col style="width: 24%">
-<col style="width: 27%">
+<col style="width: 32%">
+<col style="width: 67%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>VERB</th>
-<th>dplyr</th>
-<th>pandas</th>
-<th>SQL</th>
+<th>Model</th>
+<th>Typical hyperparameters</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>QUERY/SELECTION</td>
-<td>filter() (and slice())</td>
-<td>query() (and loc[], iloc[])</td>
-<td>SELECT WHERE</td>
+<td>SVM (SVC)</td>
+<td><code>C</code>, <code>kernel</code>, <code>gamma</code></td>
 </tr>
 <tr class="even">
-<td>SORT</td>
-<td>arrange()</td>
-<td>sort()</td>
-<td>ORDER BY</td>
+<td>RandomForestClassifier</td>
+<td><code>n_estimators</code>, <code>max_depth</code>, <code>min_samples_split</code></td>
 </tr>
 <tr class="odd">
-<td>SELECT-COLUMNS/PROJECTION</td>
-<td>select() (and rename())</td>
-<td>(and rename())</td>
-<td>SELECT COLUMN</td>
+<td>KNeighborsClassifier</td>
+<td><code>n_neighbors</code>, <code>weights</code>, <code>p</code></td>
 </tr>
 <tr class="even">
-<td>SELECT-DISTINCT</td>
-<td>distinct()</td>
-<td>unique(),drop_duplicates()</td>
-<td>SELECT DISTINCT COLUMN</td>
-</tr>
-<tr class="odd">
-<td>ASSIGN</td>
-<td>mutate() (and transmute())</td>
-<td>assign</td>
-<td>ALTER/UPDATE</td>
-</tr>
-<tr class="even">
-<td>AGGREGATE</td>
-<td>summarise()</td>
-<td>describe(), mean(), max()</td>
-<td>None, AVG(),MAX()</td>
-</tr>
-<tr class="odd">
-<td>SAMPLE</td>
-<td>sample_n() and sample_frac()</td>
-<td>sample()</td>
-<td>implementation dep, use RAND()</td>
-</tr>
-<tr class="even">
-<td>GROUP-AGG</td>
-<td>group_by/summarize</td>
-<td>groupby/agg, count, mean</td>
-<td>GROUP BY</td>
-</tr>
-<tr class="odd">
-<td>DELETE</td>
-<td>?</td>
-<td>drop/masking</td>
-<td>DELETE/WHERE</td>
+<td>LogisticRegression</td>
+<td><code>C</code>, <code>penalty</code>, <code>solver</code></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="data-processing" class="slide level2">
-<h2>Data processing</h2>
+<section id="hyperparameter-tuning-common-algorithms" class="slide level2">
+<h2>Hyperparameter Tuning &amp; Common Algorithms</h2>
+<p>Hyperparameters are settings that cannot be learned from data; tuning them can dramatically improve performance.</p>
 <ul>
-<li>OLTP: Online Transaction Processing</li>
-<li>OLAP: Online Analytic Processing</li>
-<li>RTAP: Real-Time Analytic Processing</li>
+<li><strong>Grid search</strong>: exhaustive search over a predefined grid (see next slide for code).</li>
+<li><strong>Randomized search</strong>: sample a fixed number of parameter settings from distributions.</li>
+<li><strong>Bayesian optimization</strong> (libraries like <code>scikit-optimize</code>, <code>optuna</code>): smarter exploration.</li>
 </ul>
+</section>
+<section id="grid-search" class="slide level2">
+<h2>Grid Search</h2>
+<p>Grid search exhaustively explores a specified parameter grid. Each combination is evaluated using cross‑validation, and the best set is selected based on a scoring metric.</p>
+<p>Key points:</p>
+<ul>
+<li>Define a parameter grid as dict of lists.</li>
+<li>Use <code>GridSearchCV</code> to wrap an estimator.</li>
+<li>It runs <code>fit</code> repeatedly on CV folds, so computational cost grows with grid size.</li>
+<li>For large spaces, consider <code>RandomizedSearchCV</code> or Bayesian optimization.</li>
+</ul>
+</section>
+<section id="example-breast-cancer-dataset" class="slide level2">
+<h2>Example: Breast Cancer Dataset</h2>
+<p>We’ll use scikit-learn’s built-in <em>breast cancer</em> toy dataset to illustrate model selection.</p>
+</section>
+<section id="grid-search-with-crossvalidation" class="slide level2">
+<h2>Grid Search with Cross‑Validation</h2>
+<div id="f6286c25" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>param_grid <span class="op">=</span> {</span>
+<span id="cb3-2"><a></a>    <span class="st">'C'</span>: [<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>],</span>
+<span id="cb3-3"><a></a>    <span class="st">'kernel'</span>: [<span class="st">'linear'</span>, <span class="st">'rbf'</span>],</span>
+<span id="cb3-4"><a></a>    <span class="st">'gamma'</span>: [<span class="st">'scale'</span>, <span class="st">'auto'</span>]</span>
+<span id="cb3-5"><a></a>}</span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a>svc <span class="op">=</span> SVC()</span>
+<span id="cb3-8"><a></a>grid <span class="op">=</span> GridSearchCV(svc, param_grid, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
+<span id="cb3-9"><a></a>grid.fit(X_train, y_train)</span>
+<span id="cb3-10"><a></a><span class="bu">print</span>(<span class="st">'Best params:'</span>, grid.best_params_)</span>
+<span id="cb3-11"><a></a><span class="bu">print</span>(<span class="st">'Best CV score:'</span>, grid.best_score_)</span>
+<span id="cb3-12"><a></a></span>
+<span id="cb3-13"><a></a>best_model <span class="op">=</span> grid.best_estimator_</span>
+<span id="cb3-14"><a></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
+<span id="cb3-15"><a></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best params: {'C': 1, 'gamma': 'scale', 'kernel': 'linear'}
+Best CV score: 0.956043956043956
+              precision    recall  f1-score   support
+
+           0       0.97      0.91      0.94        43
+           1       0.95      0.99      0.97        71
+
+    accuracy                           0.96       114
+   macro avg       0.96      0.95      0.95       114
+weighted avg       0.96      0.96      0.96       114
+</code></pre>
+</div>
+</div>
+<ul>
+<li>The grid search tries combinations of hyperparameters and evaluates with 5‑fold CV.</li>
+<li>Best model is then tested on the held‑out test set for an unbiased estimate.</li>
+</ul>
+</section>
+<section id="comparison-multiple-algorithms" class="slide level2">
+<h2>Comparison: Multiple Algorithms</h2>
+<div id="b55b3cd9" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>models <span class="op">=</span> [</span>
+<span id="cb5-2"><a></a>    (<span class="st">'svc'</span>, SVC()),</span>
+<span id="cb5-3"><a></a>    (<span class="st">'dt'</span>, DecisionTreeClassifier()),</span>
+<span id="cb5-4"><a></a>    (<span class="st">'rf'</span>, RandomForestClassifier())</span>
+<span id="cb5-5"><a></a>]</span>
+<span id="cb5-6"><a></a></span>
+<span id="cb5-7"><a></a><span class="cf">for</span> name, model <span class="kw">in</span> models:</span>
+<span id="cb5-8"><a></a>    grid <span class="op">=</span> GridSearchCV(model, {}, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
+<span id="cb5-9"><a></a>    grid.fit(X_train, y_train)</span>
+<span id="cb5-10"><a></a>    <span class="bu">print</span>(name, <span class="st">'CV acc'</span>, grid.best_score_)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>svc CV acc 0.9032967032967033
+dt CV acc 0.9252747252747252
+rf CV acc 0.9582417582417582</code></pre>
+</div>
+</div>
+<ul>
+<li>Here we compare SVM, decision tree, and random forest using default settings.</li>
+<li>The model with highest cross‑validation accuracy is preferred, but hyperparameter tuning is often necessary.</li>
+</ul>
+</section>
+<section id="accuracy-1" class="slide level2">
+<h2>Accuracy</h2>
+<div id="7cd8c5d7" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb7-2"><a></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb7-3"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test accuracy 0.956140350877193</code></pre>
+</div>
+</div>
+</section>
+<section id="precision-recall-f1-1" class="slide level2">
+<h2>Precision / Recall / F1</h2>
+<div id="fc7489b5" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score, f1_score</span>
+<span id="cb9-2"><a></a><span class="bu">print</span>(<span class="st">'Precision'</span>, precision_score(y_test, y_pred))</span>
+<span id="cb9-3"><a></a><span class="bu">print</span>(<span class="st">'Recall'</span>, recall_score(y_test, y_pred))</span>
+<span id="cb9-4"><a></a><span class="bu">print</span>(<span class="st">'F1'</span>, f1_score(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Precision 0.9459459459459459
+Recall 0.9859154929577465
+F1 0.9655172413793104</code></pre>
+</div>
+</div>
+</section>
+<section id="confusion-matrix-1" class="slide level2">
+<h2>Confusion Matrix</h2>
+<div id="e34cb97f" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb11-2"><a></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[39  4]
+ [ 1 70]]</code></pre>
+</div>
+</div>
+</section>
+<section id="roc-curve-auc-calculation" class="slide level2">
+<h2>ROC Curve &amp; AUC calculation</h2>
+<div id="ec84c268" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb13-2"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, roc_curve, accuracy_score</span>
+<span id="cb13-3"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-4"><a></a></span>
+<span id="cb13-5"><a></a><span class="co"># train a simple classifier (could be result of grid search)</span></span>
+<span id="cb13-6"><a></a>model <span class="op">=</span> SVC(probability<span class="op">=</span><span class="va">True</span>, kernel<span class="op">=</span><span class="st">'rbf'</span>, C<span class="op">=</span><span class="fl">1.0</span>).fit(X_train, y_train)</span>
+<span id="cb13-7"><a></a>y_pred <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb13-8"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy_score(y_test, y_pred))</span>
+<span id="cb13-9"><a></a></span>
+<span id="cb13-10"><a></a>proba <span class="op">=</span> model.predict_proba(X_test)[:,<span class="dv">1</span>]</span>
+<span id="cb13-11"><a></a><span class="bu">print</span>(<span class="st">'ROC AUC'</span>, roc_auc_score(y_test, proba))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test accuracy 0.9473684210526315
+ROC AUC 0.9934490664919751</code></pre>
+</div>
+</div>
+</section>
+<section id="roc-curve-plotting" class="slide level2">
+<h2>ROC Curve plotting</h2>
+<div id="11502ada" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a><span class="co"># compute ROC curve</span></span>
+<span id="cb15-2"><a></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_test, proba)</span>
+<span id="cb15-3"><a></a>plt.figure()</span>
+<span id="cb15-4"><a></a>plt.plot(fpr, tpr, label<span class="op">=</span><span class="ss">f'AUC = </span><span class="sc">{</span>roc_auc_score(y_test, proba)<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb15-5"><a></a>plt.plot([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], <span class="st">'k--'</span>, label<span class="op">=</span><span class="st">'random'</span>)</span>
+<span id="cb15-6"><a></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
+<span id="cb15-7"><a></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
+<span id="cb15-8"><a></a>plt.title(<span class="st">'ROC Curve'</span>)</span>
+<span id="cb15-9"><a></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb15-10"><a></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="slide_files/figure-revealjs/cell-11-output-1.png" width="812" height="449"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section></section>
-
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/dept_fac-logo.png" class="slide-logo"></p>

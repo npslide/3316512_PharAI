@@ -1,0 +1,692 @@
+---
+title: "6. Basics of Deep Learning"
+subtitle: "3316512 Pharmaceutical AI"
+author: Natapol Pornputtapong, PhD
+institute: Chulalongkorn University
+date: today # today | last-modified
+date-format: "DD MMM YYYY" # see https://momentjs.com/docs/#/displaying/format/
+pdf-engine: xelatex
+format:
+    rxquarto-revealjs:
+        self-contained: false # set to true to produce a single HTML file
+        transition: none # none | fade | slide | convex | concave | zoom
+        background-transition: none
+        scrollable: false
+        mermaid:
+            theme: forest
+---
+
+## What is Deep Learning?
+
+- A subset of Machine Learning based on Artificial Neural Networks.
+- **"Deep"** refers to the number of layers in the network.
+- Mimics the way the human brain processes information (to some extent).
+- Capable of learning representation directly from raw data (feature engineering is automated).
+
+## The Basic Unit: The Perceptron
+
+- Proposed by Frank Rosenblatt in 1958.
+- The fundamental building block of neural networks.
+
+
+## The Perceptron structure
+$$y = f(\sum_{i=1}^{n} weight_i \cdot input_i + bias)$$
+
+```{dot}
+//| fig-height: 400px
+digraph G {
+    rankdir=LR;
+    node [shape=circle, label=""];
+    
+    x1 [label="x1"];
+    x2 [label="x2"];
+    xn [label="xn"];
+    bias [label="bias b", shape=none];
+    
+    sum [label="Σ", shape=circle, width=0.6];
+    act [label="f(z)", shape=box, style=filled, color=lightblue];
+    out [label="y", shape=none];
+    
+    x1 -> sum [label="w1"];
+    x2 -> sum [label="w2"];
+    xn -> sum [label="wn"];
+    bias -> sum;
+    sum -> act;
+    act -> out;
+}
+```
+
+## Why Activation Functions?
+
+- **Non-linearity:** Without them, a multi-layer neural network would behave like a single-layer linear model.
+- **Complexity:** Allow the network to approximate any continuous function (Universal Approximation Theorem).
+- **Differentiability:** Crucial for backpropagation and weight updates.
+
+## Sigmoid Activation
+
+::: columns
+::: {.column width="50%"}
+- **Formula:** $\sigma(z) = \frac{1}{1 + e^{-z}}$
+- **Domain:** $(-\infty, \infty)$
+- **Range:** $(0, 1)$
+- **Pros:** Good for binary classification output.
+- **Cons:** Vanishing gradient problem, output not zero-centered.
+:::
+
+::: {.column width="50%"}
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+z = np.linspace(-10, 10, 100)
+sigma = 1 / (1 + np.exp(-z))
+
+plt.figure(figsize=(5, 3))
+plt.plot(z, sigma, 'b-')
+plt.title('Sigmoid Function')
+plt.grid(True)
+plt.show()
+```
+:::
+:::
+
+## Hyperbolic Tangent (Tanh)
+
+::: columns
+::: {.column width="50%"}
+- **Formula:** $\tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$
+- **Domain:** $(-\infty, \infty)$
+- **Range:** $(-1, 1)$
+- **Pros:** Zero-centered, generally better than Sigmoid for hidden layers.
+- **Cons:** Still prone to vanishing gradients.
+:::
+
+::: {.column width="50%"}
+```{python}
+z = np.linspace(-10, 10, 100)
+tanh = np.tanh(z)
+
+plt.figure(figsize=(5, 3))
+plt.plot(z, tanh, 'r-')
+plt.title('Tanh Function')
+plt.grid(True)
+plt.show()
+```
+:::
+:::
+
+## Rectified Linear Unit (ReLU)
+
+::: columns
+::: {.column width="50%"}
+- **Formula:** $f(z) = \max(0, z)$
+- **Domain:** $(-\infty, \infty)$
+- **Range:** $[0, \infty)$
+- **Pros:** Computationally efficient, reduces vanishing gradients.
+- **Cons:** "Dying ReLU" problem (neurons can get stuck at zero output).
+:::
+
+::: {.column width="50%"}
+```{python}
+z = np.linspace(-10, 10, 100)
+relu = np.maximum(0, z)
+
+plt.figure(figsize=(5, 3))
+plt.plot(z, relu, 'g-')
+plt.title('ReLU Function')
+plt.grid(True)
+plt.show()
+```
+:::
+:::
+
+## Leaky ReLU
+
+::: columns
+::: {.column width="50%"}
+- **Formula:** $f(z) = \max(\alpha z, z)$, where $\alpha$ is small (e.g., 0.01).
+- **Domain:** $(-\infty, \infty)$
+- **Range:** $(-\infty, \infty)$
+- **Pros:** Fixes "Dying ReLU" by allowing a small gradient for $z < 0$.
+:::
+
+::: {.column width="50%"}
+```{python}
+z = np.linspace(-10, 10, 100)
+l_relu = np.where(z > 0, z, 0.1 * z)
+
+plt.figure(figsize=(5, 3))
+plt.plot(z, l_relu, 'm-')
+plt.title('Leaky ReLU (α=0.1)')
+plt.grid(True)
+plt.show()
+```
+:::
+:::
+
+## Softmax Function
+
+- **Formula:** $\text{Softmax}(z_i) = \frac{e^{z_i}}{\sum_{j} e^{z_j}}$
+- **Purpose:** Converts a vector of scores (logits) into a probability distribution.
+- **Properties:**
+    - Output values are in $[0, 1]$.
+    - Sum of all output values is exactly $1$.
+- **Usage:** Typically used in the output layer for multi-class classification.
+
+## Multi-Layer Perceptron (MLP)
+
+- Consists of an input layer, one or more **hidden layers**, and an output layer.
+- Each layer is a collection of neurons.
+
+```{dot}
+//| fig-height: 400px
+digraph G {
+    rankdir=LR;
+    splines=line;
+    node [shape=circle, label="", width=0.4, height=0.4];
+
+    subgraph cluster_input {
+        label="Input Layer";
+        color=lightgrey;
+        style=filled;
+        i1; i2; i3;
+    }
+
+    subgraph cluster_h1 {
+        label="Hidden Layer 1";
+        color=lightblue;
+        style=filled;
+        h1_1; h1_2; h1_3; h1_4;
+    }
+
+    subgraph cluster_h2 {
+        label="Hidden Layer 2";
+        color=lightblue;
+        style=filled;
+        h2_1; h2_2; h2_3; h2_4;
+    }
+
+    subgraph cluster_h3 {
+        label="Hidden Layer 3";
+        color=lightblue;
+        style=filled;
+        h3_1; h3_2; h3_3; h3_4;
+    }
+
+    subgraph cluster_output {
+        label="Output Layer";
+        color=lightcoral;
+        style=filled;
+        o1;
+    }
+
+    {i1 i2 i3} -> {h1_1 h1_2 h1_3 h1_4};
+    {h1_1 h1_2 h1_3 h1_4} -> {h2_1 h2_2 h2_3 h2_4};
+    {h2_1 h2_2 h2_3 h2_4} -> {h3_1 h3_2 h3_3 h3_4};
+    {h3_1 h3_2 h3_3 h3_4} -> o1;
+}
+```
+
+## Phase 1: Feedforward (Forward Pass)
+
+- Data flows from the **Input layer** through **Hidden layers** to the **Output layer**.
+- At each neuron:
+  1. Compute the weighted sum of inputs: $z = \sum w_i x_i + b$
+  2. Apply an activation function: $a = f(z)$
+- The final result is the model's **Prediction**.
+
+```{dot}
+//| fig-height: 200px
+digraph Feedforward {
+    rankdir=LR;
+    node [shape=circle, style=filled, color=lightblue];
+    Input -> Hidden -> Output [label="Data Flow", color=blue, fontcolor=blue, penwidth=2];
+}
+```
+
+## Phase 2: Backpropagation
+
+- The core mechanism for neural network learning.
+- **The Process:**
+  1. Calculate the **Loss** (error) at the output layer.
+  2. Calculate the **Gradient** of the loss with respect to each weight using the **Chain Rule**.
+  3. Gradients flow **backward** from output to input layers.
+
+```{dot}
+//| fig-height: 200px
+digraph Backprop {
+    rankdir=RL;
+    node [shape=circle, style=filled, color=lightcoral];
+    Output -> Hidden -> Input [label="Gradient Flow", color=red, fontcolor=red, penwidth=2];
+}
+```
+
+## What is a Loss Function?
+
+- **Definition:** A mathematical function that quantifies the difference between the model's prediction and the actual target.
+- **The Optimization Goal:** To find the weights that minimize this loss value.
+- **Loss vs. Cost:** 
+  - **Loss:** Error for a single data point.
+  - **Cost:** Average loss over the entire dataset.
+
+## Regression: Mean Squared Error (MSE)
+
+::: columns
+::: {.column width="50%"}
+- **Formula:** $L = \frac{1}{n} \sum (y_{true} - y_{pred})^2$
+- **Pros:** Penalizes large errors heavily (due to squaring).
+- **Cons:** Sensitive to outliers.
+- **Usage:** Standard choice for regression tasks.
+:::
+
+::: {.column width="50%"}
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+y_true = 0
+y_pred = np.linspace(-3, 3, 100)
+mse = (y_true - y_pred)**2
+
+plt.figure(figsize=(5, 3))
+plt.plot(y_pred, mse, 'b-')
+plt.title('Mean Squared Error (MSE)')
+plt.xlabel('Prediction Error')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.show()
+```
+:::
+:::
+
+## Regression: Mean Absolute Error (MAE)
+
+::: columns
+::: {.column width="50%"}
+- **Formula:** $L = \frac{1}{n} \sum |y_{true} - y_{pred}|$
+- **Pros:** More robust to outliers than MSE.
+- **Cons:** Gradient is constant, which can make it harder for the model to converge near the minimum.
+:::
+
+::: {.column width="50%"}
+```{python}
+mae = np.abs(y_true - y_pred)
+
+plt.figure(figsize=(5, 3))
+plt.plot(y_pred, mae, 'r-')
+plt.title('Mean Absolute Error (MAE)')
+plt.xlabel('Prediction Error')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.show()
+```
+:::
+:::
+
+## Binary Classification: Log Loss
+
+- Also known as **Binary Cross-Entropy**.
+- **Formula:** $L = - \frac{1}{n} \sum [y \log(\hat{y}) + (1-y) \log(1-\hat{y})]$
+- **Usage:** Used when the output is a probability (Sigmoid activation).
+
+```{python}
+y_true_binary = 1
+y_pred_prob = np.linspace(0.01, 0.99, 100)
+log_loss = -(y_true_binary * np.log(y_pred_prob) + (1 - y_true_binary) * np.log(1 - y_pred_prob))
+
+plt.figure(figsize=(6, 3))
+plt.plot(y_pred_prob, log_loss, 'g-')
+plt.title('Binary Cross-Entropy (Target = 1)')
+plt.xlabel('Predicted Probability')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.show()
+```
+
+## Multi-Class Classification
+
+- **Categorical Cross-Entropy:**
+  - $L = - \sum_{i=1}^{C} y_i \log(\hat{y}_i)$
+  - Used with **Softmax** activation in the output layer.
+- **Sparse Categorical Cross-Entropy:**
+  - Same formula as above, but targets are integers (e.g., 0, 1, 2) instead of one-hot encoded vectors.
+
+## Optimization: The Goal
+
+- **Goal:** Minimize the Loss Function $L(W)$ by adjusting weights $W$.
+- **Analogy:** Descending a mountain in thick fog. You can only feel the slope (gradient) under your feet and must decide which way to step.
+
+## Optimization landscape
+
+**The Landscape:** The loss function creates a "surface" or "landscape" where valleys represent low loss (good models) and peaks represent high loss.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Generate a mostly flat landscape with specific minima
+x = np.linspace(-4, 4, 100)
+y = np.linspace(-4, 4, 100)
+X, Y = np.meshgrid(x, y)
+
+# Base surface: very shallow bowl
+Z = 0.02 * (X**2 + Y**2)
+
+# Define minima (x, y, depth, width)
+minima = [
+    (0, 0, 1.5, 0.5),    # Global Minimum
+    (2, 2, 0.6, 0.3),    # Local 1
+    (-2, 2, 0.5, 0.3),   # Local 2
+    (0, -2.5, 0.7, 0.4)  # Local 3
+]
+
+for mx, my, depth, width in minima:
+    Z -= depth * np.exp(-((X - mx)**2 + (Y - my)**2) / width)
+
+fig = plt.figure(figsize=(6, 5))
+ax = fig.add_subplot(111, projection='3d')
+ax.view_init(elev=30, azim=45)
+surf = ax.plot_surface(X, Y, Z, cmap='viridis', alpha=0.8, antialiased=True)
+
+ax.set_title('One Global and Three Local Minima')
+ax.set_xlabel('w1')
+ax.set_ylabel('w2')
+ax.set_zlabel('Loss')
+plt.show()
+```
+
+## Gradient Descent
+
+- The core optimization algorithm.
+- **Update Rule:** $w_{t+1} = w_t - \eta \cdot \nabla L(w_t)$
+- **Components:**
+  - $w_t$: Current weights.
+  - $\eta$ (eta): **Learning Rate** (step size).
+  - $\nabla L(w_t)$: **Gradient** (direction of steepest increase).
+
+## The Importance of Learning Rate ($\eta$)
+
+::: columns
+::: {.column width="50%"}
+- **Too Small:** Convergence is very slow; might get stuck in local minima.
+- **Too Large:** May overshoot the minimum and oscillate or diverge.
+- **Optimal:** Finds the bottom efficiently.
+:::
+
+::: {.column width="50%"}
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x): return x**2
+def df(x): return 2*x
+
+x = np.linspace(-5, 5, 100)
+plt.figure(figsize=(5, 4))
+plt.plot(x, f(x), 'k-')
+
+# Simulating a "too large" learning rate
+x_path = [4, -4.5, 3.8, -3.2]
+plt.plot(x_path, [f(xi) for xi in x_path], 'ro--')
+plt.title('Effect of Large Learning Rate (Overshooting)')
+plt.show()
+```
+:::
+:::
+
+## Gradient Descent Variants
+
+::: {.r-fit-text}
+
+1.  **Batch Gradient Descent:** 
+Uses the **entire dataset** to compute one gradient update.
+    - *Pros:* Stable convergence.
+    - *Cons:* Very slow for large data.
+2.  **Stochastic Gradient Descent (SGD):** 
+Uses **one random sample** per update.
+    - *Pros:* Fast, can escape local minima.
+    - *Cons:* High variance in updates (noisy).
+3.  **Mini-batch Gradient Descent:** 
+Uses a **small subset** (e.g., 32, 64 samples).
+    - *Best of both worlds:* Standard practice in Deep Learning.
+:::
+
+## Beyond Basic SGD: Modern Optimizers
+
+- **Momentum:** Adds a fraction of the previous update to the current one (helps "roll over" small hills).
+- **RMSprop:** Adapts the learning rate for each parameter individually based on recent gradients.
+- **Adam (Adaptive Moment Estimation):**
+  - Combines Momentum and RMSprop.
+  - **The "Gold Standard"** for most deep learning tasks.
+  - Fast, robust, and requires little tuning.
+
+## The Vanishing/Exploding Gradient Problem
+
+- During backpropagation, gradients can become extremely small (vanishing) or extremely large (exploding).
+- **Vanishing:** Network stops learning.
+- **Exploding:** Network becomes unstable.
+- Solutions: ReLU activation, Batch Normalization, Weight Initialization techniques (He, Xavier).
+
+## Fully Connected (FC) Layer
+
+- Also known as a **Dense** or **Linear** layer.
+- **The Definition:** Every neuron in the input layer is connected to every neuron in the output layer.
+- Each connection has an associated **Weight** ($w_{ij}$).
+- The layer learns to weight features according to their importance.
+
+## FC Layer: The Math
+
+:::: {.columns}
+::: {.column width="50%"}
+- **The Operation:** $Y = f(W \cdot X + b)$
+  - $X$: Input vector
+  - $W$: Weight matrix
+  - $b$: Bias vector
+  - $f$: Activation function
+- **Flattening:** Before inputting multi-dimensional data (like an image) into an FC layer, it must be "flattened" into a 1D vector.
+:::
+::: {.column width="50%}
+```{dot}
+//| fig-width: 500px
+digraph FC {
+    rankdir=LR;
+    node [shape=circle, style=filled, color=lightblue, label=""];
+    
+    subgraph cluster_input {
+        label="Input Vector (X)";
+        color=grey;
+        x1; x2; x3;
+    }
+    
+    subgraph cluster_output {
+        label="Output Vector (Y)";
+        color=lightcoral;
+        y1; y2;
+    }
+    
+    x1 -> {y1 y2};
+    x2 -> {y1 y2};
+    x3 -> {y1 y2};
+}
+```
+:::
+::::
+
+## Convolutional Neural Networks (CNN)
+
+- **Specialty:** Grid-like data (Images, Video).
+- **Key Idea:** Uses **Convolutional filters** to learn spatial hierarchies of features.
+- **Components:** Convolutional layers, Pooling layers (dimensionality reduction), Flattening, and Dense layers.
+
+```{dot}
+//| fig-height: 250px
+digraph CNN {
+    rankdir=LR;
+    node [shape=box, style=filled, color=lightblue];
+    
+    Input [label="Input Image", shape=note, color=lightgrey];
+    Conv [label="Conv + ReLU"];
+    Pool [label="Max Pooling"];
+    Conv2 [label="Conv + ReLU"];
+    Pool2 [label="Max Pooling"];
+    Flatten [label="Flatten"];
+    FC [label="Fully Connected"];
+    Output [label="Class Probability", shape=diamond, color=lightcoral];
+
+    Input -> Conv -> Pool -> Conv2 -> Pool2 -> Flatten -> FC -> Output;
+}
+```
+
+## Recurrent Neural Networks (RNN & LSTM)
+
+- **Specialty:** Sequential data (Time-series, Speech, Text).
+- **Key Idea:** Maintains a **hidden state** (memory) that flows from one time step to the next.
+- **LSTM (Long Short-Term Memory):** Uses "gates" to decide what to remember or forget, solving the vanishing gradient problem in long sequences.
+
+
+## Transformers (Attention mechanism)
+
+:::: {.columns}
+::: {.column width="40%"}
+- **Specialty:** Natural Language Processing (LLMs like GPT, BERT).
+- **Key Idea:** **Self-Attention** allows the model to focus on relevant parts of the input sequence regardless of distance.
+- **Benefit:** Highly parallelizable compared to RNNs.
+:::
+::: {.column width="60%"}
+```{dot}
+//| fig-width: 400px
+
+digraph G {
+    rankdir=TB;
+    node [shape=box, style=filled, color=lightblue];
+    
+    Input [label="Input Sequence", color=lightgrey];
+    PE [label="Positional Encoding"];
+    Attn [label="Multi-Head Self-Attention", fillcolor=gold];
+    AddNorm1 [label="Add & Norm"];
+    FF [label="Feed Forward Network"];
+    AddNorm2 [label="Add & Norm"];
+    Output [label="Output Representation", color=lightcoral];
+
+    Input -> PE -> Attn;
+    Attn -> AddNorm1;
+    PE -> AddNorm1 [style=dashed, label="Residual"];
+    AddNorm1 -> FF -> AddNorm2;
+    AddNorm1 -> AddNorm2 [style=dashed, label="Residual"];
+    AddNorm2 -> Output;
+}
+```
+:::
+::::
+
+## Graph Neural Networks (GNN)
+
+:::: {.columns}
+::: {.column width="40%"}
+- **Specialty:** Non-Euclidean data (Molecules, Social Networks).
+- **Key Idea:** Learns embeddings by **passing messages** between neighboring nodes in a graph.
+- **Application:** Predicting molecular properties in drug discovery.
+:::
+::: {.column width="60%"}
+```{dot}
+//| fig-height: 250px
+digraph GNN {
+    node [shape=circle, style=filled, color=lightblue, label=""];
+    
+    subgraph cluster_msg {
+        label="Message Passing & Aggregation";
+        color=grey;
+        A; B; C; D;
+        A -> B [label="msg", style=dashed];
+        C -> B [label="msg", style=dashed];
+        B [fillcolor=gold, label="Update"];
+    }
+    
+    A -> C;
+    C -> D;
+    A -> B;
+    B -> C;
+}
+```
+:::
+::::
+
+## Deep Learning with PyTorch: Model Setup
+
+- **PyTorch** is a popular framework for deep learning.
+- It uses a "modular" approach to build neural networks.
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# 1. Define the Model
+model = nn.Sequential(
+    nn.Linear(input_size, hidden_size),  # FC Layer
+    nn.ReLU(),                           # Activation
+    nn.Linear(hidden_size, output_size), # FC Layer
+    nn.Sigmoid()                         # Output Activation
+)
+```
+
+## Deep Learning with PyTorch: Loss and Optimizer
+
+```python
+# 2. Define Loss and Optimizer
+criterion = nn.BCELoss()                 # Binary Cross-Entropy
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+```
+
+## Deep Learning with PyTorch: Training Loop
+
+- The standard training process involves these 4 steps in every iteration (epoch).
+
+```python
+for epoch in range(num_epochs):
+    # 1. Forward Pass: Get predictions
+    outputs = model(inputs)
+    loss = criterion(outputs, targets)
+    
+    # 2. Backward Pass: Compute gradients
+    optimizer.zero_grad() # Reset old gradients
+    loss.backward()       # Backpropagation
+    
+    # 3. Update Weights: Move weights toward the minimum
+    optimizer.step()      # Optimization step
+    
+    print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+```
+
+## ML Debugging: Start Simple & Sanity Checks
+
+- **Start with a Simple Model:** Use an interpretable model (e.g., Logistic Regression) to establish a performance floor.
+- **Baselines:** Compare against:
+    - **Random/Constant:** Most frequent class.
+    - **Simple Heuristics:** Basic "if-then" rules.
+    - **Human Baseline:** Domain expert performance.
+- **Sanity Check: Overfit a Single Batch.**
+    - If your model cannot achieve near-zero loss on 10–50 examples, there is a bug in the code or architecture.
+
+## Data-Centric Debugging
+
+- **Data Leakage:** Ensure "future" features aren't used for training (e.g., total spend to predict first purchase). Use **Time-based splits**.
+- **Slice-based Evaluation:**
+    - Aggregate metrics (e.g., 95% accuracy) can hide failures on critical sub-populations.
+    - Evaluate performance on specific slices (e.g., gender, age group, or device type).
+- **Unit Tests for Data:** Verify data invariants (e.g., `age > 0`, `IDs are unique`).
+
+## Post-Deployment: Distribution Shift
+
+Debugging continues after the model is live. Monitor for:
+
+1.  **Data Drift:** The distribution of input features ($P(X)$) changes over time.
+2.  **Concept Drift:** The relationship between features and labels ($P(Y|X)$) changes (e.g., consumer behavior changes).
+3.  **Prediction Drift:** The model's output distribution shifts from what was seen during training.
+
+::: {.callout-tip}
+### Pro-Tip
+Use **Interpretability Tools** (SHAP, LIME) to see if the model is looking at "noise" features or actual signals.
+:::
+

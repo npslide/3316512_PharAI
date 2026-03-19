@@ -1,5 +1,215 @@
 [
   {
+    "objectID": "materials/lect07-ethics/slide3.html#defining-ai-in-regulated-healthcare",
+    "href": "materials/lect07-ethics/slide3.html#defining-ai-in-regulated-healthcare",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Defining AI in Regulated Healthcare",
+    "text": "Defining AI in Regulated Healthcare\n\nArtificial Intelligence (AI): Systems capable of performing tasks requiring human-like intelligence, such as learning, reasoning, and pattern recognition.\nGxP Context: In pharmacy and medical devices, AI is defined as algorithms integrated into tools that learn from data to perform automated tasks without explicit human programming for every step.\nCore Applications:\n\nOptimizing clinical decision-making and personalized patient treatment.\nAccelerating drug discovery and repurposing.\nStreamlining administrative tasks like billing, documentation, and inventory management."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#types-of-ai-and-learning-styles",
+    "href": "materials/lect07-ethics/slide3.html#types-of-ai-and-learning-styles",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Types of AI and Learning Styles",
+    "text": "Types of AI and Learning Styles\n\nPredictive AI: Learns patterns to predict potential outcomes, used for tablet recognition, cancer diagnosis, and population health analysis.\nGenerative AI: Focuses on creating new data (text, images, datasets) to enhance patient communication and model disease progression.\nLearning Paradigms:\n\nSupervised: Trained on pre-labeled data to predict diseases or risk scores.\nUnsupervised: Identifies patterns in unlabeled data, such as patient clusters.\nReinforcement: Learns through a system of “rewards” to optimize long-term clinical goals."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#performance-metrics-and-transparency",
+    "href": "materials/lect07-ethics/slide3.html#performance-metrics-and-transparency",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Performance Metrics and Transparency",
+    "text": "Performance Metrics and Transparency\n\nModel Cards: Standardized documents used to build trust by detailing a model’s characteristics, training data, and ethical considerations.\nKey Metrics for GxP Evaluation:\n\nAccuracy: Overall correctness of predictions.\nPrecision/Recall: Balance between correct positive identifications and missing potential cases.\nF1 Score: The harmonic mean of precision and recall, vital for rare disease scenarios.\nROC-AUC: Measures a model’s capacity to distinguish between classes."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#ethical-foundations",
+    "href": "materials/lect07-ethics/slide3.html#ethical-foundations",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Ethical Foundations",
+    "text": "Ethical Foundations\nThe use of AI in healthcare must align with four foundational medical ethics principles:\n\nAutonomy: Respecting a patient’s right to self-determination.\nBeneficence: The responsibility to “do good.”\nNon-maleficence: The responsibility to “do no harm.”\nJustice: Treating all patients equally and equitably.\n\nTrustworthy AI (EU Framework) must be lawful, ethical, and technically robust."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#regulatory-compliance-landscape",
+    "href": "materials/lect07-ethics/slide3.html#regulatory-compliance-landscape",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Regulatory Compliance Landscape",
+    "text": "Regulatory Compliance Landscape\n\n\nData Protection: Adherence to HIPAA (USA) and GDPR (Europe) is mandatory to protect sensitive patient information processed by AI.\nMedical Device Regulations:\n\nUSA: Regulated by the FDA under Digital Health and Software as a Medical Device (SaMD) frameworks.\nEurope: Governed by the Medical Device Regulation (MDR) to ensure safety and clinical evaluation.\n\nHuman-Centric Approach: AI must support, not replace, the critical thinking and professional judgment of pharmacists and clinicians."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#related-laws",
+    "href": "materials/lect07-ethics/slide3.html#related-laws",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Related laws",
+    "text": "Related laws\n\nPersonal Data Protection Act 2019 (PDPA)\nGeneral Data Protection Regulation 2016 (GDPR)\nHealth Insurance Portability and Accountability Act of 1996 (HIPAA)\netc."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#good-machine-learning-practices-gmlp",
+    "href": "materials/lect07-ethics/slide3.html#good-machine-learning-practices-gmlp",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Good Machine Learning Practices (GMLP) 1",
+    "text": "Good Machine Learning Practices (GMLP) 1\n\nMan (1, 7)\nGood Software Engineering and Security Practices (2)\nData (3, 4, 5)\nModel Design (6)\nTesting (8)\nUser (9)\nPerformance monitoring (10)\n\nhttps://www.fda.gov/medical-devices/software-medical-device-samd/good-machine-learning-practice-medical-device-development-guiding-principles"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#good-machine-learning-practice-gmlp",
+    "href": "materials/lect07-ethics/slide3.html#good-machine-learning-practice-gmlp",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Good Machine Learning Practice (GMLP)1 ]",
+    "text": "Good Machine Learning Practice (GMLP)1 ]\n\nMulti-disciplinary expertise must be leveraged throughout the lifecycle.\nTraining datasets must be independent of test sets to prevent bias.\nSelected reference standards must be “fit-for-purpose”.\nModels must be assessed for performance in the intended use environment, focusing on the human-AI team.\nDeployed models require ongoing real-world monitoring to manage retraining risks.\n\nhttps://www.fda.gov/medical-devices/software-medical-device-samd/good-machine-learning-practice-medical-device-development-guiding-principles"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#predetermined-change-control-plans-pccp",
+    "href": "materials/lect07-ethics/slide3.html#predetermined-change-control-plans-pccp",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Predetermined Change Control Plans (PCCP)",
+    "text": "Predetermined Change Control Plans (PCCP)\nThe FDA allows for iterative AI modifications without a new marketing submission if a PCCP is established.\n\nDescription of Modifications: Enumerates specific, planned changes to characteristics or performance.\nModification Protocol: Detailed methods for developing, validating, and implementing changes.\nImpact Assessment: Assessment of benefits and risks introduced by planned modifications.\nGoal: To maintain device safety and effectiveness across intended populations as the AI evolves."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#implementation-barriers",
+    "href": "materials/lect07-ethics/slide3.html#implementation-barriers",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Implementation Barriers",
+    "text": "Implementation Barriers\n\nAlgorithmic Bias: Systematic discrimination stemming from unrepresentative training data.\nModel Drift: Degradation of performance over time due to changes in underlying data patterns.\nOverfitting: When a model learns “noise” instead of the signal, leading to poor generalization on new patients.\nIntegration: Navigating complex clinical workflows and high initial infrastructure costs."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#ethical-guideline",
+    "href": "materials/lect07-ethics/slide3.html#ethical-guideline",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "Ethical guideline",
+    "text": "Ethical guideline\n\n\n\nDigital Thailand - AI Ethics Guideline\nCompetitiveness and Sustainability Development\nLaws Ethics and International Standards\nTransparency and Accountability\nSecurity and Privacy\nFairness\nReliability\n\n\n\nUNESCO\n\nProportionality and Do No Harm\nSafety and Security\nRight to Privacy and Data Protection\nMulti-stakeholder and Adaptive Governance & Collaboration\nResponsibility and Accountability\nTransparency and Explainability\nHuman Oversight and Determination\nSustainability\nAwareness & Literacy\nFairness and Non-Discrimation"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide3.html#the-ai-lifecycle-in-gxp",
+    "href": "materials/lect07-ethics/slide3.html#the-ai-lifecycle-in-gxp",
+    "title": "7.2 Artificial Intelligence in Pharmacy Practices and Medical Device",
+    "section": "The AI Lifecycle in GxP",
+    "text": "The AI Lifecycle in GxP\ndigraph G { rankdir=LR; node [shape=box, fontname=“Helvetica”, style=filled, fillcolor=lightblue];\nData [label=\"Data Collection\\n(Representative & Diverse)\", fillcolor=lightgrey];\nDevelopment [label=\"Development\\n(Training & Tuning)\"];\nValidation [label=\"Performance Validation\\n(Independent Test Sets)\"];\nRegulatory [label=\"Regulatory Review\\n(FDA/MDR Compliance)\"];\nDeployment [label=\"Deployment\\n(GxP Environment)\"];\nMonitoring [label=\"Real-World Monitoring\\n(Bias & Drift Detection)\"];\nRetraining [label=\"Iterative Retraining\\n(via PCCP)\"];\n\nData -&gt; Development;\nDevelopment -&gt; Validation;\nValidation -&gt; Regulatory;\nRegulatory -&gt; Deployment;\nDeployment -&gt; Monitoring;\nMonitoring -&gt; Retraining;\nRetraining -&gt; Development [label=\"Loop back\"];\n}"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#the-need-for-continual-learning",
+    "href": "materials/lect07-ethics/slide1.html#the-need-for-continual-learning",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "The Need for Continual Learning",
+    "text": "The Need for Continual Learning\n\nData Drift: The distribution of input features (P(X)) changes over time.\nConcept Drift: The relationship between features and labels (P(Y|X)) changes (e.g., consumer behavior changes).\nPrediction Drift: The model’s output distribution shifts from what was seen during training."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#continual-learning-technical-approaches",
+    "href": "materials/lect07-ethics/slide1.html#continual-learning-technical-approaches",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Continual Learning: Technical Approaches",
+    "text": "Continual Learning: Technical Approaches\n\n\n\nStateless Retraining:\n\nModel is trained from scratch on a new window of data.\nPros: Simple, avoids “data poisoning” from old, irrelevant patterns.\nCons: Computationally expensive; ignores previously learned knowledge.\n\nStateful Training (Fine-tuning):\n\nModel continues training starting from current weights.\nRisk: Catastrophic Forgetting (forgetting old patterns).\nMitigation: Replay buffers (mixing old & new data)."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#model-iteration-vs.-data-iteration",
+    "href": "materials/lect07-ethics/slide1.html#model-iteration-vs.-data-iteration",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Model Iteration vs. Data Iteration",
+    "text": "Model Iteration vs. Data Iteration\nThe shift towards Data-Centric AI.\n\n\nModel-Centric\n\nGoal: Improve the architecture (e.g., adding layers, changing activation).\nAssumption: The data is a fixed “benchmark.”\nFocus: Tuning hyperparameters and loss functions.\n\n\nData-Centric\n\nGoal: Improve the quality of the data (e.g., cleaner labels, more edge cases).\nAssumption: The model is “good enough.”\nFocus: Feature engineering, error analysis on specific data slices."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#retraining-schemes-when-to-retrain",
+    "href": "materials/lect07-ethics/slide1.html#retraining-schemes-when-to-retrain",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Retraining Schemes: When to Retrain?",
+    "text": "Retraining Schemes: When to Retrain?\n\nFixed Interval: Retrain every week/month (simple, but may miss sudden drift).\nPerformance Trigger: Retrain when accuracy/F1 drops below a threshold.\nData Drift Trigger: Retrain when the input distribution shifts significantly (e.g., using Kolmogorov-Smirnov test).\nOn-demand: Retrain when new clinical guidelines or drugs are released."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#testing-in-production",
+    "href": "materials/lect07-ethics/slide1.html#testing-in-production",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Testing in Production",
+    "text": "Testing in Production\n\nShadow Deployment: New model (M_2) receives live traffic but its output is ignored.\nCanary Releases: Roll out to small percentage of users (e.g., one specific pharmacy branch).\nA/B Testing: Randomized controlled trial of models.\nMulti-armed Bandits: evaluate and randomly route traffic to the “winning” model."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#the-feature-store-the-single-source-of-truth",
+    "href": "materials/lect07-ethics/slide1.html#the-feature-store-the-single-source-of-truth",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "The Feature Store: The “Single Source of Truth”",
+    "text": "The Feature Store: The “Single Source of Truth”\nSolving the Training-Serving Skew.\n\nOffline Store: Large-scale historical data for batch training (e.g., 10 years of patient records).\nOnline Store: Low-latency storage for real-time inference (e.g., current prescription details).\nPoint-in-Time Joins: Ensures that training data only uses features that would have been available at the time of the event.\n\nCrucial for Pharma: Prevents “data leakage” from future clinical outcomes."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#model-registry-orchestration",
+    "href": "materials/lect07-ethics/slide1.html#model-registry-orchestration",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Model Registry & Orchestration",
+    "text": "Model Registry & Orchestration\nManaging the model lifecycle.\n\nModel Registry:\n\nVersion Control for weights.\nLineage: “Which dataset produced this specific model version?”\nMetadata: Environment variables, dependencies, and validation signatures.\n\nOrchestration (Airflow/Kubeflow):\n\nAutomating the DAG (Directed Acyclic Graph) from data ingestion to deployment.\nEssential for Validation Trails in GxP environments."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#the-mlops-loop-essential-tools",
+    "href": "materials/lect07-ethics/slide1.html#the-mlops-loop-essential-tools",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "The MLOps Loop: Essential Tools",
+    "text": "The MLOps Loop: Essential Tools\n\n\n\n\n\n\n\nStage\nKey Tools\n\n\n\n\nData Management\nSnowflake, Databricks, Feast (Feature Store)\n\n\nDevelopment\nJupyter, VS Code, Weights & Biases (Experiment Tracking)\n\n\nOrchestration\nApache Airflow, Kubeflow, Argo Workflows\n\n\nModel Registry\nMLflow, DVC (Data & Model Versioning)\n\n\nDeployment\nDocker, Kubernetes, BentoML, Seldon\n\n\nMonitoring\nPrometheus, Grafana, Evidently AI, WhyLabs"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#monitoring-beyond-system-health",
+    "href": "materials/lect07-ethics/slide1.html#monitoring-beyond-system-health",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Monitoring: Beyond “System Health”",
+    "text": "Monitoring: Beyond “System Health”\nIn ML, your code might be up, but your model might be “down.”\n\nOperational Metrics: Latency, Throughput, CPU/Memory (Standard IT).\nML Metrics: Precision, Recall, F1-Score, AUC.\nData Quality Metrics: Min/Max ranges, null values, and schema changes.\nAdversarial Monitoring: Detecting if someone is trying to “trick” the pharmacy bot into prescribing restricted drugs."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#the-monitoring-dashboard",
+    "href": "materials/lect07-ethics/slide1.html#the-monitoring-dashboard",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "The Monitoring Dashboard",
+    "text": "The Monitoring Dashboard\n\nSystem Health: Are the servers running? (CPU, RAM, Latency)\nData Integrity: Are there nulls? Did the schema change?\nModel Performance: Is accuracy dropping? (Precision, Recall)\nDistribution Monitoring: Compare current input histograms vs. training histograms.\nUser Feedback: How often does the pharmacist “override” the AI?"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#user-experience-for-probabilistic-systems",
+    "href": "materials/lect07-ethics/slide1.html#user-experience-for-probabilistic-systems",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "User Experience for Probabilistic Systems",
+    "text": "User Experience for Probabilistic Systems\n\nThe Consistency Problem: Traditional software is deterministic (1+1=2). ML is probabilistic (P(Success)=0.98).\nExplainability (XAI): A pharmacist cannot accept a recommendation they don’t understand.\n\nSHAP/LIME: Highlighting which patient features (age, weight, lab values) drove the AI’s prediction.\n\nSmooth Failing: Instead of a generic error, provide a “Low Confidence” flag and a “Route to Senior Pharmacist” button."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#responsible-ai-ethics",
+    "href": "materials/lect07-ethics/slide1.html#responsible-ai-ethics",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Responsible AI & Ethics",
+    "text": "Responsible AI & Ethics\n\nFairness: Is the model less accurate for certain ethnic groups due to biased training data?\nPrivacy: Differential Privacy and Federated Learning—training on patient data without moving it out of the hospital firewall.\nAccountability: If an AI makes a dosing error, who is responsible?\n\nFIP Stance: The human pharmacist remains the ultimate accountable party."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#pics-gmp-annex-22-the-ai-bible",
+    "href": "materials/lect07-ethics/slide1.html#pics-gmp-annex-22-the-ai-bible",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "PIC/S GMP Annex 22: The “AI Bible”",
+    "text": "PIC/S GMP Annex 22: The “AI Bible”\nReleased July 2025: Regulatory boundaries for AI in manufacturing.\n1. The Static/Dynamic Divide\n\nStatic Models: Parameters are locked. Validated once. Permitted for high-risk.\nDynamic Models: Learn in real-time. Prohibited for high-risk (e.g., sterile fill-finish checks).\nThe “Lock-and-Update” compromise: Frequent, automated re-validation cycles for static models are the preferred path forward."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#autonomy-vs.-adaptability",
+    "href": "materials/lect07-ethics/slide1.html#autonomy-vs.-adaptability",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Autonomy vs. Adaptability",
+    "text": "Autonomy vs. Adaptability\nThe core dilemma in AI validation.\n\nAutonomy:\n\nThe system’s ability to act or make decisions without direct human oversight.\nThe Risk: “Unintended actions” if the AI encounters an edge case it wasn’t trained for.\n\nAdaptability:\n\nThe system’s ability to learn and change its behavior over time (Dynamic learning).\nThe Risk: “Model Drift” or “Catastrophic Forgetting.”\n\n\n\n\n\n\n\n\nRegulatory View (Annex 22)\n\n\nSystems with high adaptability are generally prohibited for high-risk manufacturing because their “Validated State” is constantly shifting."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#annex-22-detailed-requirements",
+    "href": "materials/lect07-ethics/slide1.html#annex-22-detailed-requirements",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Annex 22: Detailed Requirements",
+    "text": "Annex 22: Detailed Requirements\n\nData Integrity: “Test Data” must be independent and inaccessible during training.\nMultidisciplinary Teams: A “Responsible Person” must ensure collaboration between:\n\nData Scientists (Algorithm)\nSMEs (Clinical Context)\nQA (Compliance)\nIT (Infrastructure)\n\nExplainability: Models must provide “Human-Understandable Logic” for critical decisions."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#gamp-5-second-edition-ai",
+    "href": "materials/lect07-ethics/slide1.html#gamp-5-second-edition-ai",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "GAMP 5 Second Edition & AI",
+    "text": "GAMP 5 Second Edition & AI\nFrom V-Model to Agile Validation.\n\nCritical Thinking (M12): Encourages “Software Assurance” over “Software Testing.” Don’t test the tool; verify the intended use.\nALCOA+ for AI:\n\nAttributable: Who trained the model?\nLegible: Can we read the training logs?\nContemporaneous: Are drift detections logged in real-time?\nOriginal: Raw data vs. pre-processed data lineage.\n\nIterative Validation: Recognition that AI systems require continuous lifecycle management, not just a one-time IQ/OQ/PQ."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#fip-ai-toolkit-for-pharmacy-2025",
+    "href": "materials/lect07-ethics/slide1.html#fip-ai-toolkit-for-pharmacy-2025",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "FIP AI Toolkit for Pharmacy (2025)",
+    "text": "FIP AI Toolkit for Pharmacy (2025)\nGuidelines for the Global Pharmacy Workforce.\n\nClinical Decision Support (CDS): AI should assist, not automate, the “final check.”\nAI Literacy: FIP Goal 20 requires pharmacies to implement training on:\n\nInterpreting AI confidence scores.\nIdentifying algorithmic bias.\nCommunicating AI-driven decisions to patients.\n\nEquity: Ensuring AI tools are available in low-resource settings, not just high-income countries."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide1.html#summary-the-global-compliance-matrix",
+    "href": "materials/lect07-ethics/slide1.html#summary-the-global-compliance-matrix",
+    "title": "7.1 Systems, Infrastructure",
+    "section": "Summary: The Global Compliance Matrix",
+    "text": "Summary: The Global Compliance Matrix\n\n\n\n\n\n\n\n\n\nTopic\nAnnex 22 (Mfg)\nGAMP 5 (Validation)\nFIP (Clinical)\n\n\n\n\nModel Type\nStatic Only\nRisk-dependent\nDecision Support\n\n\nHuman Role\nSME Oversight\nCritical Thinking\nFinal Authority\n\n\nData Focus\nIntegrity/Separation\nGovernance (ALCOA+)\nPrivacy/Equity\n\n\nValidation\nProspective\nLife-cycle based\nContinuous CPD"
+  },
+  {
     "objectID": "materials/lect06-dl/slide.html#what-is-deep-learning",
     "href": "materials/lect06-dl/slide.html#what-is-deep-learning",
     "title": "6. Basics of Deep Learning",
@@ -224,11 +434,18 @@
     "text": "Deep Learning with PyTorch: Loss and Optimizer\n# 2. Define Loss and Optimizer\ncriterion = nn.BCELoss()                 # Binary Cross-Entropy\noptimizer = optim.Adam(model.parameters(), lr=0.001)"
   },
   {
-    "objectID": "materials/lect06-dl/slide.html#deep-learning-with-pytorch-training-loop",
-    "href": "materials/lect06-dl/slide.html#deep-learning-with-pytorch-training-loop",
+    "objectID": "materials/lect06-dl/slide.html#deep-learning-with-pytorch-dataloader",
+    "href": "materials/lect06-dl/slide.html#deep-learning-with-pytorch-dataloader",
     "title": "6. Basics of Deep Learning",
-    "section": "Deep Learning with PyTorch: Training Loop",
-    "text": "Deep Learning with PyTorch: Training Loop\n\nThe standard training process involves these 4 steps in every iteration (epoch).\n\nfor epoch in range(num_epochs):\n    # 1. Forward Pass: Get predictions\n    outputs = model(inputs)\n    loss = criterion(outputs, targets)\n    \n    # 2. Backward Pass: Compute gradients\n    optimizer.zero_grad() # Reset old gradients\n    loss.backward()       # Backpropagation\n    \n    # 3. Update Weights: Move weights toward the minimum\n    optimizer.step()      # Optimization step\n    \n    print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')"
+    "section": "Deep Learning with PyTorch: DataLoader",
+    "text": "Deep Learning with PyTorch: DataLoader\nExample: Penguin Species Classification\nimport pandas as pd\nfrom torch.utils.data import Dataset, DataLoader\n\n# 1. Custom Dataset for Penguin Data\nclass PenguinDataset(Dataset):\n    def __init__(self, csv_file):\n        df = pd.read_csv(csv_file)\n        # Features: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g\n        self.x = torch.tensor(df.iloc[:, 0:4].values, dtype=torch.float32)\n        self.y = torch.tensor(df['species_id'].values, dtype=torch.long)\n\n    def __len__(self):\n        return len(self.y)\n\n    def __getitem__(self, idx):\n        return self.x[idx], self.y[idx]\n\n# 2. Split & DataLoader: Batching & Shuffling\nfrom torch.utils.data import random_split\n\ndataset = PenguinDataset('penguins_size.csv')\ntrain_size = int(0.8 * len(dataset))\ntest_size = len(dataset) - train_size\ntrain_ds, test_ds = random_split(dataset, [train_size, test_size])\n\ntrain_loader = DataLoader(train_ds, batch_size=32, shuffle=True)\ntest_loader = DataLoader(test_ds, batch_size=32, shuffle=False)"
+  },
+  {
+    "objectID": "materials/lect06-dl/slide.html#deep-learning-with-pytorch-training-evaluation",
+    "href": "materials/lect06-dl/slide.html#deep-learning-with-pytorch-training-evaluation",
+    "title": "6. Basics of Deep Learning",
+    "section": "Deep Learning with PyTorch: Training & Evaluation",
+    "text": "Deep Learning with PyTorch: Training & Evaluation\nTracking Loss over Epochs\nimport matplotlib.pyplot as plt\n\ntrain_losses, test_losses = [], []\nfor epoch in range(num_epochs):\n    # 1. Training Phase\n    model.train()\n    running_loss = 0.0\n    for inputs, targets in train_loader:\n        outputs = model(inputs)\n        loss = criterion(outputs, targets)\n        optimizer.zero_grad(); loss.backward(); optimizer.step()\n        running_loss += loss.item()\n    train_losses.append(running_loss / len(train_loader))\n\n    # 2. Evaluation Phase\n    model.eval()\n    test_loss = 0.0\n    with torch.no_grad():\n        for inputs, targets in test_loader:\n            outputs = model(inputs)\n            test_loss += criterion(outputs, targets).item()\n    test_losses.append(test_loss / len(test_loader))\n\n# 3. Plotting Results\nplt.plot(train_losses, label='Train Loss')\nplt.plot(test_losses, label='Test Loss')\nplt.legend(); plt.show()"
   },
   {
     "objectID": "materials/lect06-dl/slide.html#ml-debugging-start-simple-sanity-checks",
@@ -844,7 +1061,7 @@
     "href": "materials/lect03-featureeng/slide.html#tree-based-feature-selection",
     "title": "3. Feature Engineering",
     "section": "Tree-based feature selection",
-    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.09231394 0.05892657 0.43374354 0.41501595]\n(150, 2)"
+    "text": "Tree-based feature selection\n\nTree-based estimators can be used to compute impurity-based feature importances\n\n\nfrom sklearn.ensemble import ExtraTreesClassifier\nfrom sklearn.datasets import load_iris\nfrom sklearn.feature_selection import SelectFromModel\nX, y = load_iris(return_X_y=True)\nprint(X.shape)\nclf = ExtraTreesClassifier(n_estimators=50)\nclf = clf.fit(X, y)\nprint(clf.feature_importances_)  \nmodel = SelectFromModel(clf, prefit=True)\nX_new = model.transform(X)\nprint(X_new.shape)               \n\n(150, 4)\n[0.10571628 0.07472475 0.37328745 0.44627153]\n(150, 2)"
   },
   {
     "objectID": "materials/lect03-featureeng/slide.html#data-leakage",
@@ -1612,5 +1829,92 @@
     "crumbs": [
       "6. Basics of Deep Learning"
     ]
+  },
+  {
+    "objectID": "materials/lect07-ethics/index.html",
+    "href": "materials/lect07-ethics/index.html",
+    "title": "7. Systems, Infrastructure, Ethical Considerations in AI for Pharmacy and Medical Devices",
+    "section": "",
+    "text": "Meet your neighbors, familiarize yourself with the format of the workshop, practing rendering documents with Quarto, and build a sense of the three components that make up the anatomy of a Quarto document.\n\nSystems, Infrastructure\n\nAI in GxP\n\nAI in Pharmacy & Medical Devices",
+    "crumbs": [
+      "7. Systems, Infrastructure, Ethical Considerations in AI for Pharmacy and Medical Devices"
+    ]
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#introduction-to-ai-in-gxp",
+    "href": "materials/lect07-ethics/slide2.html#introduction-to-ai-in-gxp",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Introduction to AI in GxP",
+    "text": "Introduction to AI in GxP\n\nTechnological Advancement: AI provides new opportunities for the life sciences but introduces complexity and challenges in adoption at scale.\nPurpose: The primary aim is to safeguard patient safety, product quality, and data integrity while achieving business benefits.\nA Holistic Framework: The ISPE AI Guide serves as a bridge between GAMP® 5 concepts and the unique characteristics of AI.\nGovernance: Safe use is underpinned by organizational structures, policies, and literacy."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#ai-system-component-hierarchy",
+    "href": "materials/lect07-ethics/slide2.html#ai-system-component-hierarchy",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "AI System Component Hierarchy",
+    "text": "AI System Component Hierarchy\nThe following diagram illustrates how AI models are integrated into a computerized system.\n\n\n\n\n\n\n\nG\n\n\n\nModel\n\nModel\n(Sub-program)\n\n\n\nSubsystem\n\nAI Sub-system\n(Module)\n\n\n\nModel-&gt;Subsystem\n\n\n\n\n\nFunction\n\nAI Function\n(Integration Layer)\n\n\n\nSubsystem-&gt;Function\n\n\n\n\n\nSystem\n\nAI System\n(Component)\n\n\n\nFunction-&gt;System\n\n\n\n\n\nCompSystem\n\nAI-enabled\nComputerized System\n\n\n\nSystem-&gt;CompSystem"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#the-nine-key-concepts",
+    "href": "materials/lect07-ethics/slide2.html#the-nine-key-concepts",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "The Nine Key Concepts",
+    "text": "The Nine Key Concepts\nGAMP® 5 foundations are expanded with four AI-specific building blocks.\n\n\n\n\n\n\n\nGAMP® 5 Foundations\nAdditional AI Concepts\n\n\n\n\nProduct and Process Understanding\nQuality by Design (QbD)\n\n\nLife Cycle Approach within a QMS\nFit for Purpose Data and Data Quality\n\n\nScalable Life Cycle Activities\nData and Model Governance\n\n\nScience-based QRM\nKnowledge Management\n\n\nLeveraging Supplier Involvement"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#life-cycle-phases",
+    "href": "materials/lect07-ethics/slide2.html#life-cycle-phases",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Life Cycle Phases",
+    "text": "Life Cycle Phases\nThe AI-enabled computerized system life cycle follows four primary phases.\n\nConcept Phase: Identification of business needs, solution ideation, and conducting a Proof of Concept (PoC).\nProject Phase: Planning, model requirement specifications, iterative experimentation, and verification/testing.\nOperation Phase: Performance monitoring, managing model drift, and version control through change management.\nRetirement Phase: Data/model retention, migration, or destruction management."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#iterative-experimentation",
+    "href": "materials/lect07-ethics/slide2.html#iterative-experimentation",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Iterative Experimentation",
+    "text": "Iterative Experimentation\nAt the core of the project phase is the iterative loop to derive the best-performing model.\n\nModel Selection: Choosing model types and hyperparameters within the defined design space.\nData Engineering: Pre-processing data into a format suitable for the model.\nModel Engineering: The training or fine-tuning process to establish the model.\nModel Evaluation: Measuring performance against predefined KPIs to guide the next iteration."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#science-based-quality-risk-management-qrm",
+    "href": "materials/lect07-ethics/slide2.html#science-based-quality-risk-management-qrm",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Science-Based Quality Risk Management (QRM)",
+    "text": "Science-Based Quality Risk Management (QRM)\nAI specific hazards must be addressed beyond traditional software risks.\n\nHazard Identification: Includes data quality shortcomings, inadequate model choice, and model drift during operation.\nFunctional Risk Assessment: AI functions are evaluated based on software category, model category, and AI maturity level.\nControl Strategies: May include human verification (Human-in-the-Loop), guardrails for Generative AI, and Explainable AI (XAI) methods."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#fit-for-purpose-data",
+    "href": "materials/lect07-ethics/slide2.html#fit-for-purpose-data",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Fit for Purpose Data",
+    "text": "Fit for Purpose Data\nA model is only as good as the data used to develop it. Data is “fit for purpose” when it meets four properties:\n\nReliability: Real-world relationships are adequately captured.\nRelevance: Data is meaningful for the intended use.\nRepresentativeness: Data reflects the diversity of real-world situations.\nAbundance: The amount of data is commensurate with model complexity."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#ai-maturing-level-in-gxp-facility",
+    "href": "materials/lect07-ethics/slide2.html#ai-maturing-level-in-gxp-facility",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "AI Maturing level in GxP facility 1",
+    "text": "AI Maturing level in GxP facility 1\n\n\n 2\n\n\n\n\n\n\n\n\n\n\n\nStage 1\nStage 2\nStage 3\nStage 4\nStage 5\n\n\n\n\nused in parallel to the normal GxP processes\nexecuting a GxP process automatically but must be actively approved by the operator\nexecuting the process automatically but can be revised by the operator\nrunning automatically and controls itself\nrunning automatically and corrects itself\n\n\n\n\n\n\n\n\n\n\n\n\n\nStage 1\nStage 2\nStage 3\nStage 4\nStage 5\n\n\n\n\nNo machine learning\nused in a locked state. Updates are performed by manual retraining with new training data sets\nUpdates are performed after indication by the system with a manual retraining\nUpdates are performed by automated retraining with a manual verification step\nfully automated and learns independently with a quantifiable optimization goal\n\n\n\n\nhttps://ispe.org/pharmaceutical-engineeringhttps://ispe.org/pharmaceutical-engineering/march-april-2022/ai-maturity-model-gxp-application-foundation-ai"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#validation-levels",
+    "href": "materials/lect07-ethics/slide2.html#validation-levels",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Validation levels 1",
+    "text": "Validation levels 1\n\n\n\n\n\n\n\n\n\nLevel\nDescription\nMinimum Validation Activities and Requirements\n\n\n\n\nI\nParallel (pharApp/ CS\nNo validation required\n\n\nII\nClassical non-AI CS\nValidation of computerized system, but no dedicated focus on AI\n\n\nIII\nPiecewise locked state AI CS\nExecuting the process automatically but can be revised by the operator\n\n\nIV\nSelf-triggered learning AI CS with human operation and update control at all times\nIn addition to the above requirements:  - Documented justification on why a model was selected  - Training data verification  - Model quality assurance after training  - Input data monitoring in operation  - Retraining procedures defined\n\n\nV\nSelf-triggered learning AI CS with update control, but overall or sampled operation control only\nIn addition to the above requirements:  - Periodic re-test with defined test data set  - Assurance of self-control  - Control of AI system outcomes by samples for a defined, risk-oriented fraction, and adequate stratification of input/output instances\n\n\nVI\nAI CS with autonomous learning\nValidation concept currently under development\n\n\n\n\nhttps://ispe.org/pharmaceutical-engineering"
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#trustworthy-ai-principles",
+    "href": "materials/lect07-ethics/slide2.html#trustworthy-ai-principles",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Trustworthy AI Principles",
+    "text": "Trustworthy AI Principles\nDeploying AI in life sciences requires adherence to human-centric values.\n\nHuman Autonomy: Ensuring humans can effectively interact with and supervise AI.\nTransparency: Communicating benefits, risks, and limitations clearly to users.\nFairness: Reducing algorithmic bias to ensure equitable outcomes across subpopulations.\nSafety & Security: Minimizing harm and protecting against AI-specific cybersecurity threats like adversarial attacks."
+  },
+  {
+    "objectID": "materials/lect07-ethics/slide2.html#conclusion-governance",
+    "href": "materials/lect07-ethics/slide2.html#conclusion-governance",
+    "title": "7.2 Artificial Intelligence in GxP Computerized Systems",
+    "section": "Conclusion & Governance",
+    "text": "Conclusion & Governance\n\nAccountability: Regulated companies remain accountable for compliance regardless of supplier involvement.\nAI Literacy: Building foundational understanding across all roles (Process Owners, Data Scientists, Quality Units) is essential for successful adoption.\nContinual Improvement: New data collected during operation should be used to refine and improve AI sub-systems over time."
   }
 ]

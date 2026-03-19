@@ -11,7 +11,7 @@
 
   <meta name="author" content="Natapol Pornputtapong, PhD">
   <meta name="dcterms.date" content="2026-03-19">
-  <title>3316512 Pharmaceutical AI – Data Engineering</title>
+  <title>3316512 Pharmaceutical AI – 7.2 Artificial Intelligence in Pharmacy Practices and Medical Device</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,72 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6aa3cccf5014b6f4870a5cffe4c1dc60.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -112,7 +46,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -195,7 +128,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/bcm-bg.png" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Data Engineering</h1>
+  <h1 class="title">7.2 Artificial Intelligence in Pharmacy Practices and Medical Device</h1>
   <p class="subtitle">3316512 Pharmaceutical AI</p>
 
 <div class="quarto-title-authors">
@@ -211,299 +144,177 @@ Natapol Pornputtapong, PhD
 
   <p class="date">19 Mar 2026</p>
 </section>
-<section id="data-engineering" class="slide level2">
-<h2>Data Engineering</h2>
+<section id="defining-ai-in-regulated-healthcare" class="slide level2">
+<h2>Defining AI in Regulated Healthcare</h2>
 <ul>
-<li>data: scraping, API, feature engineering, all part of EDA</li>
-<li>compute: python, R, julia</li>
-<li>storage/database: pandas, SQL, NoSQL, HBase, disk, memory</li>
-<li>flow: Pandas, Apache Airflow, Prefect, Luigi</li>
-</ul>
-</section>
-<section id="data-sciences-workflow" class="slide level2 scrollable">
-<h2>Data sciences workflow</h2>
-<p><img data-src="../assets/03-data-science-life-cycle.webp" height="400"><sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>https://www.springboard.com/blog/data-science/data-science-process/</p></li></ol></aside></section>
-<section id="downloading-file-format" class="slide level2">
-<h2>Downloading: file format</h2>
+<li><strong>Artificial Intelligence (AI):</strong> Systems capable of performing tasks requiring human-like intelligence, such as learning, reasoning, and pattern recognition.</li>
+<li><strong>GxP Context:</strong> In pharmacy and medical devices, AI is defined as algorithms integrated into tools that learn from data to perform automated tasks without explicit human programming for every step.</li>
+<li><strong>Core Applications:</strong>
 <ul>
-<li>Excel</li>
-<li>JSON</li>
-<li>table: CSV, TSV</li>
-<li>XML: HTML</li>
-</ul>
-</section>
-<section id="json" class="slide level2">
-<h2>JSON</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {json} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a></a>{</span>
-<span id="cb1-2"><a></a>    "name": "John",</span>
-<span id="cb1-3"><a></a>    "age": 30,</span>
-<span id="cb1-4"><a></a>    "city": "New York"</span>
-<span id="cb1-5"><a></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="csv" class="slide level2">
-<h2>CSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {csv} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a></a>name,age,city</span>
-<span id="cb2-2"><a></a>John,30,New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="tsv" class="slide level2">
-<h2>TSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {tsv} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a></a>name    age city</span>
-<span id="cb3-2"><a></a>John    30  New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="api-application-programming-interface" class="slide level2">
-<h2>API (Application Programming Interface)</h2>
-<ul>
-<li>REST</li>
-<li>GraphQL</li>
-</ul>
-</section>
-<section id="web-scraping" class="slide level2">
-<h2>Web scraping</h2>
-<p>copyrights and permission:</p>
-<ul>
-<li>be careful and polite</li>
-<li>give credit</li>
-<li>care about media law</li>
-<li>don’t be evil (no spam, overloading sites, etc.)</li>
-</ul>
-</section>
-<section id="html" class="slide level2">
-<h2>HTML</h2>
-<p>Tags are in angle brackets should be in pairs, eg <code>&lt;p&gt;Hello&lt;/p&gt;</code> maybe in implicit tags, such as <code>&lt;br/&gt;</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {html} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a></a>&lt;!DOCTYPE html&gt;</span>
-<span id="cb4-2"><a></a>&lt;html&gt;</span>
-<span id="cb4-3"><a></a>&lt;head&gt;</span>
-<span id="cb4-4"><a></a>    &lt;title&gt;Title&lt;/title&gt;</span>
-<span id="cb4-5"><a></a>&lt;/head&gt;</span>
-<span id="cb4-6"><a></a>&lt;body&gt;</span>
-<span id="cb4-7"><a></a>    &lt;h1&gt;Body Title&lt;/h1&gt;</span>
-<span id="cb4-8"><a></a>    &lt;p &gt;Body Content&lt;/p&gt;</span>
-<span id="cb4-9"><a></a>    &lt;/body&gt;</span>
-<span id="cb4-10"><a></a>&lt;/html&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="developer-tools" class="slide level2">
-<h2>Developer Tools</h2>
-<p>ctrl/cmd shift- i in chrome cmd-option-i in safari look for “inspect element” locate details of tags</p>
-</section>
-<section id="beautifulsoup" class="slide level2">
-<h2>BeautifulSoup</h2>
-</section>
-<section id="relational-database" class="slide level2">
-<h2>Relational Database</h2>
-<ul>
-<li>Tables, Rows, and Columns</li>
-<li>Keys</li>
-<li>Primary Key (PK)</li>
-<li>Foreign Key (FK)</li>
-<li>Structured Query Language (SQL)</li>
-<li>ACID Properties</li>
-</ul>
-</section>
-<section id="acid" class="slide level2">
-<h2>ACID</h2>
-<ul>
-<li><strong>Atomicity</strong> - each statement in a transaction Either the entire statement is executed, or none of it is executed</li>
-<li><strong>Consistency</strong> - ensures that transactions only make changes to tables in predefined, predictable ways.</li>
-<li><strong>Isolation</strong> - when multiple users are reading and writing from the same table all at once, isolation of their transactions ensures that the concurrent transactions don’t interfere with or affect one another</li>
-<li><strong>Durability</strong> - ensures that changes to your data made by successfully executed transactions will be saved, even in the event of system failure.</li>
-</ul>
-</section>
-<section>
-<section id="nosql-features-strengths-and-challenges" class="title-slide slide level1 center">
-<h1>NoSQL features, strengths and challenges</h1>
-
-</section>
-<section id="motivations-for-not-justno-sql-nosql-databases" class="slide level2">
-<h2><span class="r-fit-text">Motivations for Not Just/No SQL (NoSQL) Databases</span></h2>
-<p><strong>Scalability</strong>: ability to efficiently meet the needs for varying workloads</p>
-<p><strong>Cost</strong>: opensource</p>
-<p><strong>Flexibility</strong>: do not require a fixed table structure</p>
-<p><strong>Availability</strong>: distributed</p>
-</section>
-<section id="nosql-comparison" class="slide level2">
-<h2>NoSQL comparison</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>Document</th>
-<th>Column Store</th>
-<th>Key-Value Store</th>
-<th>Graph</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Performance</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="even">
-<td>Availability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="odd">
-<td>Flexibility</td>
-<td>High</td>
-<td>Moderate</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="even">
-<td>Scalability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="odd">
-<td>Complexity</td>
-<td>Low</td>
-<td>Low</td>
-<td>Moderate</td>
-<td>High</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="data-wrangling-steps" class="slide level2">
-<h2>Data Wrangling Steps</h2>
-<ul>
-<li>Iterative process</li>
-<li>Understand</li>
-<li>Explore</li>
-<li>Transform</li>
-<li>Augment</li>
-<li>Visualize</li>
-</ul>
-</section>
-<section id="scales-of-measurement" class="slide level2 scrollable">
-<h2>Scales of Measurement<sup>1</sup></h2>
-<ul>
-<li>Quantitative (Interval and Ratio)</li>
-<li>Ordinal</li>
-<li>Nominal</li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>S. S. Stevens, Science, New Series, Vol. 103, No.&nbsp;2684 (Jun.&nbsp;7, 1946), pp.&nbsp;677-680</p></li></ol></aside></section>
-<section id="the-basic-exploratory-data-analysis-eda-workflow" class="slide level2 scrollable">
-<h2>The basic Exploratory Data Analysis (EDA) workflow</h2>
-<ol type="1">
-<li>Import data into a DataFrame</li>
-<li>Tidy the DataFrame
-<ul>
-<li>Each row describes a single object</li>
-<li>Each column describes a property of that object</li>
-<li>Columns are numeric whenever appropriate</li>
-<li>Columns contain atomic properties that cannot be further decomposed</li>
+<li>Optimizing clinical decision-making and personalized patient treatment.</li>
+<li>Accelerating drug discovery and repurposing.</li>
+<li>Streamlining administrative tasks like billing, documentation, and inventory management.</li>
 </ul></li>
-<li>Data Cleansing: Missing values, Format, Measurement Units, Outliers, Data Errors Per Domain</li>
-<li>Explore global properties. Use histograms, scatter plots, and aggregation functions to summarize the data.</li>
-<li>Explore group properties. Use groupby, queries, and small multiples to compare subsets of the data.</li>
+</ul>
+</section>
+<section id="types-of-ai-and-learning-styles" class="slide level2">
+<h2>Types of AI and Learning Styles</h2>
+<ul>
+<li><strong>Predictive AI:</strong> Learns patterns to predict potential outcomes, used for tablet recognition, cancer diagnosis, and population health analysis.</li>
+<li><strong>Generative AI:</strong> Focuses on creating new data (text, images, datasets) to enhance patient communication and model disease progression.</li>
+<li><strong>Learning Paradigms:</strong>
+<ul>
+<li><strong>Supervised:</strong> Trained on pre-labeled data to predict diseases or risk scores.</li>
+<li><strong>Unsupervised:</strong> Identifies patterns in unlabeled data, such as patient clusters.</li>
+<li><strong>Reinforcement:</strong> Learns through a system of “rewards” to optimize long-term clinical goals.</li>
+</ul></li>
+</ul>
+</section>
+<section id="performance-metrics-and-transparency" class="slide level2">
+<h2>Performance Metrics and Transparency</h2>
+<ul>
+<li><strong>Model Cards:</strong> Standardized documents used to build trust by detailing a model’s characteristics, training data, and ethical considerations.</li>
+<li><strong>Key Metrics for GxP Evaluation:</strong>
+<ul>
+<li><strong>Accuracy:</strong> Overall correctness of predictions.</li>
+<li><strong>Precision/Recall:</strong> Balance between correct positive identifications and missing potential cases.</li>
+<li><strong>F1 Score:</strong> The harmonic mean of precision and recall, vital for rare disease scenarios.</li>
+<li><strong>ROC-AUC:</strong> Measures a model’s capacity to distinguish between classes.</li>
+</ul></li>
+</ul>
+</section>
+<section id="ethical-foundations" class="slide level2">
+<h2>Ethical Foundations</h2>
+<p>The use of AI in healthcare must align with four foundational medical ethics principles:</p>
+<ol type="1">
+<li><strong>Autonomy:</strong> Respecting a patient’s right to self-determination.</li>
+<li><strong>Beneficence:</strong> The responsibility to “do good.”</li>
+<li><strong>Non-maleficence:</strong> The responsibility to “do no harm.”</li>
+<li><strong>Justice:</strong> Treating all patients equally and equitably.</li>
 </ol>
+<p><strong>Trustworthy AI</strong> (EU Framework) must be lawful, ethical, and technically robust.</p>
 </section>
-<section id="grammar-of-data" class="slide level2">
-<h2>Grammar of Data</h2>
+<section id="regulatory-compliance-landscape" class="slide level2">
+<h2>Regulatory Compliance Landscape</h2>
+<div style="font-size: 0.9em;">
 <ul>
-<li>SQL, Pandas, formalized in dplyr4</li>
-<li>provide simple verbs for simple things. These are functions corresponding to common data manipulation tasks.</li>
-<li>second idea is that backend does not matter, multiple backends implemented in Pandas, Spark, Impala, Pig, dplyr, ibis, blaze</li>
-</ul>
-</section>
-<section id="grammar-of-data-1" class="slide level2">
-<h2>Grammar of Data</h2>
-<p>Why bother? - learn how to do core data manipulations, no matter what the system is. - databases critical for non-memory fits.</p>
-</section>
-<section id="grammar-of-data-cleaning-and-transforma1on" class="slide level2">
-<h2>Grammar of Data: cleaning and transforma1on</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 22%">
-<col style="width: 25%">
-<col style="width: 24%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>VERB</th>
-<th>dplyr</th>
-<th>pandas</th>
-<th>SQL</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>QUERY/SELECTION</td>
-<td>filter() (and slice())</td>
-<td>query() (and loc[], iloc[])</td>
-<td>SELECT WHERE</td>
-</tr>
-<tr class="even">
-<td>SORT</td>
-<td>arrange()</td>
-<td>sort()</td>
-<td>ORDER BY</td>
-</tr>
-<tr class="odd">
-<td>SELECT-COLUMNS/PROJECTION</td>
-<td>select() (and rename())</td>
-<td>(and rename())</td>
-<td>SELECT COLUMN</td>
-</tr>
-<tr class="even">
-<td>SELECT-DISTINCT</td>
-<td>distinct()</td>
-<td>unique(),drop_duplicates()</td>
-<td>SELECT DISTINCT COLUMN</td>
-</tr>
-<tr class="odd">
-<td>ASSIGN</td>
-<td>mutate() (and transmute())</td>
-<td>assign</td>
-<td>ALTER/UPDATE</td>
-</tr>
-<tr class="even">
-<td>AGGREGATE</td>
-<td>summarise()</td>
-<td>describe(), mean(), max()</td>
-<td>None, AVG(),MAX()</td>
-</tr>
-<tr class="odd">
-<td>SAMPLE</td>
-<td>sample_n() and sample_frac()</td>
-<td>sample()</td>
-<td>implementation dep, use RAND()</td>
-</tr>
-<tr class="even">
-<td>GROUP-AGG</td>
-<td>group_by/summarize</td>
-<td>groupby/agg, count, mean</td>
-<td>GROUP BY</td>
-</tr>
-<tr class="odd">
-<td>DELETE</td>
-<td>?</td>
-<td>drop/masking</td>
-<td>DELETE/WHERE</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="data-processing" class="slide level2">
-<h2>Data processing</h2>
+<li><strong>Data Protection:</strong> Adherence to HIPAA (USA) and GDPR (Europe) is mandatory to protect sensitive patient information processed by AI.</li>
+<li><strong>Medical Device Regulations:</strong>
 <ul>
-<li>OLTP: Online Transaction Processing</li>
-<li>OLAP: Online Analytic Processing</li>
-<li>RTAP: Real-Time Analytic Processing</li>
+<li><strong>USA:</strong> Regulated by the FDA under Digital Health and Software as a Medical Device (SaMD) frameworks.</li>
+<li><strong>Europe:</strong> Governed by the Medical Device Regulation (MDR) to ensure safety and clinical evaluation.</li>
+</ul></li>
+<li><strong>Human-Centric Approach:</strong> AI must support, not replace, the critical thinking and professional judgment of pharmacists and clinicians.</li>
 </ul>
+</div>
+</section>
 
 
-</section></section>
+
+
+<section id="related-laws" class="slide level2">
+<h2>Related laws</h2>
+<ul>
+<li>Personal Data Protection Act 2019 (PDPA)</li>
+<li>General Data Protection Regulation 2016 (GDPR)</li>
+<li>Health Insurance Portability and Accountability Act of 1996 (HIPAA)</li>
+<li>etc.</li>
+</ul>
+</section>
+<section id="good-machine-learning-practices-gmlp" class="slide level2">
+<h2><span class="r-fit-text">Good Machine Learning Practices (GMLP) <sup>1</sup></span></h2>
+<ul>
+<li>Man (1, 7)</li>
+<li>Good Software Engineering and Security Practices (2)</li>
+<li>Data (3, 4, 5)</li>
+<li>Model Design (6)</li>
+<li>Testing (8)</li>
+<li>User (9)</li>
+<li>Performance monitoring (10)</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>https://www.fda.gov/medical-devices/software-medical-device-samd/good-machine-learning-practice-medical-device-development-guiding-principles</p></li></ol></aside></section>
+<section id="good-machine-learning-practice-gmlp" class="slide level2">
+<h2>Good Machine Learning Practice (GMLP)<sup>1</sup> ]</h2>
+<ul>
+<li>Multi-disciplinary expertise must be leveraged throughout the lifecycle.</li>
+<li>Training datasets must be independent of test sets to prevent bias.</li>
+<li>Selected reference standards must be “fit-for-purpose”.</li>
+<li>Models must be assessed for performance in the intended use environment, focusing on the human-AI team.</li>
+<li>Deployed models require ongoing real-world monitoring to manage retraining risks.</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>https://www.fda.gov/medical-devices/software-medical-device-samd/good-machine-learning-practice-medical-device-development-guiding-principles</p></li></ol></aside></section>
+<section id="predetermined-change-control-plans-pccp" class="slide level2">
+<h2>Predetermined Change Control Plans (PCCP)</h2>
+<p>The FDA allows for iterative AI modifications without a new marketing submission if a PCCP is established.</p>
+<ul>
+<li><strong>Description of Modifications:</strong> Enumerates specific, planned changes to characteristics or performance.</li>
+<li><strong>Modification Protocol:</strong> Detailed methods for developing, validating, and implementing changes.</li>
+<li><strong>Impact Assessment:</strong> Assessment of benefits and risks introduced by planned modifications.</li>
+<li><strong>Goal:</strong> To maintain device safety and effectiveness across intended populations as the AI evolves.</li>
+</ul>
+</section>
+<section id="implementation-barriers" class="slide level2">
+<h2>Implementation Barriers</h2>
+<ul>
+<li><strong>Algorithmic Bias:</strong> Systematic discrimination stemming from unrepresentative training data.</li>
+<li><strong>Model Drift:</strong> Degradation of performance over time due to changes in underlying data patterns.</li>
+<li><strong>Overfitting:</strong> When a model learns “noise” instead of the signal, leading to poor generalization on new patients.</li>
+<li><strong>Integration:</strong> Navigating complex clinical workflows and high initial infrastructure costs.</li>
+</ul>
+</section>
+<section id="ethical-guideline" class="slide level2">
+<h2>Ethical guideline</h2>
+<div class="columns" style="font-size: 0.8em;">
+<div class="column" style="width:50%;">
+<ul>
+<li>Digital Thailand - AI Ethics Guideline</li>
+<li>Competitiveness and Sustainability Development</li>
+<li>Laws Ethics and International Standards</li>
+<li>Transparency and Accountability</li>
+<li>Security and Privacy</li>
+<li>Fairness</li>
+<li>Reliability</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>UNESCO
+<ul>
+<li>Proportionality and Do No Harm</li>
+<li>Safety and Security</li>
+<li>Right to Privacy and Data Protection</li>
+<li><strong>Multi-stakeholder and Adaptive Governance &amp; Collaboration</strong></li>
+<li>Responsibility and Accountability</li>
+<li>Transparency and Explainability</li>
+<li><strong>Human Oversight and Determination</strong></li>
+<li>Sustainability</li>
+<li>Awareness &amp; Literacy</li>
+<li>Fairness and Non-Discrimation</li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="the-ai-lifecycle-in-gxp" class="slide level2">
+<h2>The AI Lifecycle in GxP</h2>
+<p>digraph G { rankdir=LR; node [shape=box, fontname=“Helvetica”, style=filled, fillcolor=lightblue];</p>
+<pre><code>Data [label="Data Collection\n(Representative &amp; Diverse)", fillcolor=lightgrey];
+Development [label="Development\n(Training &amp; Tuning)"];
+Validation [label="Performance Validation\n(Independent Test Sets)"];
+Regulatory [label="Regulatory Review\n(FDA/MDR Compliance)"];
+Deployment [label="Deployment\n(GxP Environment)"];
+Monitoring [label="Real-World Monitoring\n(Bias &amp; Drift Detection)"];
+Retraining [label="Iterative Retraining\n(via PCCP)"];
+
+Data -&gt; Development;
+Development -&gt; Validation;
+Validation -&gt; Regulatory;
+Regulatory -&gt; Deployment;
+Deployment -&gt; Monitoring;
+Monitoring -&gt; Retraining;
+Retraining -&gt; Development [label="Loop back"];</code></pre>
+<p>}</p>
+
+
+</section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

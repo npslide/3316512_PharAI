@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://npslide.github.io/3316512_PharAI/materials/lect07-ethics/slide3.html</loc>
+    <lastmod>2026-03-19T05:41:06.206Z</lastmod>
+  </url>
+  <url>
+    <loc>https://npslide.github.io/3316512_PharAI/materials/lect07-ethics/slide1.html</loc>
+    <lastmod>2026-03-19T04:00:13.980Z</lastmod>
+  </url>
+  <url>
     <loc>https://npslide.github.io/3316512_PharAI/materials/lect06-dl/slide.html</loc>
-    <lastmod>2026-03-11T15:25:01.583Z</lastmod>
+    <lastmod>2026-03-18T07:52:18.820Z</lastmod>
   </url>
   <url>
     <loc>https://npslide.github.io/3316512_PharAI/materials/lect05-traintuneeval/slide.html</loc>
@@ -55,5 +63,13 @@
   <url>
     <loc>https://npslide.github.io/3316512_PharAI/materials/lect06-dl/index.html</loc>
     <lastmod>2026-03-11T15:25:37.999Z</lastmod>
+  </url>
+  <url>
+    <loc>https://npslide.github.io/3316512_PharAI/materials/lect07-ethics/index.html</loc>
+    <lastmod>2026-03-18T09:43:27.105Z</lastmod>
+  </url>
+  <url>
+    <loc>https://npslide.github.io/3316512_PharAI/materials/lect07-ethics/slide2.html</loc>
+    <lastmod>2026-03-19T05:32:00.829Z</lastmod>
   </url>
 </urlset>

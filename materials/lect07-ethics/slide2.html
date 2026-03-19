@@ -11,7 +11,7 @@
 
   <meta name="author" content="Natapol Pornputtapong, PhD">
   <meta name="dcterms.date" content="2026-03-19">
-  <title>3316512 Pharmaceutical AI – Data Engineering</title>
+  <title>3316512 Pharmaceutical AI – 7.2 Artificial Intelligence in GxP Computerized Systems</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,72 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6aa3cccf5014b6f4870a5cffe4c1dc60.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -112,7 +46,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -195,7 +128,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/bcm-bg.png" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Data Engineering</h1>
+  <h1 class="title">7.2 Artificial Intelligence in GxP Computerized Systems</h1>
   <p class="subtitle">3316512 Pharmaceutical AI</p>
 
 <div class="quarto-title-authors">
@@ -211,299 +144,304 @@ Natapol Pornputtapong, PhD
 
   <p class="date">19 Mar 2026</p>
 </section>
-<section id="data-engineering" class="slide level2">
-<h2>Data Engineering</h2>
+<section id="introduction-to-ai-in-gxp" class="slide level2">
+<h2>Introduction to AI in GxP</h2>
 <ul>
-<li>data: scraping, API, feature engineering, all part of EDA</li>
-<li>compute: python, R, julia</li>
-<li>storage/database: pandas, SQL, NoSQL, HBase, disk, memory</li>
-<li>flow: Pandas, Apache Airflow, Prefect, Luigi</li>
+<li><strong>Technological Advancement:</strong> AI provides new opportunities for the life sciences but introduces complexity and challenges in adoption at scale.</li>
+<li><strong>Purpose:</strong> The primary aim is to safeguard <strong>patient safety, product quality, and data integrity</strong> while achieving business benefits.</li>
+<li><strong>A Holistic Framework:</strong> The ISPE AI Guide serves as a bridge between GAMP® 5 concepts and the unique characteristics of AI.</li>
+<li><strong>Governance:</strong> Safe use is underpinned by organizational structures, policies, and literacy.</li>
 </ul>
 </section>
-<section id="data-sciences-workflow" class="slide level2 scrollable">
-<h2>Data sciences workflow</h2>
-<p><img data-src="../assets/03-data-science-life-cycle.webp" height="400"><sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>https://www.springboard.com/blog/data-science/data-science-process/</p></li></ol></aside></section>
-<section id="downloading-file-format" class="slide level2">
-<h2>Downloading: file format</h2>
-<ul>
-<li>Excel</li>
-<li>JSON</li>
-<li>table: CSV, TSV</li>
-<li>XML: HTML</li>
-</ul>
+<section id="ai-system-component-hierarchy" class="slide level2">
+<h2>AI System Component Hierarchy</h2>
+<p>The following diagram illustrates how AI models are integrated into a computerized system.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 161.72 360.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 356)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-356 157.72,-356 157.72,4 -4,4"></polygon>
+<!-- Model -->
+<g id="node1" class="node">
+<title>Model</title>
+<polygon fill="lightblue" stroke="black" points="130.39,-351.8 23.33,-351.8 23.33,-310.6 130.39,-310.6 130.39,-351.8"></polygon>
+<text text-anchor="middle" x="76.86" y="-335.4" font-family="Helvetica,sans-Serif" font-size="14.00">Model</text>
+<text text-anchor="middle" x="76.86" y="-318.6" font-family="Helvetica,sans-Serif" font-size="14.00">(Sub-program)</text>
+</g>
+<!-- Subsystem -->
+<g id="node2" class="node">
+<title>Subsystem</title>
+<polygon fill="lightblue" stroke="black" points="130.39,-274.2 23.33,-274.2 23.33,-233 130.39,-233 130.39,-274.2"></polygon>
+<text text-anchor="middle" x="76.86" y="-257.8" font-family="Helvetica,sans-Serif" font-size="14.00">AI Sub-system</text>
+<text text-anchor="middle" x="76.86" y="-241" font-family="Helvetica,sans-Serif" font-size="14.00">(Module)</text>
+</g>
+<!-- Model&#45;&gt;Subsystem -->
+<g id="edge1" class="edge">
+<title>Model-&gt;Subsystem</title>
+<path fill="none" stroke="black" d="M76.86,-310.34C76.86,-302.44 76.86,-293.18 76.86,-284.5"></path>
+<polygon fill="black" stroke="black" points="80.36,-284.33 76.86,-274.33 73.36,-284.33 80.36,-284.33"></polygon>
+</g>
+<!-- Function -->
+<g id="node3" class="node">
+<title>Function</title>
+<polygon fill="lightblue" stroke="black" points="142.25,-196.6 11.47,-196.6 11.47,-155.4 142.25,-155.4 142.25,-196.6"></polygon>
+<text text-anchor="middle" x="76.86" y="-180.2" font-family="Helvetica,sans-Serif" font-size="14.00">AI Function</text>
+<text text-anchor="middle" x="76.86" y="-163.4" font-family="Helvetica,sans-Serif" font-size="14.00">(Integration Layer)</text>
+</g>
+<!-- Subsystem&#45;&gt;Function -->
+<g id="edge2" class="edge">
+<title>Subsystem-&gt;Function</title>
+<path fill="none" stroke="black" d="M76.86,-232.74C76.86,-224.84 76.86,-215.58 76.86,-206.9"></path>
+<polygon fill="black" stroke="black" points="80.36,-206.73 76.86,-196.73 73.36,-206.73 80.36,-206.73"></polygon>
+</g>
+<!-- System -->
+<g id="node4" class="node">
+<title>System</title>
+<polygon fill="lightblue" stroke="black" points="125.56,-119 28.15,-119 28.15,-77.8 125.56,-77.8 125.56,-119"></polygon>
+<text text-anchor="middle" x="76.86" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">AI System</text>
+<text text-anchor="middle" x="76.86" y="-85.8" font-family="Helvetica,sans-Serif" font-size="14.00">(Component)</text>
+</g>
+<!-- Function&#45;&gt;System -->
+<g id="edge3" class="edge">
+<title>Function-&gt;System</title>
+<path fill="none" stroke="black" d="M76.86,-155.14C76.86,-147.24 76.86,-137.98 76.86,-129.3"></path>
+<polygon fill="black" stroke="black" points="80.36,-129.13 76.86,-119.13 73.36,-129.13 80.36,-129.13"></polygon>
+</g>
+<!-- CompSystem -->
+<g id="node5" class="node">
+<title>CompSystem</title>
+<polygon fill="orange" stroke="black" points="153.58,-41.4 0.14,-41.4 0.14,-0.2 153.58,-0.2 153.58,-41.4"></polygon>
+<text text-anchor="middle" x="76.86" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00">AI-enabled</text>
+<text text-anchor="middle" x="76.86" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00">Computerized System</text>
+</g>
+<!-- System&#45;&gt;CompSystem -->
+<g id="edge4" class="edge">
+<title>System-&gt;CompSystem</title>
+<path fill="none" stroke="black" d="M76.86,-77.54C76.86,-69.64 76.86,-60.38 76.86,-51.7"></path>
+<polygon fill="black" stroke="black" points="80.36,-51.53 76.86,-41.53 73.36,-51.53 80.36,-51.53"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
-<section id="json" class="slide level2">
-<h2>JSON</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {json} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a></a>{</span>
-<span id="cb1-2"><a></a>    "name": "John",</span>
-<span id="cb1-3"><a></a>    "age": 30,</span>
-<span id="cb1-4"><a></a>    "city": "New York"</span>
-<span id="cb1-5"><a></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="csv" class="slide level2">
-<h2>CSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {csv} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a></a>name,age,city</span>
-<span id="cb2-2"><a></a>John,30,New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="tsv" class="slide level2">
-<h2>TSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {tsv} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a></a>name    age city</span>
-<span id="cb3-2"><a></a>John    30  New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="api-application-programming-interface" class="slide level2">
-<h2>API (Application Programming Interface)</h2>
-<ul>
-<li>REST</li>
-<li>GraphQL</li>
-</ul>
-</section>
-<section id="web-scraping" class="slide level2">
-<h2>Web scraping</h2>
-<p>copyrights and permission:</p>
-<ul>
-<li>be careful and polite</li>
-<li>give credit</li>
-<li>care about media law</li>
-<li>don’t be evil (no spam, overloading sites, etc.)</li>
-</ul>
-</section>
-<section id="html" class="slide level2">
-<h2>HTML</h2>
-<p>Tags are in angle brackets should be in pairs, eg <code>&lt;p&gt;Hello&lt;/p&gt;</code> maybe in implicit tags, such as <code>&lt;br/&gt;</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {html} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a></a>&lt;!DOCTYPE html&gt;</span>
-<span id="cb4-2"><a></a>&lt;html&gt;</span>
-<span id="cb4-3"><a></a>&lt;head&gt;</span>
-<span id="cb4-4"><a></a>    &lt;title&gt;Title&lt;/title&gt;</span>
-<span id="cb4-5"><a></a>&lt;/head&gt;</span>
-<span id="cb4-6"><a></a>&lt;body&gt;</span>
-<span id="cb4-7"><a></a>    &lt;h1&gt;Body Title&lt;/h1&gt;</span>
-<span id="cb4-8"><a></a>    &lt;p &gt;Body Content&lt;/p&gt;</span>
-<span id="cb4-9"><a></a>    &lt;/body&gt;</span>
-<span id="cb4-10"><a></a>&lt;/html&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="developer-tools" class="slide level2">
-<h2>Developer Tools</h2>
-<p>ctrl/cmd shift- i in chrome cmd-option-i in safari look for “inspect element” locate details of tags</p>
-</section>
-<section id="beautifulsoup" class="slide level2">
-<h2>BeautifulSoup</h2>
-</section>
-<section id="relational-database" class="slide level2">
-<h2>Relational Database</h2>
-<ul>
-<li>Tables, Rows, and Columns</li>
-<li>Keys</li>
-<li>Primary Key (PK)</li>
-<li>Foreign Key (FK)</li>
-<li>Structured Query Language (SQL)</li>
-<li>ACID Properties</li>
-</ul>
-</section>
-<section id="acid" class="slide level2">
-<h2>ACID</h2>
-<ul>
-<li><strong>Atomicity</strong> - each statement in a transaction Either the entire statement is executed, or none of it is executed</li>
-<li><strong>Consistency</strong> - ensures that transactions only make changes to tables in predefined, predictable ways.</li>
-<li><strong>Isolation</strong> - when multiple users are reading and writing from the same table all at once, isolation of their transactions ensures that the concurrent transactions don’t interfere with or affect one another</li>
-<li><strong>Durability</strong> - ensures that changes to your data made by successfully executed transactions will be saved, even in the event of system failure.</li>
-</ul>
-</section>
-<section>
-<section id="nosql-features-strengths-and-challenges" class="title-slide slide level1 center">
-<h1>NoSQL features, strengths and challenges</h1>
-
-</section>
-<section id="motivations-for-not-justno-sql-nosql-databases" class="slide level2">
-<h2><span class="r-fit-text">Motivations for Not Just/No SQL (NoSQL) Databases</span></h2>
-<p><strong>Scalability</strong>: ability to efficiently meet the needs for varying workloads</p>
-<p><strong>Cost</strong>: opensource</p>
-<p><strong>Flexibility</strong>: do not require a fixed table structure</p>
-<p><strong>Availability</strong>: distributed</p>
-</section>
-<section id="nosql-comparison" class="slide level2">
-<h2>NoSQL comparison</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>Document</th>
-<th>Column Store</th>
-<th>Key-Value Store</th>
-<th>Graph</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Performance</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="even">
-<td>Availability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="odd">
-<td>Flexibility</td>
-<td>High</td>
-<td>Moderate</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="even">
-<td>Scalability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="odd">
-<td>Complexity</td>
-<td>Low</td>
-<td>Low</td>
-<td>Moderate</td>
-<td>High</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="data-wrangling-steps" class="slide level2">
-<h2>Data Wrangling Steps</h2>
-<ul>
-<li>Iterative process</li>
-<li>Understand</li>
-<li>Explore</li>
-<li>Transform</li>
-<li>Augment</li>
-<li>Visualize</li>
-</ul>
-</section>
-<section id="scales-of-measurement" class="slide level2 scrollable">
-<h2>Scales of Measurement<sup>1</sup></h2>
-<ul>
-<li>Quantitative (Interval and Ratio)</li>
-<li>Ordinal</li>
-<li>Nominal</li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>S. S. Stevens, Science, New Series, Vol. 103, No.&nbsp;2684 (Jun.&nbsp;7, 1946), pp.&nbsp;677-680</p></li></ol></aside></section>
-<section id="the-basic-exploratory-data-analysis-eda-workflow" class="slide level2 scrollable">
-<h2>The basic Exploratory Data Analysis (EDA) workflow</h2>
-<ol type="1">
-<li>Import data into a DataFrame</li>
-<li>Tidy the DataFrame
-<ul>
-<li>Each row describes a single object</li>
-<li>Each column describes a property of that object</li>
-<li>Columns are numeric whenever appropriate</li>
-<li>Columns contain atomic properties that cannot be further decomposed</li>
-</ul></li>
-<li>Data Cleansing: Missing values, Format, Measurement Units, Outliers, Data Errors Per Domain</li>
-<li>Explore global properties. Use histograms, scatter plots, and aggregation functions to summarize the data.</li>
-<li>Explore group properties. Use groupby, queries, and small multiples to compare subsets of the data.</li>
-</ol>
-</section>
-<section id="grammar-of-data" class="slide level2">
-<h2>Grammar of Data</h2>
-<ul>
-<li>SQL, Pandas, formalized in dplyr4</li>
-<li>provide simple verbs for simple things. These are functions corresponding to common data manipulation tasks.</li>
-<li>second idea is that backend does not matter, multiple backends implemented in Pandas, Spark, Impala, Pig, dplyr, ibis, blaze</li>
-</ul>
-</section>
-<section id="grammar-of-data-1" class="slide level2">
-<h2>Grammar of Data</h2>
-<p>Why bother? - learn how to do core data manipulations, no matter what the system is. - databases critical for non-memory fits.</p>
-</section>
-<section id="grammar-of-data-cleaning-and-transforma1on" class="slide level2">
-<h2>Grammar of Data: cleaning and transforma1on</h2>
+<section id="the-nine-key-concepts" class="slide level2">
+<h2>The Nine Key Concepts</h2>
+<p>GAMP® 5 foundations are expanded with four AI-specific building blocks.</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 25%">
-<col style="width: 24%">
-<col style="width: 27%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>VERB</th>
-<th>dplyr</th>
-<th>pandas</th>
-<th>SQL</th>
+<th style="text-align: left;">GAMP® 5 Foundations</th>
+<th style="text-align: left;">Additional AI Concepts</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>QUERY/SELECTION</td>
-<td>filter() (and slice())</td>
-<td>query() (and loc[], iloc[])</td>
-<td>SELECT WHERE</td>
+<td style="text-align: left;">Product and Process Understanding</td>
+<td style="text-align: left;">Quality by Design (QbD)</td>
 </tr>
 <tr class="even">
-<td>SORT</td>
-<td>arrange()</td>
-<td>sort()</td>
-<td>ORDER BY</td>
+<td style="text-align: left;">Life Cycle Approach within a QMS</td>
+<td style="text-align: left;">Fit for Purpose Data and Data Quality</td>
 </tr>
 <tr class="odd">
-<td>SELECT-COLUMNS/PROJECTION</td>
-<td>select() (and rename())</td>
-<td>(and rename())</td>
-<td>SELECT COLUMN</td>
+<td style="text-align: left;">Scalable Life Cycle Activities</td>
+<td style="text-align: left;">Data and Model Governance</td>
 </tr>
 <tr class="even">
-<td>SELECT-DISTINCT</td>
-<td>distinct()</td>
-<td>unique(),drop_duplicates()</td>
-<td>SELECT DISTINCT COLUMN</td>
+<td style="text-align: left;">Science-based QRM</td>
+<td style="text-align: left;">Knowledge Management</td>
 </tr>
 <tr class="odd">
-<td>ASSIGN</td>
-<td>mutate() (and transmute())</td>
-<td>assign</td>
-<td>ALTER/UPDATE</td>
-</tr>
-<tr class="even">
-<td>AGGREGATE</td>
-<td>summarise()</td>
-<td>describe(), mean(), max()</td>
-<td>None, AVG(),MAX()</td>
-</tr>
-<tr class="odd">
-<td>SAMPLE</td>
-<td>sample_n() and sample_frac()</td>
-<td>sample()</td>
-<td>implementation dep, use RAND()</td>
-</tr>
-<tr class="even">
-<td>GROUP-AGG</td>
-<td>group_by/summarize</td>
-<td>groupby/agg, count, mean</td>
-<td>GROUP BY</td>
-</tr>
-<tr class="odd">
-<td>DELETE</td>
-<td>?</td>
-<td>drop/masking</td>
-<td>DELETE/WHERE</td>
+<td style="text-align: left;">Leveraging Supplier Involvement</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="data-processing" class="slide level2">
-<h2>Data processing</h2>
+<section id="life-cycle-phases" class="slide level2">
+<h2>Life Cycle Phases</h2>
+<p>The AI-enabled computerized system life cycle follows four primary phases.</p>
+<ol type="1">
+<li><strong>Concept Phase:</strong> Identification of business needs, solution ideation, and conducting a <strong>Proof of Concept (PoC)</strong>.</li>
+<li><strong>Project Phase:</strong> Planning, model requirement specifications, <strong>iterative experimentation</strong>, and verification/testing.</li>
+<li><strong>Operation Phase:</strong> Performance monitoring, managing <strong>model drift</strong>, and version control through change management.</li>
+<li><strong>Retirement Phase:</strong> Data/model retention, migration, or destruction management.</li>
+</ol>
+</section>
+<section id="iterative-experimentation" class="slide level2">
+<h2>Iterative Experimentation</h2>
+<p>At the core of the project phase is the iterative loop to derive the best-performing model.</p>
 <ul>
-<li>OLTP: Online Transaction Processing</li>
-<li>OLAP: Online Analytic Processing</li>
-<li>RTAP: Real-Time Analytic Processing</li>
+<li><strong>Model Selection:</strong> Choosing model types and hyperparameters within the defined design space.</li>
+<li><strong>Data Engineering:</strong> Pre-processing data into a format suitable for the model.</li>
+<li><strong>Model Engineering:</strong> The training or fine-tuning process to establish the model.</li>
+<li><strong>Model Evaluation:</strong> Measuring performance against predefined KPIs to guide the next iteration.</li>
+</ul>
+</section>
+<section id="science-based-quality-risk-management-qrm" class="slide level2">
+<h2>Science-Based Quality Risk Management (QRM)</h2>
+<p>AI specific hazards must be addressed beyond traditional software risks.</p>
+<ul>
+<li><strong>Hazard Identification:</strong> Includes data quality shortcomings, inadequate model choice, and model drift during operation.</li>
+<li><strong>Functional Risk Assessment:</strong> AI functions are evaluated based on software category, model category, and <strong>AI maturity level</strong>.</li>
+<li><strong>Control Strategies:</strong> May include human verification (Human-in-the-Loop), guardrails for Generative AI, and Explainable AI (XAI) methods.</li>
+</ul>
+</section>
+<section id="fit-for-purpose-data" class="slide level2">
+<h2>Fit for Purpose Data</h2>
+<p>A model is only as good as the data used to develop it. Data is “fit for purpose” when it meets four properties:</p>
+<ol type="1">
+<li><strong>Reliability:</strong> Real-world relationships are adequately captured.</li>
+<li><strong>Relevance:</strong> Data is meaningful for the intended use.</li>
+<li><strong>Representativeness:</strong> Data reflects the diversity of real-world situations.</li>
+<li><strong>Abundance:</strong> The amount of data is commensurate with model complexity.</li>
+</ol>
+</section>
+<section id="ai-maturing-level-in-gxp-facility" class="slide level2">
+<h2><span class="r-fit-text">AI Maturing level in GxP facility <sup>1</sup></span></h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="pharApp/Picture13.png"> <sup>2</sup></p>
+</div><div class="column" style="font-size: 0.5em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Stage 1</strong></th>
+<th><strong>Stage 2</strong></th>
+<th><strong>Stage 3</strong></th>
+<th><strong>Stage 4</strong></th>
+<th><strong>Stage 5</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>used in parallel to the normal GxP processes</td>
+<td>executing a GxP process automatically but must be actively approved by the operator</td>
+<td>executing the process automatically but can be revised by the operator</td>
+<td>running automatically and controls itself</td>
+<td>running automatically and corrects itself</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Stage 1</strong></th>
+<th><strong>Stage 2</strong></th>
+<th><strong>Stage 3</strong></th>
+<th><strong>Stage 4</strong></th>
+<th><strong>Stage 5</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No machine learning</td>
+<td>used in a locked state. Updates are performed by manual retraining with new training data sets</td>
+<td>Updates are performed after indication by the system with a manual retraining</td>
+<td>Updates are performed by automated retraining with a manual verification step</td>
+<td>fully automated and learns independently with a quantifiable optimization goal</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>https://ispe.org/pharmaceutical-engineering</p></li><li id="fn2"><p>https://ispe.org/pharmaceutical-engineering/march-april-2022/ai-maturity-model-gxp-application-foundation-ai</p></li></ol></aside></section>
+<section id="validation-levels" class="slide level2">
+<h2>Validation levels <sup>1</sup></h2>
+<div style="font-size: 0.57em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 27%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Description</th>
+<th>Minimum Validation Activities and Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I</td>
+<td>Parallel (pharApp/ CS</td>
+<td>No validation required</td>
+</tr>
+<tr class="even">
+<td>II</td>
+<td>Classical non-AI CS</td>
+<td>Validation of computerized system, but no dedicated focus on AI</td>
+</tr>
+<tr class="odd">
+<td>III</td>
+<td>Piecewise locked state AI CS</td>
+<td>Executing the process automatically but can be revised by the operator</td>
+</tr>
+<tr class="even">
+<td>IV</td>
+<td>Self-triggered learning AI CS with human operation and update control at all times</td>
+<td>In addition to the above requirements: <br> - Documented justification on why a model was selected <br> - Training data verification <br> - Model quality assurance after training <br> - Input data monitoring in operation <br> - Retraining procedures defined</td>
+</tr>
+<tr class="odd">
+<td>V</td>
+<td>Self-triggered learning AI CS with update control, but overall or sampled operation control only</td>
+<td>In addition to the above requirements: <br> - Periodic re-test with defined test data set <br> - Assurance of self-control <br> - Control of AI system outcomes by samples for a defined, risk-oriented fraction, and adequate stratification of input/output instances</td>
+</tr>
+<tr class="even">
+<td>VI</td>
+<td>AI CS with autonomous learning</td>
+<td>Validation concept currently under development</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>https://ispe.org/pharmaceutical-engineering</p></li></ol></aside></section>
+<section id="trustworthy-ai-principles" class="slide level2">
+<h2>Trustworthy AI Principles</h2>
+<p>Deploying AI in life sciences requires adherence to human-centric values.</p>
+<ul>
+<li><strong>Human Autonomy:</strong> Ensuring humans can effectively interact with and supervise AI.</li>
+<li><strong>Transparency:</strong> Communicating benefits, risks, and limitations clearly to users.</li>
+<li><strong>Fairness:</strong> Reducing algorithmic bias to ensure equitable outcomes across subpopulations.</li>
+<li><strong>Safety &amp; Security:</strong> Minimizing harm and protecting against AI-specific cybersecurity threats like adversarial attacks.</li>
+</ul>
+</section>
+<section id="conclusion-governance" class="slide level2">
+<h2>Conclusion &amp; Governance</h2>
+<ul>
+<li><strong>Accountability:</strong> Regulated companies remain accountable for compliance regardless of supplier involvement.</li>
+<li><strong>AI Literacy:</strong> Building foundational understanding across all roles (Process Owners, Data Scientists, Quality Units) is essential for successful adoption.</li>
+<li><strong>Continual Improvement:</strong> New data collected during operation should be used to refine and improve AI sub-systems over time.</li>
 </ul>
 
 
-</section></section>
+</section>
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

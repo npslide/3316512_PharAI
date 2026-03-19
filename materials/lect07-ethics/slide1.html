@@ -11,7 +11,7 @@
 
   <meta name="author" content="Natapol Pornputtapong, PhD">
   <meta name="dcterms.date" content="2026-03-19">
-  <title>3316512 Pharmaceutical AI – Data Engineering</title>
+  <title>3316512 Pharmaceutical AI – 7.1 Systems, Infrastructure</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,74 +29,24 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-6aa3cccf5014b6f4870a5cffe4c1dc60.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -112,7 +62,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -195,7 +144,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="../../site_libs/quarto-contrib/quarto-project/npslide/rxquarto/assets/bcm-bg.png" data-background-size="contain" class="quarto-title-block center">
-  <h1 class="title">Data Engineering</h1>
+  <h1 class="title">7.1 Systems, Infrastructure</h1>
   <p class="subtitle">3316512 Pharmaceutical AI</p>
 
 <div class="quarto-title-authors">
@@ -211,299 +160,351 @@ Natapol Pornputtapong, PhD
 
   <p class="date">19 Mar 2026</p>
 </section>
-<section id="data-engineering" class="slide level2">
-<h2>Data Engineering</h2>
-<ul>
-<li>data: scraping, API, feature engineering, all part of EDA</li>
-<li>compute: python, R, julia</li>
-<li>storage/database: pandas, SQL, NoSQL, HBase, disk, memory</li>
-<li>flow: Pandas, Apache Airflow, Prefect, Luigi</li>
-</ul>
-</section>
-<section id="data-sciences-workflow" class="slide level2 scrollable">
-<h2>Data sciences workflow</h2>
-<p><img data-src="../assets/03-data-science-life-cycle.webp" height="400"><sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>https://www.springboard.com/blog/data-science/data-science-process/</p></li></ol></aside></section>
-<section id="downloading-file-format" class="slide level2">
-<h2>Downloading: file format</h2>
-<ul>
-<li>Excel</li>
-<li>JSON</li>
-<li>table: CSV, TSV</li>
-<li>XML: HTML</li>
-</ul>
-</section>
-<section id="json" class="slide level2">
-<h2>JSON</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource {json} number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a></a>{</span>
-<span id="cb1-2"><a></a>    "name": "John",</span>
-<span id="cb1-3"><a></a>    "age": 30,</span>
-<span id="cb1-4"><a></a>    "city": "New York"</span>
-<span id="cb1-5"><a></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="csv" class="slide level2">
-<h2>CSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {csv} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a></a>name,age,city</span>
-<span id="cb2-2"><a></a>John,30,New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="tsv" class="slide level2">
-<h2>TSV</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource {tsv} number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a></a>name    age city</span>
-<span id="cb3-2"><a></a>John    30  New York</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="api-application-programming-interface" class="slide level2">
-<h2>API (Application Programming Interface)</h2>
-<ul>
-<li>REST</li>
-<li>GraphQL</li>
-</ul>
-</section>
-<section id="web-scraping" class="slide level2">
-<h2>Web scraping</h2>
-<p>copyrights and permission:</p>
-<ul>
-<li>be careful and polite</li>
-<li>give credit</li>
-<li>care about media law</li>
-<li>don’t be evil (no spam, overloading sites, etc.)</li>
-</ul>
-</section>
-<section id="html" class="slide level2">
-<h2>HTML</h2>
-<p>Tags are in angle brackets should be in pairs, eg <code>&lt;p&gt;Hello&lt;/p&gt;</code> maybe in implicit tags, such as <code>&lt;br/&gt;</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {html} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a></a>&lt;!DOCTYPE html&gt;</span>
-<span id="cb4-2"><a></a>&lt;html&gt;</span>
-<span id="cb4-3"><a></a>&lt;head&gt;</span>
-<span id="cb4-4"><a></a>    &lt;title&gt;Title&lt;/title&gt;</span>
-<span id="cb4-5"><a></a>&lt;/head&gt;</span>
-<span id="cb4-6"><a></a>&lt;body&gt;</span>
-<span id="cb4-7"><a></a>    &lt;h1&gt;Body Title&lt;/h1&gt;</span>
-<span id="cb4-8"><a></a>    &lt;p &gt;Body Content&lt;/p&gt;</span>
-<span id="cb4-9"><a></a>    &lt;/body&gt;</span>
-<span id="cb4-10"><a></a>&lt;/html&gt;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="developer-tools" class="slide level2">
-<h2>Developer Tools</h2>
-<p>ctrl/cmd shift- i in chrome cmd-option-i in safari look for “inspect element” locate details of tags</p>
-</section>
-<section id="beautifulsoup" class="slide level2">
-<h2>BeautifulSoup</h2>
-</section>
-<section id="relational-database" class="slide level2">
-<h2>Relational Database</h2>
-<ul>
-<li>Tables, Rows, and Columns</li>
-<li>Keys</li>
-<li>Primary Key (PK)</li>
-<li>Foreign Key (FK)</li>
-<li>Structured Query Language (SQL)</li>
-<li>ACID Properties</li>
-</ul>
-</section>
-<section id="acid" class="slide level2">
-<h2>ACID</h2>
-<ul>
-<li><strong>Atomicity</strong> - each statement in a transaction Either the entire statement is executed, or none of it is executed</li>
-<li><strong>Consistency</strong> - ensures that transactions only make changes to tables in predefined, predictable ways.</li>
-<li><strong>Isolation</strong> - when multiple users are reading and writing from the same table all at once, isolation of their transactions ensures that the concurrent transactions don’t interfere with or affect one another</li>
-<li><strong>Durability</strong> - ensures that changes to your data made by successfully executed transactions will be saved, even in the event of system failure.</li>
-</ul>
-</section>
 <section>
-<section id="nosql-features-strengths-and-challenges" class="title-slide slide level1 center">
-<h1>NoSQL features, strengths and challenges</h1>
+<section id="part-1-continual-learning-production-testing" class="title-slide slide level1 center">
+<h1>Part 1: Continual Learning &amp; Production Testing<sup>1</sup></h1>
 
-</section>
-<section id="motivations-for-not-justno-sql-nosql-databases" class="slide level2">
-<h2><span class="r-fit-text">Motivations for Not Just/No SQL (NoSQL) Databases</span></h2>
-<p><strong>Scalability</strong>: ability to efficiently meet the needs for varying workloads</p>
-<p><strong>Cost</strong>: opensource</p>
-<p><strong>Flexibility</strong>: do not require a fixed table structure</p>
-<p><strong>Availability</strong>: distributed</p>
-</section>
-<section id="nosql-comparison" class="slide level2">
-<h2>NoSQL comparison</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>Document</th>
-<th>Column Store</th>
-<th>Key-Value Store</th>
-<th>Graph</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Performance</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="even">
-<td>Availability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="odd">
-<td>Flexibility</td>
-<td>High</td>
-<td>Moderate</td>
-<td>High</td>
-<td>High</td>
-</tr>
-<tr class="even">
-<td>Scalability</td>
-<td>High</td>
-<td>High</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-<tr class="odd">
-<td>Complexity</td>
-<td>Low</td>
-<td>Low</td>
-<td>Moderate</td>
-<td>High</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="data-wrangling-steps" class="slide level2">
-<h2>Data Wrangling Steps</h2>
-<ul>
-<li>Iterative process</li>
-<li>Understand</li>
-<li>Explore</li>
-<li>Transform</li>
-<li>Augment</li>
-<li>Visualize</li>
-</ul>
-</section>
-<section id="scales-of-measurement" class="slide level2 scrollable">
-<h2>Scales of Measurement<sup>1</sup></h2>
-<ul>
-<li>Quantitative (Interval and Ratio)</li>
-<li>Ordinal</li>
-<li>Nominal</li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>S. S. Stevens, Science, New Series, Vol. 103, No.&nbsp;2684 (Jun.&nbsp;7, 1946), pp.&nbsp;677-680</p></li></ol></aside></section>
-<section id="the-basic-exploratory-data-analysis-eda-workflow" class="slide level2 scrollable">
-<h2>The basic Exploratory Data Analysis (EDA) workflow</h2>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Huyen, Ch. 9</p></li></ol></aside></section>
+<section id="the-need-for-continual-learning" class="slide level2">
+<h2>The Need for Continual Learning</h2>
 <ol type="1">
-<li>Import data into a DataFrame</li>
-<li>Tidy the DataFrame
-<ul>
-<li>Each row describes a single object</li>
-<li>Each column describes a property of that object</li>
-<li>Columns are numeric whenever appropriate</li>
-<li>Columns contain atomic properties that cannot be further decomposed</li>
-</ul></li>
-<li>Data Cleansing: Missing values, Format, Measurement Units, Outliers, Data Errors Per Domain</li>
-<li>Explore global properties. Use histograms, scatter plots, and aggregation functions to summarize the data.</li>
-<li>Explore group properties. Use groupby, queries, and small multiples to compare subsets of the data.</li>
+<li><strong>Data Drift:</strong> The distribution of input features (<span class="math inline">P(X)</span>) changes over time.</li>
+<li><strong>Concept Drift:</strong> The relationship between features and labels (<span class="math inline">P(Y|X)</span>) changes (e.g., consumer behavior changes).</li>
+<li><strong>Prediction Drift:</strong> The model’s output distribution shifts from what was seen during training.</li>
 </ol>
 </section>
-<section id="grammar-of-data" class="slide level2">
-<h2>Grammar of Data</h2>
+<section id="section" class="slide level2">
+<h2></h2>
+</section>
+<section id="continual-learning-technical-approaches" class="slide level2">
+<h2>Continual Learning: Technical Approaches</h2>
+
+<img data-src="../assets/07-01.png" class="r-stretch"><aside class="notes">
 <ul>
-<li>SQL, Pandas, formalized in dplyr4</li>
-<li>provide simple verbs for simple things. These are functions corresponding to common data manipulation tasks.</li>
-<li>second idea is that backend does not matter, multiple backends implemented in Pandas, Spark, Impala, Pig, dplyr, ibis, blaze</li>
+<li><strong>Stateless Retraining:</strong>
+<ul>
+<li>Model is trained from scratch on a new window of data.</li>
+<li><strong>Pros:</strong> Simple, avoids “data poisoning” from old, irrelevant patterns.</li>
+<li><strong>Cons:</strong> Computationally expensive; ignores previously learned knowledge.</li>
+</ul></li>
+<li><strong>Stateful Training (Fine-tuning):</strong>
+<ul>
+<li>Model continues training starting from current weights.</li>
+<li><strong>Risk:</strong> <em>Catastrophic Forgetting</em> (forgetting old patterns).</li>
+<li><strong>Mitigation:</strong> Replay buffers (mixing old &amp; new data).</li>
+</ul></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="model-iteration-vs.-data-iteration" class="slide level2">
+<h2>Model Iteration vs.&nbsp;Data Iteration</h2>
+<p><em>The shift towards Data-Centric AI.</em></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="model-centric">Model-Centric</h3>
+<ul>
+<li><strong>Goal:</strong> Improve the architecture (e.g., adding layers, changing activation).</li>
+<li><strong>Assumption:</strong> The data is a fixed “benchmark.”</li>
+<li><strong>Focus:</strong> Tuning hyperparameters and loss functions.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="data-centric">Data-Centric</h3>
+<ul>
+<li><strong>Goal:</strong> Improve the quality of the data (e.g., cleaner labels, more edge cases).</li>
+<li><strong>Assumption:</strong> The model is “good enough.”</li>
+<li><strong>Focus:</strong> Feature engineering, error analysis on specific data slices.</li>
+</ul>
+</div></div>
+</section>
+<section id="retraining-schemes-when-to-retrain" class="slide level2">
+<h2>Retraining Schemes: When to Retrain?</h2>
+<ol type="1">
+<li><strong>Fixed Interval:</strong> Retrain every week/month (simple, but may miss sudden drift).</li>
+<li><strong>Performance Trigger:</strong> Retrain when accuracy/F1 drops below a threshold.</li>
+<li><strong>Data Drift Trigger:</strong> Retrain when the input distribution shifts significantly (e.g., using Kolmogorov-Smirnov test).</li>
+<li><strong>On-demand:</strong> Retrain when new clinical guidelines or drugs are released.</li>
+</ol>
+</section>
+<section id="testing-in-production" class="slide level2">
+<h2>Testing in Production</h2>
+<ol type="1">
+<li><strong>Shadow Deployment:</strong> New model (<span class="math inline">M_2</span>) receives live traffic but its output is ignored.</li>
+<li><strong>Canary Releases:</strong> Roll out to small percentage of users (e.g., one specific pharmacy branch).</li>
+<li><strong>A/B Testing:</strong> Randomized controlled trial of models.</li>
+<li><strong>Multi-armed Bandits:</strong> evaluate and randomly route traffic to the “winning” model.</li>
+</ol>
+</section></section>
+<section>
+<section id="part-2-infrastructure-tooling-for-mlops" class="title-slide slide level1 center">
+<h1>Part 2: Infrastructure &amp; Tooling for MLOps <sup>1</sup></h1>
+
+<aside><ol class="aside-footnotes"><li id="fn2"><p>Huyen, Ch. 10</p></li></ol></aside></section>
+<section id="the-feature-store-the-single-source-of-truth" class="slide level2">
+<h2>The Feature Store: The “Single Source of Truth”</h2>
+<p><em>Solving the Training-Serving Skew.</em></p>
+<ul>
+<li><strong>Offline Store:</strong> Large-scale historical data for batch training (e.g., 10 years of patient records).</li>
+<li><strong>Online Store:</strong> Low-latency storage for real-time inference (e.g., current prescription details).</li>
+<li><strong>Point-in-Time Joins:</strong> Ensures that training data only uses features that would have been available <em>at the time of the event</em>.
+<ul>
+<li><em>Crucial for Pharma:</em> Prevents “data leakage” from future clinical outcomes.</li>
+</ul></li>
 </ul>
 </section>
-<section id="grammar-of-data-1" class="slide level2">
-<h2>Grammar of Data</h2>
-<p>Why bother? - learn how to do core data manipulations, no matter what the system is. - databases critical for non-memory fits.</p>
+<section id="model-registry-orchestration" class="slide level2">
+<h2>Model Registry &amp; Orchestration</h2>
+<p><em>Managing the model lifecycle.</em></p>
+<ul>
+<li><strong>Model Registry:</strong>
+<ul>
+<li>Version Control for weights.</li>
+<li>Lineage: “Which dataset produced this specific model version?”</li>
+<li>Metadata: Environment variables, dependencies, and validation signatures.</li>
+</ul></li>
+<li><strong>Orchestration (Airflow/Kubeflow):</strong>
+<ul>
+<li>Automating the DAG (Directed Acyclic Graph) from data ingestion to deployment.</li>
+<li>Essential for <strong>Validation Trails</strong> in GxP environments.</li>
+</ul></li>
+</ul>
 </section>
-<section id="grammar-of-data-cleaning-and-transforma1on" class="slide level2">
-<h2>Grammar of Data: cleaning and transforma1on</h2>
+<section id="the-mlops-loop-essential-tools" class="slide level2">
+<h2>The MLOps Loop: Essential Tools</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 25%">
-<col style="width: 24%">
-<col style="width: 27%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>VERB</th>
-<th>dplyr</th>
-<th>pandas</th>
-<th>SQL</th>
+<th style="text-align: left;">Stage</th>
+<th style="text-align: left;">Key Tools</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>QUERY/SELECTION</td>
-<td>filter() (and slice())</td>
-<td>query() (and loc[], iloc[])</td>
-<td>SELECT WHERE</td>
+<td style="text-align: left;"><strong>Data Management</strong></td>
+<td style="text-align: left;">Snowflake, Databricks, Feast (Feature Store)</td>
 </tr>
 <tr class="even">
-<td>SORT</td>
-<td>arrange()</td>
-<td>sort()</td>
-<td>ORDER BY</td>
+<td style="text-align: left;"><strong>Development</strong></td>
+<td style="text-align: left;">Jupyter, VS Code, Weights &amp; Biases (Experiment Tracking)</td>
 </tr>
 <tr class="odd">
-<td>SELECT-COLUMNS/PROJECTION</td>
-<td>select() (and rename())</td>
-<td>(and rename())</td>
-<td>SELECT COLUMN</td>
+<td style="text-align: left;"><strong>Orchestration</strong></td>
+<td style="text-align: left;">Apache Airflow, Kubeflow, Argo Workflows</td>
 </tr>
 <tr class="even">
-<td>SELECT-DISTINCT</td>
-<td>distinct()</td>
-<td>unique(),drop_duplicates()</td>
-<td>SELECT DISTINCT COLUMN</td>
+<td style="text-align: left;"><strong>Model Registry</strong></td>
+<td style="text-align: left;">MLflow, DVC (Data &amp; Model Versioning)</td>
 </tr>
 <tr class="odd">
-<td>ASSIGN</td>
-<td>mutate() (and transmute())</td>
-<td>assign</td>
-<td>ALTER/UPDATE</td>
+<td style="text-align: left;"><strong>Deployment</strong></td>
+<td style="text-align: left;">Docker, Kubernetes, BentoML, Seldon</td>
 </tr>
 <tr class="even">
-<td>AGGREGATE</td>
-<td>summarise()</td>
-<td>describe(), mean(), max()</td>
-<td>None, AVG(),MAX()</td>
-</tr>
-<tr class="odd">
-<td>SAMPLE</td>
-<td>sample_n() and sample_frac()</td>
-<td>sample()</td>
-<td>implementation dep, use RAND()</td>
-</tr>
-<tr class="even">
-<td>GROUP-AGG</td>
-<td>group_by/summarize</td>
-<td>groupby/agg, count, mean</td>
-<td>GROUP BY</td>
-</tr>
-<tr class="odd">
-<td>DELETE</td>
-<td>?</td>
-<td>drop/masking</td>
-<td>DELETE/WHERE</td>
+<td style="text-align: left;"><strong>Monitoring</strong></td>
+<td style="text-align: left;">Prometheus, Grafana, Evidently AI, WhyLabs</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="data-processing" class="slide level2">
-<h2>Data processing</h2>
+<section id="monitoring-beyond-system-health" class="slide level2">
+<h2>Monitoring: Beyond “System Health”</h2>
+<p><em>In ML, your code might be up, but your model might be “down.”</em></p>
 <ul>
-<li>OLTP: Online Transaction Processing</li>
-<li>OLAP: Online Analytic Processing</li>
-<li>RTAP: Real-Time Analytic Processing</li>
+<li><strong>Operational Metrics:</strong> Latency, Throughput, CPU/Memory (Standard IT).</li>
+<li><strong>ML Metrics:</strong> Precision, Recall, F1-Score, AUC.</li>
+<li><strong>Data Quality Metrics:</strong> Min/Max ranges, null values, and schema changes.</li>
+<li><strong>Adversarial Monitoring:</strong> Detecting if someone is trying to “trick” the pharmacy bot into prescribing restricted drugs.</li>
 </ul>
-
-
+</section>
+<section id="the-monitoring-dashboard" class="slide level2">
+<h2>The Monitoring Dashboard</h2>
+<ol type="1">
+<li><strong>System Health:</strong> Are the servers running? (CPU, RAM, Latency)</li>
+<li><strong>Data Integrity:</strong> Are there nulls? Did the schema change?</li>
+<li><strong>Model Performance:</strong> Is accuracy dropping? (Precision, Recall)</li>
+<li><strong>Distribution Monitoring:</strong> Compare current input histograms vs.&nbsp;training histograms.</li>
+<li><strong>User Feedback:</strong> How often does the pharmacist “override” the AI?</li>
+</ol>
 </section></section>
+<section>
+<section id="part-3-the-human-side-of-ml" class="title-slide slide level1 center">
+<h1>Part 3: The Human Side of ML<sup>1</sup></h1>
+
+<aside><ol class="aside-footnotes"><li id="fn3"><p>Huyen, Ch. 11</p></li></ol></aside></section>
+<section id="user-experience-for-probabilistic-systems" class="slide level2">
+<h2>User Experience for Probabilistic Systems</h2>
+<ul>
+<li><strong>The Consistency Problem:</strong> Traditional software is deterministic (<span class="math inline">1+1=2</span>). ML is probabilistic (<span class="math inline">P(Success)=0.98</span>).</li>
+<li><strong>Explainability (XAI):</strong> A pharmacist cannot accept a recommendation they don’t understand.
+<ul>
+<li><em>SHAP/LIME:</em> Highlighting which patient features (age, weight, lab values) drove the AI’s prediction.</li>
+</ul></li>
+<li><strong>Smooth Failing:</strong> Instead of a generic error, provide a “Low Confidence” flag and a “Route to Senior Pharmacist” button.</li>
+</ul>
+</section>
+<section id="responsible-ai-ethics" class="slide level2">
+<h2>Responsible AI &amp; Ethics</h2>
+<ul>
+<li><strong>Fairness:</strong> Is the model less accurate for certain ethnic groups due to biased training data?</li>
+<li><strong>Privacy:</strong> Differential Privacy and Federated Learning—training on patient data without moving it out of the hospital firewall.</li>
+<li><strong>Accountability:</strong> If an AI makes a dosing error, who is responsible?
+<ul>
+<li><em>FIP Stance:</em> The human pharmacist remains the ultimate accountable party.</li>
+</ul></li>
+</ul>
+</section>
+<section id="pics-gmp-annex-22-the-ai-bible" class="slide level2">
+<h2>PIC/S GMP Annex 22: The “AI Bible”</h2>
+<p><em>Released July 2025: Regulatory boundaries for AI in manufacturing.</em></p>
+<h3 id="the-staticdynamic-divide">1. The Static/Dynamic Divide</h3>
+<ul>
+<li><strong>Static Models:</strong> Parameters are locked. Validated once. <strong>Permitted for high-risk.</strong></li>
+<li><strong>Dynamic Models:</strong> Learn in real-time. <strong>Prohibited for high-risk</strong> (e.g., sterile fill-finish checks).</li>
+<li><strong>The “Lock-and-Update” compromise:</strong> Frequent, automated re-validation cycles for static models are the preferred path forward.</li>
+</ul>
+</section>
+<section id="autonomy-vs.-adaptability" class="slide level2">
+<h2>Autonomy vs.&nbsp;Adaptability</h2>
+<p><em>The core dilemma in AI validation.</em></p>
+<ul>
+<li><strong>Autonomy:</strong>
+<ul>
+<li>The system’s ability to act or make decisions without direct human oversight.</li>
+<li><em>The Risk:</em> “Unintended actions” if the AI encounters an edge case it wasn’t trained for.</li>
+</ul></li>
+<li><strong>Adaptability:</strong>
+<ul>
+<li>The system’s ability to learn and change its behavior over time (Dynamic learning).</li>
+<li><em>The Risk:</em> “Model Drift” or “Catastrophic Forgetting.”</li>
+</ul></li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Regulatory View (Annex 22)</strong></p>
+</div>
+<div class="callout-content">
+<p>Systems with high <strong>adaptability</strong> are generally <strong>prohibited for high-risk</strong> manufacturing because their “Validated State” is constantly shifting.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="annex-22-detailed-requirements" class="slide level2">
+<h2>Annex 22: Detailed Requirements</h2>
+<ul>
+<li><strong>Data Integrity:</strong> “Test Data” must be independent and inaccessible during training.</li>
+<li><strong>Multidisciplinary Teams:</strong> A “Responsible Person” must ensure collaboration between:
+<ul>
+<li>Data Scientists (Algorithm)</li>
+<li>SMEs (Clinical Context)</li>
+<li>QA (Compliance)</li>
+<li>IT (Infrastructure)</li>
+</ul></li>
+<li><strong>Explainability:</strong> Models must provide “Human-Understandable Logic” for critical decisions.</li>
+</ul>
+</section>
+<section id="gamp-5-second-edition-ai" class="slide level2">
+<h2>GAMP 5 Second Edition &amp; AI</h2>
+<p><em>From V-Model to Agile Validation.</em></p>
+<ul>
+<li><strong>Critical Thinking (M12):</strong> Encourages “Software Assurance” over “Software Testing.” Don’t test the tool; verify the <em>intended use</em>.</li>
+<li><strong>ALCOA+ for AI:</strong>
+<ul>
+<li><strong>Attributable:</strong> Who trained the model?</li>
+<li><strong>Legible:</strong> Can we read the training logs?</li>
+<li><strong>Contemporaneous:</strong> Are drift detections logged in real-time?</li>
+<li><strong>Original:</strong> Raw data vs.&nbsp;pre-processed data lineage.</li>
+</ul></li>
+<li><strong>Iterative Validation:</strong> Recognition that AI systems require continuous lifecycle management, not just a one-time IQ/OQ/PQ.</li>
+</ul>
+</section>
+<section id="fip-ai-toolkit-for-pharmacy-2025" class="slide level2">
+<h2>FIP AI Toolkit for Pharmacy (2025)</h2>
+<p><em>Guidelines for the Global Pharmacy Workforce.</em></p>
+<ul>
+<li><strong>Clinical Decision Support (CDS):</strong> AI should assist, not automate, the “final check.”</li>
+<li><strong>AI Literacy:</strong> FIP Goal 20 requires pharmacies to implement training on:
+<ul>
+<li>Interpreting AI confidence scores.</li>
+<li>Identifying algorithmic bias.</li>
+<li>Communicating AI-driven decisions to patients.</li>
+</ul></li>
+<li><strong>Equity:</strong> Ensuring AI tools are available in low-resource settings, not just high-income countries.</li>
+</ul>
+</section>
+<section id="summary-the-global-compliance-matrix" class="slide level2">
+<h2>Summary: The Global Compliance Matrix</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Topic</th>
+<th style="text-align: left;">Annex 22 (Mfg)</th>
+<th style="text-align: left;">GAMP 5 (Validation)</th>
+<th style="text-align: left;">FIP (Clinical)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Model Type</strong></td>
+<td style="text-align: left;">Static Only</td>
+<td style="text-align: left;">Risk-dependent</td>
+<td style="text-align: left;">Decision Support</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Human Role</strong></td>
+<td style="text-align: left;">SME Oversight</td>
+<td style="text-align: left;">Critical Thinking</td>
+<td style="text-align: left;">Final Authority</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Data Focus</strong></td>
+<td style="text-align: left;">Integrity/Separation</td>
+<td style="text-align: left;">Governance (ALCOA+)</td>
+<td style="text-align: left;">Privacy/Equity</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Validation</strong></td>
+<td style="text-align: left;">Prospective</td>
+<td style="text-align: left;">Life-cycle based</td>
+<td style="text-align: left;">Continuous CPD</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section id="conclusion-the-future-of-pharmacy-ai" class="title-slide slide level1 center">
+<h1>Conclusion: The Future of Pharmacy AI</h1>
+<p><em>Safe, Scalable, and Human-Centric.</em></p>
+<ol type="1">
+<li><strong>Integrate MLOps with GxP:</strong> Automate compliance logs within your orchestration pipelines.</li>
+<li><strong>Prioritize Explainability:</strong> If you can’t explain it, you shouldn’t deploy it in pharmacy.</li>
+<li><strong>Continuous Education:</strong> The technology is moving faster than the law; ethical frameworks are your compass.</li>
+</ol>
+
+
+</section>
+
 
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

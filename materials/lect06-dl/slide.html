@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Natapol Pornputtapong, PhD">
-  <meta name="dcterms.date" content="2026-03-11">
+  <meta name="dcterms.date" content="2026-03-19">
   <title>3316512 Pharmaceutical AI – 6. Basics of Deep Learning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -224,7 +224,7 @@ Natapol Pornputtapong, PhD
     </div>
 </div>
 
-  <p class="date">11 Mar 2026</p>
+  <p class="date">19 Mar 2026</p>
 </section>
 <section id="what-is-deep-learning" class="slide level2">
 <h2>What is Deep Learning?</h2>
@@ -361,7 +361,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> Vanishing gradient problem, output not zero-centered.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="56eb6ae0" class="cell" data-execution_count="1">
+<div id="ac99bf23" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -384,7 +384,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> Still prone to vanishing gradients.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="330b4ad0" class="cell" data-execution_count="2">
+<div id="69b3dc97" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -407,7 +407,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> “Dying ReLU” problem (neurons can get stuck at zero output).</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="2e01963b" class="cell" data-execution_count="3">
+<div id="da36b762" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -429,7 +429,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Pros:</strong> Fixes “Dying ReLU” by allowing a small gradient for <span class="math inline">z &lt; 0</span>.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="b6ac7a52" class="cell" data-execution_count="4">
+<div id="0813c71a" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1012,7 +1012,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Usage:</strong> Standard choice for regression tasks.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="229dbc20" class="cell" data-execution_count="5">
+<div id="1067ad15" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1033,7 +1033,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> Gradient is constant, which can make it harder for the model to converge near the minimum.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="92726169" class="cell" data-execution_count="6">
+<div id="13861286" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1051,7 +1051,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Formula:</strong> <span class="math inline">L = - \frac{1}{n} \sum [y \log(\hat{y}) + (1-y) \log(1-\hat{y})]</span></li>
 <li><strong>Usage:</strong> Used when the output is a probability (Sigmoid activation).</li>
 </ul>
-<div id="5720db88" class="cell" data-execution_count="7">
+<div id="7ed35eb1" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1085,7 +1085,7 @@ Natapol Pornputtapong, PhD
 <section id="optimization-landscape" class="slide level2">
 <h2>Optimization landscape</h2>
 <p><strong>The Landscape:</strong> The loss function creates a “surface” or “landscape” where valleys represent low loss (good models) and peaks represent high loss.</p>
-<div id="e352870b" class="cell" data-execution_count="8">
+<div id="2df02565" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1118,7 +1118,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Optimal:</strong> Finds the bottom efficiently.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="2be91966" class="cell" data-execution_count="9">
+<div id="e08265e3" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1645,24 +1645,67 @@ Natapol Pornputtapong, PhD
 <span id="cb2-2"><a></a>criterion <span class="op">=</span> nn.BCELoss()                 <span class="co"># Binary Cross-Entropy</span></span>
 <span id="cb2-3"><a></a>optimizer <span class="op">=</span> optim.Adam(model.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="deep-learning-with-pytorch-training-loop" class="slide level2">
-<h2>Deep Learning with PyTorch: Training Loop</h2>
-<ul>
-<li>The standard training process involves these 4 steps in every iteration (epoch).</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
-<span id="cb3-2"><a></a>    <span class="co"># 1. Forward Pass: Get predictions</span></span>
-<span id="cb3-3"><a></a>    outputs <span class="op">=</span> model(inputs)</span>
-<span id="cb3-4"><a></a>    loss <span class="op">=</span> criterion(outputs, targets)</span>
-<span id="cb3-5"><a></a>    </span>
-<span id="cb3-6"><a></a>    <span class="co"># 2. Backward Pass: Compute gradients</span></span>
-<span id="cb3-7"><a></a>    optimizer.zero_grad() <span class="co"># Reset old gradients</span></span>
-<span id="cb3-8"><a></a>    loss.backward()       <span class="co"># Backpropagation</span></span>
-<span id="cb3-9"><a></a>    </span>
-<span id="cb3-10"><a></a>    <span class="co"># 3. Update Weights: Move weights toward the minimum</span></span>
-<span id="cb3-11"><a></a>    optimizer.step()      <span class="co"># Optimization step</span></span>
-<span id="cb3-12"><a></a>    </span>
-<span id="cb3-13"><a></a>    <span class="bu">print</span>(<span class="ss">f'Epoch [</span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>num_epochs<span class="sc">}</span><span class="ss">], Loss: </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">:.4f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="deep-learning-with-pytorch-dataloader" class="slide level2">
+<h2>Deep Learning with PyTorch: DataLoader</h2>
+<p><em>Example: Penguin Species Classification</em></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2"><a></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader</span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a><span class="co"># 1. Custom Dataset for Penguin Data</span></span>
+<span id="cb3-5"><a></a><span class="kw">class</span> PenguinDataset(Dataset):</span>
+<span id="cb3-6"><a></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, csv_file):</span>
+<span id="cb3-7"><a></a>        df <span class="op">=</span> pd.read_csv(csv_file)</span>
+<span id="cb3-8"><a></a>        <span class="co"># Features: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g</span></span>
+<span id="cb3-9"><a></a>        <span class="va">self</span>.x <span class="op">=</span> torch.tensor(df.iloc[:, <span class="dv">0</span>:<span class="dv">4</span>].values, dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb3-10"><a></a>        <span class="va">self</span>.y <span class="op">=</span> torch.tensor(df[<span class="st">'species_id'</span>].values, dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
+<span id="cb3-11"><a></a></span>
+<span id="cb3-12"><a></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
+<span id="cb3-13"><a></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.y)</span>
+<span id="cb3-14"><a></a></span>
+<span id="cb3-15"><a></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
+<span id="cb3-16"><a></a>        <span class="cf">return</span> <span class="va">self</span>.x[idx], <span class="va">self</span>.y[idx]</span>
+<span id="cb3-17"><a></a></span>
+<span id="cb3-18"><a></a><span class="co"># 2. Split &amp; DataLoader: Batching &amp; Shuffling</span></span>
+<span id="cb3-19"><a></a><span class="im">from</span> torch.utils.data <span class="im">import</span> random_split</span>
+<span id="cb3-20"><a></a></span>
+<span id="cb3-21"><a></a>dataset <span class="op">=</span> PenguinDataset(<span class="st">'penguins_size.csv'</span>)</span>
+<span id="cb3-22"><a></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> <span class="bu">len</span>(dataset))</span>
+<span id="cb3-23"><a></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
+<span id="cb3-24"><a></a>train_ds, test_ds <span class="op">=</span> random_split(dataset, [train_size, test_size])</span>
+<span id="cb3-25"><a></a></span>
+<span id="cb3-26"><a></a>train_loader <span class="op">=</span> DataLoader(train_ds, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-27"><a></a>test_loader <span class="op">=</span> DataLoader(test_ds, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="deep-learning-with-pytorch-training-evaluation" class="slide level2">
+<h2>Deep Learning with PyTorch: Training &amp; Evaluation</h2>
+<p><em>Tracking Loss over Epochs</em></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a></a></span>
+<span id="cb4-3"><a></a>train_losses, test_losses <span class="op">=</span> [], []</span>
+<span id="cb4-4"><a></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
+<span id="cb4-5"><a></a>    <span class="co"># 1. Training Phase</span></span>
+<span id="cb4-6"><a></a>    model.train()</span>
+<span id="cb4-7"><a></a>    running_loss <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb4-8"><a></a>    <span class="cf">for</span> inputs, targets <span class="kw">in</span> train_loader:</span>
+<span id="cb4-9"><a></a>        outputs <span class="op">=</span> model(inputs)</span>
+<span id="cb4-10"><a></a>        loss <span class="op">=</span> criterion(outputs, targets)</span>
+<span id="cb4-11"><a></a>        optimizer.zero_grad()<span class="op">;</span> loss.backward()<span class="op">;</span> optimizer.step()</span>
+<span id="cb4-12"><a></a>        running_loss <span class="op">+=</span> loss.item()</span>
+<span id="cb4-13"><a></a>    train_losses.append(running_loss <span class="op">/</span> <span class="bu">len</span>(train_loader))</span>
+<span id="cb4-14"><a></a></span>
+<span id="cb4-15"><a></a>    <span class="co"># 2. Evaluation Phase</span></span>
+<span id="cb4-16"><a></a>    model.<span class="bu">eval</span>()</span>
+<span id="cb4-17"><a></a>    test_loss <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb4-18"><a></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb4-19"><a></a>        <span class="cf">for</span> inputs, targets <span class="kw">in</span> test_loader:</span>
+<span id="cb4-20"><a></a>            outputs <span class="op">=</span> model(inputs)</span>
+<span id="cb4-21"><a></a>            test_loss <span class="op">+=</span> criterion(outputs, targets).item()</span>
+<span id="cb4-22"><a></a>    test_losses.append(test_loss <span class="op">/</span> <span class="bu">len</span>(test_loader))</span>
+<span id="cb4-23"><a></a></span>
+<span id="cb4-24"><a></a><span class="co"># 3. Plotting Results</span></span>
+<span id="cb4-25"><a></a>plt.plot(train_losses, label<span class="op">=</span><span class="st">'Train Loss'</span>)</span>
+<span id="cb4-26"><a></a>plt.plot(test_losses, label<span class="op">=</span><span class="st">'Test Loss'</span>)</span>
+<span id="cb4-27"><a></a>plt.legend()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ml-debugging-start-simple-sanity-checks" class="slide level2">
 <h2>ML Debugging: Start Simple &amp; Sanity Checks</h2>

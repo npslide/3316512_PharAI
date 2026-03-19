@@ -12,6 +12,8 @@ format:
         transition: none # none | fade | slide | convex | concave | zoom
         background-transition: none
         scrollable: false
+        code-fold: true
+        code-overflow: scroll
         mermaid:
             theme: forest
 ---
@@ -624,10 +626,9 @@ import torch.optim as optim
 
 # 1. Define the Model
 model = nn.Sequential(
-    nn.Linear(input_size, hidden_size),  # FC Layer
+    nn.Linear(4, 512),  # FC Layer
     nn.ReLU(),                           # Activation
-    nn.Linear(hidden_size, output_size), # FC Layer
-    nn.Sigmoid()                         # Output Activation
+    nn.Linear(512, 3) # FC Layer
 )
 ```
 
@@ -635,28 +636,84 @@ model = nn.Sequential(
 
 ```python
 # 2. Define Loss and Optimizer
-criterion = nn.BCELoss()                 # Binary Cross-Entropy
+criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 ```
 
-## Deep Learning with PyTorch: Training Loop
-
-- The standard training process involves these 4 steps in every iteration (epoch).
+## Deep Learning with PyTorch: DataLoader
+[data file](penguins_size.csv)
 
 ```python
+import pandas as pd
+import numpy as np
+from torch.utils.data import Dataset, DataLoader
+from sklearn.preprocessing import LabelEncoder
+
+# 1. Custom Dataset for Penguin Data
+class PenguinDataset(Dataset):
+    def __init__(self, csv_file):
+        df = pd.read_csv(csv_file)
+        df = df.dropna()
+        # Features: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g
+        self.x = torch.tensor(df.iloc[:, 2:6].to_numpy().astype(np.float32), dtype=torch.float32)
+        le = LabelEncoder()
+        encoded_y = le.fit_transform(df['species'])
+        self.y = torch.tensor(encoded_y.astype(np.long), dtype=torch.long)
+
+    def __len__(self):
+        return len(self.y)
+
+    def __getitem__(self, idx):
+        return self.x[idx], self.y[idx]
+
+# 2. Split & DataLoader: Batching & Shuffling
+from torch.utils.data import random_split
+
+dataset = PenguinDataset('penguins_size.csv')
+train_size = int(0.8 * len(dataset))
+test_size = len(dataset) - train_size
+train_ds, test_ds = random_split(dataset, [train_size, test_size])
+
+train_loader = DataLoader(train_ds, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_ds, batch_size=32, shuffle=False)
+```
+
+## Deep Learning with PyTorch: Training & Evaluation
+*Tracking Loss over Epochs*
+
+```python
+import matplotlib.pyplot as plt
+
+test_losses = []
+train_losses = []
+num_epochs = 100
+
 for epoch in range(num_epochs):
-    # 1. Forward Pass: Get predictions
-    outputs = model(inputs)
-    loss = criterion(outputs, targets)
-    
-    # 2. Backward Pass: Compute gradients
-    optimizer.zero_grad() # Reset old gradients
-    loss.backward()       # Backpropagation
-    
-    # 3. Update Weights: Move weights toward the minimum
-    optimizer.step()      # Optimization step
-    
-    print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
+    # 1. Training Phase
+    model.train()
+    running_loss = 0.0
+    for inputs, targets in train_loader:
+        outputs = model(inputs)
+        loss = criterion(outputs, targets)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        running_loss += loss.item()
+    train_losses.append(running_loss / len(train_loader))
+
+    # 2. Evaluation Phase
+    model.eval()
+    test_loss = 0.0
+    with torch.no_grad():
+        for inputs, targets in test_loader:
+            outputs = model(inputs)
+            test_loss += criterion(outputs, targets).item()
+    test_losses.append(test_loss / len(test_loader))
+
+# 3. Plotting Results
+plt.plot(train_losses, label='Train Loss')
+plt.plot(test_losses, label='Test Loss')
+plt.legend(); plt.show()
 ```
 
 ## ML Debugging: Start Simple & Sanity Checks

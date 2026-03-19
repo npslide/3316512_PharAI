@@ -1,0 +1,159 @@
+---
+title: "7.2 Artificial Intelligence in GxP Computerized Systems"
+subtitle: "3316512 Pharmaceutical AI"
+author: Natapol Pornputtapong, PhD
+institute: Chulalongkorn University
+date: today # today | last-modified
+date-format: "DD MMM YYYY" # see https://momentjs.com/docs/#/displaying/format/
+pdf-engine: xelatex
+format:
+    rxquarto-revealjs:
+        self-contained: false # set to true to produce a single HTML file
+        transition: none # none | fade | slide | convex | concave | zoom
+        background-transition: none
+        scrollable: false
+        code-fold: true
+        code-overflow: scroll
+        mermaid:
+            theme: forest
+---
+## Introduction to AI in GxP
+
+*   **Technological Advancement:** AI provides new opportunities for the life sciences but introduces complexity and challenges in adoption at scale.
+*   **Purpose:** The primary aim is to safeguard **patient safety, product quality, and data integrity** while achieving business benefits.
+*   **A Holistic Framework:** The ISPE AI Guide serves as a bridge between GAMP® 5 concepts and the unique characteristics of AI.
+*   **Governance:** Safe use is underpinned by organizational structures, policies, and literacy.
+
+---
+
+## AI System Component Hierarchy
+
+The following diagram illustrates how AI models are integrated into a computerized system.
+
+```{dot}
+digraph G {
+    node [shape=box, fontname="Helvetica", style=filled, fillcolor=lightblue];
+    Model [label="Model\n(Sub-program)"];
+    Subsystem [label="AI Sub-system\n(Module)"];
+    Function [label="AI Function\n(Integration Layer)"];
+    System [label="AI System\n(Component)"];
+    CompSystem [label="AI-enabled\nComputerized System", fillcolor=orange];
+
+    Model -> Subsystem;
+    Subsystem -> Function;
+    Function -> System;
+    System -> CompSystem;
+}
+```
+
+---
+
+## The Nine Key Concepts
+
+GAMP® 5 foundations are expanded with four AI-specific building blocks.
+
+| GAMP® 5 Foundations | Additional AI Concepts |
+| :--- | :--- |
+| Product and Process Understanding | Quality by Design (QbD) |
+| Life Cycle Approach within a QMS | Fit for Purpose Data and Data Quality |
+| Scalable Life Cycle Activities | Data and Model Governance |
+| Science-based QRM | Knowledge Management |
+| Leveraging Supplier Involvement | |
+
+---
+
+## Life Cycle Phases
+
+The AI-enabled computerized system life cycle follows four primary phases.
+
+1.  **Concept Phase:** Identification of business needs, solution ideation, and conducting a **Proof of Concept (PoC)**.
+2.  **Project Phase:** Planning, model requirement specifications, **iterative experimentation**, and verification/testing.
+3.  **Operation Phase:** Performance monitoring, managing **model drift**, and version control through change management.
+4.  **Retirement Phase:** Data/model retention, migration, or destruction management.
+
+---
+
+## Iterative Experimentation
+
+At the core of the project phase is the iterative loop to derive the best-performing model.
+
+*   **Model Selection:** Choosing model types and hyperparameters within the defined design space.
+*   **Data Engineering:** Pre-processing data into a format suitable for the model.
+*   **Model Engineering:** The training or fine-tuning process to establish the model.
+*   **Model Evaluation:** Measuring performance against predefined KPIs to guide the next iteration.
+
+---
+
+## Science-Based Quality Risk Management (QRM)
+
+AI specific hazards must be addressed beyond traditional software risks.
+
+*   **Hazard Identification:** Includes data quality shortcomings, inadequate model choice, and model drift during operation.
+*   **Functional Risk Assessment:** AI functions are evaluated based on software category, model category, and **AI maturity level**.
+*   **Control Strategies:** May include human verification (Human-in-the-Loop), guardrails for Generative AI, and Explainable AI (XAI) methods.
+
+---
+
+## Fit for Purpose Data
+
+A model is only as good as the data used to develop it. Data is "fit for purpose" when it meets four properties:
+
+1.  **Reliability:** Real-world relationships are adequately captured.
+2.  **Relevance:** Data is meaningful for the intended use.
+3.  **Representativeness:** Data reflects the diversity of real-world situations.
+4.  **Abundance:** The amount of data is commensurate with model complexity.
+
+---
+
+## [AI Maturing level in GxP facility ^[https://ispe.org/pharmaceutical-engineering]]{.r-fit-text}
+
+:::: {.columns}
+
+::: {.column width="30%"}
+![](pharApp/Picture13.png) ^[https://ispe.org/pharmaceutical-engineering/march-april-2022/ai-maturity-model-gxp-application-foundation-ai]
+:::
+
+::: {.column width="70%" style="font-size: 0.5em;"}
+
+| **Stage 1** | **Stage 2** | **Stage 3** | **Stage 4** | **Stage 5** |
+|----------------|----------------|----------------|----------------|----------------|
+| used in parallel to the normal GxP processes | executing a GxP process automatically but must be actively approved by the operator | executing the process automatically but can be revised by the operator | running automatically and controls itself | running automatically and corrects itself |
+
+| **Stage 1** | **Stage 2** | **Stage 3** | **Stage 4** | **Stage 5** |
+|-------------|-------------|-------------|-------------|-------------|
+| No machine learning | used in a locked state. Updates are performed by manual retraining with new training data sets | Updates are performed after indication by the system with a manual retraining | Updates are performed by automated retraining with a manual verification step | fully automated and learns independently with a quantifiable optimization goal | The system is fully automated and self-determines its task competency and strategy
+
+:::
+
+::::
+
+
+## Validation levels ^[https://ispe.org/pharmaceutical-engineering]
+
+:::{style="font-size: 0.57em;"}
+| Level | Description                                          | Minimum Validation Activities and Requirements                                                                                      |
+|-------|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| I     | Parallel (pharApp/ CS                                     | No validation required                                                                                                              |
+| II    | Classical non-AI CS                                  | Validation of computerized system, but no dedicated focus on AI                                                                     |
+| III   | Piecewise locked state AI CS                         | Executing the process automatically but can be revised by the operator                                                              |
+| IV    | Self-triggered learning AI CS with human operation and update control at all times | In addition to the above requirements: <br> - Documented justification on why a model was selected <br> - Training data verification <br> - Model quality assurance after training <br> - Input data monitoring in operation <br> - Retraining procedures defined |
+| V     | Self-triggered learning AI CS with update control, but overall or sampled operation control only | In addition to the above requirements: <br> - Periodic re-test with defined test data set <br> - Assurance of self-control <br> - Control of AI system outcomes by samples for a defined, risk-oriented fraction, and adequate stratification of input/output instances |
+| VI    | AI CS with autonomous learning                       | Validation concept currently under development                                                                                       |
+:::
+
+## Trustworthy AI Principles
+
+Deploying AI in life sciences requires adherence to human-centric values.
+
+*   **Human Autonomy:** Ensuring humans can effectively interact with and supervise AI.
+*   **Transparency:** Communicating benefits, risks, and limitations clearly to users.
+*   **Fairness:** Reducing algorithmic bias to ensure equitable outcomes across subpopulations.
+*   **Safety & Security:** Minimizing harm and protecting against AI-specific cybersecurity threats like adversarial attacks.
+
+---
+
+## Conclusion & Governance
+
+*   **Accountability:** Regulated companies remain accountable for compliance regardless of supplier involvement.
+*   **AI Literacy:** Building foundational understanding across all roles (Process Owners, Data Scientists, Quality Units) is essential for successful adoption.
+*   **Continual Improvement:** New data collected during operation should be used to refine and improve AI sub-systems over time.

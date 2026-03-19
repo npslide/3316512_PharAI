@@ -283,7 +283,7 @@ Natapol Pornputtapong, PhD
 <blockquote>
 <p><strong>Visualization:</strong> imagine a tight linear line vs an overly wiggly curve.</p>
 </blockquote>
-<div id="47862baa" class="cell" data-execution_count="1">
+<div id="3f976257" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -295,7 +295,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="traintest-curves" class="slide level2">
 <h2>Train‑Test Curves</h2>
-<div id="d6bb68d7" class="cell" data-execution_count="2">
+<div id="ea0b683c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -458,7 +458,7 @@ Natapol Pornputtapong, PhD
 <section id="example-breast-cancer-dataset" class="slide level2">
 <h2>Example: Breast Cancer Dataset</h2>
 <p>We’ll use scikit-learn’s built-in <em>breast cancer</em> toy dataset to illustrate model selection.</p>
-<div id="166a3427" class="cell" data-execution_count="3">
+<div id="54b3c4f3" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_breast_cancer</span>
 <span id="cb3-2"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, GridSearchCV</span>
 <span id="cb3-3"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
@@ -476,7 +476,7 @@ Natapol Pornputtapong, PhD
 </section>
 <section id="grid-search-with-crossvalidation" class="slide level2">
 <h2>Grid Search with Cross‑Validation</h2>
-<div id="64a628d2" class="cell" data-execution_count="4">
+<div id="b10be03d" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>param_grid <span class="op">=</span> {</span>
 <span id="cb4-2"><a></a>    <span class="st">'C'</span>: [<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>],</span>
 <span id="cb4-3"><a></a>    <span class="st">'kernel'</span>: [<span class="st">'linear'</span>, <span class="st">'rbf'</span>],</span>
@@ -513,7 +513,7 @@ weighted avg       0.96      0.96      0.96       114
 </section>
 <section id="comparison-multiple-algorithms" class="slide level2">
 <h2>Comparison: Multiple Algorithms</h2>
-<div id="e8ed4d02" class="cell" data-execution_count="5">
+<div id="744b6981" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>models <span class="op">=</span> [</span>
 <span id="cb6-2"><a></a>    (<span class="st">'svc'</span>, SVC()),</span>
 <span id="cb6-3"><a></a>    (<span class="st">'dt'</span>, DecisionTreeClassifier()),</span>
@@ -537,7 +537,7 @@ rf CV acc 0.9582417582417582</code></pre>
 </section>
 <section id="accuracy-1" class="slide level2">
 <h2>Accuracy</h2>
-<div id="c3c8b2da" class="cell" data-execution_count="6">
+<div id="4bc93fab" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
 <span id="cb8-2"><a></a>accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb8-3"><a></a><span class="bu">print</span>(<span class="st">'Test accuracy'</span>, accuracy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -548,7 +548,7 @@ rf CV acc 0.9582417582417582</code></pre>
 </section>
 <section id="precision-recall-f1-1" class="slide level2">
 <h2>Precision / Recall / F1</h2>
-<div id="e4afb295" class="cell" data-execution_count="7">
+<div id="08bc4a84" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> precision_score, recall_score, f1_score</span>
 <span id="cb10-2"><a></a><span class="bu">print</span>(<span class="st">'Precision'</span>, precision_score(y_test, y_pred))</span>
 <span id="cb10-3"><a></a><span class="bu">print</span>(<span class="st">'Recall'</span>, recall_score(y_test, y_pred))</span>
@@ -562,7 +562,7 @@ F1 0.9655172413793104</code></pre>
 </section>
 <section id="confusion-matrix-1" class="slide level2">
 <h2>Confusion Matrix</h2>
-<div id="5a51243e" class="cell" data-execution_count="8">
+<div id="3aed4a18" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb12-2"><a></a><span class="bu">print</span>(confusion_matrix(y_test, y_pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -573,7 +573,7 @@ F1 0.9655172413793104</code></pre>
 </section>
 <section id="roc-curve-auc-calculation" class="slide level2">
 <h2>ROC Curve &amp; AUC calculation</h2>
-<div id="40aa96e1" class="cell" data-execution_count="9">
+<div id="f3cb5358" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
 <span id="cb14-2"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, roc_curve, accuracy_score</span>
 <span id="cb14-3"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -593,7 +593,7 @@ ROC AUC 0.9934490664919751</code></pre>
 </section>
 <section id="roc-curve-plotting" class="slide level2">
 <h2>ROC Curve plotting</h2>
-<div id="e223ae17" class="cell" data-execution_count="10">
+<div id="2acb5ee2" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a><span class="co"># compute ROC curve</span></span>
 <span id="cb16-2"><a></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(y_test, proba)</span>
 <span id="cb16-3"><a></a>plt.figure()</span>

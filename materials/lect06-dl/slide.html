@@ -361,7 +361,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> Vanishing gradient problem, output not zero-centered.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="9c392745" class="cell" data-execution_count="1">
+<div id="e13638ef" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -384,7 +384,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> Still prone to vanishing gradients.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="c2d8c7ec" class="cell" data-execution_count="2">
+<div id="716df46d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -407,7 +407,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> “Dying ReLU” problem (neurons can get stuck at zero output).</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="6951cdc9" class="cell" data-execution_count="3">
+<div id="1c29d5df" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -429,7 +429,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Pros:</strong> Fixes “Dying ReLU” by allowing a small gradient for <span class="math inline">z &lt; 0</span>.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="27e48339" class="cell" data-execution_count="4">
+<div id="5280068c" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1012,7 +1012,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Usage:</strong> Standard choice for regression tasks.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="cb5fd9a0" class="cell" data-execution_count="5">
+<div id="d03cd426" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1033,7 +1033,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Cons:</strong> Gradient is constant, which can make it harder for the model to converge near the minimum.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="17b546a5" class="cell" data-execution_count="6">
+<div id="d664b7ad" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1051,7 +1051,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Formula:</strong> <span class="math inline">L = - \frac{1}{n} \sum [y \log(\hat{y}) + (1-y) \log(1-\hat{y})]</span></li>
 <li><strong>Usage:</strong> Used when the output is a probability (Sigmoid activation).</li>
 </ul>
-<div id="79af3bdb" class="cell" data-execution_count="7">
+<div id="bc7daff6" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1085,7 +1085,7 @@ Natapol Pornputtapong, PhD
 <section id="optimization-landscape" class="slide level2">
 <h2>Optimization landscape</h2>
 <p><strong>The Landscape:</strong> The loss function creates a “surface” or “landscape” where valleys represent low loss (good models) and peaks represent high loss.</p>
-<div id="68de07ea" class="cell" data-execution_count="8">
+<div id="82b1b7c5" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1118,7 +1118,7 @@ Natapol Pornputtapong, PhD
 <li><strong>Optimal:</strong> Finds the bottom efficiently.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="5514b6d4" class="cell" data-execution_count="9">
+<div id="c602b0f2" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -1656,25 +1656,30 @@ Natapol Pornputtapong, PhD
 <span id="cb3-6"><a></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, csv_file):</span>
 <span id="cb3-7"><a></a>        df <span class="op">=</span> pd.read_csv(csv_file)</span>
 <span id="cb3-8"><a></a>        <span class="co"># Features: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g</span></span>
-<span id="cb3-9"><a></a>        <span class="va">self</span>.x <span class="op">=</span> torch.tensor(df.iloc[:, <span class="dv">0</span>:<span class="dv">4</span>].values, dtype<span class="op">=</span>torch.float32)</span>
-<span id="cb3-10"><a></a>        <span class="va">self</span>.y <span class="op">=</span> torch.tensor(df[<span class="st">'species_id'</span>].values, dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
-<span id="cb3-11"><a></a></span>
-<span id="cb3-12"><a></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
-<span id="cb3-13"><a></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.y)</span>
-<span id="cb3-14"><a></a></span>
-<span id="cb3-15"><a></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
-<span id="cb3-16"><a></a>        <span class="cf">return</span> <span class="va">self</span>.x[idx], <span class="va">self</span>.y[idx]</span>
-<span id="cb3-17"><a></a></span>
-<span id="cb3-18"><a></a><span class="co"># 2. Split &amp; DataLoader: Batching &amp; Shuffling</span></span>
-<span id="cb3-19"><a></a><span class="im">from</span> torch.utils.data <span class="im">import</span> random_split</span>
-<span id="cb3-20"><a></a></span>
-<span id="cb3-21"><a></a>dataset <span class="op">=</span> PenguinDataset(<span class="st">'penguins_size.csv'</span>)</span>
-<span id="cb3-22"><a></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> <span class="bu">len</span>(dataset))</span>
-<span id="cb3-23"><a></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
-<span id="cb3-24"><a></a>train_ds, test_ds <span class="op">=</span> random_split(dataset, [train_size, test_size])</span>
+<span id="cb3-9"><a></a>        df <span class="op">=</span> pd.read_csv(csv_file)</span>
+<span id="cb3-10"><a></a>        df <span class="op">=</span> df.dropna()</span>
+<span id="cb3-11"><a></a>        <span class="co"># Features: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g</span></span>
+<span id="cb3-12"><a></a>        <span class="va">self</span>.x <span class="op">=</span> torch.tensor(df.iloc[:, <span class="dv">2</span>:<span class="dv">5</span>].to_numpy().astype(np.float64), dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb3-13"><a></a>        le <span class="op">=</span> LabelEncoder()</span>
+<span id="cb3-14"><a></a>        encoded_y <span class="op">=</span> le.fit_transform(df[<span class="st">'species'</span>])</span>
+<span id="cb3-15"><a></a>        <span class="va">self</span>.y <span class="op">=</span> torch.tensor(encoded_y.astype(np.<span class="bu">long</span>), dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
+<span id="cb3-16"><a></a></span>
+<span id="cb3-17"><a></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
+<span id="cb3-18"><a></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.y)</span>
+<span id="cb3-19"><a></a></span>
+<span id="cb3-20"><a></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, idx):</span>
+<span id="cb3-21"><a></a>        <span class="cf">return</span> <span class="va">self</span>.x[idx], <span class="va">self</span>.y[idx]</span>
+<span id="cb3-22"><a></a></span>
+<span id="cb3-23"><a></a><span class="co"># 2. Split &amp; DataLoader: Batching &amp; Shuffling</span></span>
+<span id="cb3-24"><a></a><span class="im">from</span> torch.utils.data <span class="im">import</span> random_split</span>
 <span id="cb3-25"><a></a></span>
-<span id="cb3-26"><a></a>train_loader <span class="op">=</span> DataLoader(train_ds, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-27"><a></a>test_loader <span class="op">=</span> DataLoader(test_ds, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-26"><a></a>dataset <span class="op">=</span> PenguinDataset(<span class="st">'penguins_size.csv'</span>)</span>
+<span id="cb3-27"><a></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> <span class="bu">len</span>(dataset))</span>
+<span id="cb3-28"><a></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
+<span id="cb3-29"><a></a>train_ds, test_ds <span class="op">=</span> random_split(dataset, [train_size, test_size])</span>
+<span id="cb3-30"><a></a></span>
+<span id="cb3-31"><a></a>train_loader <span class="op">=</span> DataLoader(train_ds, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-32"><a></a>test_loader <span class="op">=</span> DataLoader(test_ds, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="deep-learning-with-pytorch-training-evaluation" class="slide level2">
 <h2>Deep Learning with PyTorch: Training &amp; Evaluation</h2>
